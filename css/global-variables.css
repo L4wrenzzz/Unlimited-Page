@@ -1,0 +1,64 @@
+/* ==========================================================================
+    GLOBAL VARIABLES AND BASE STYLES
+   ========================================================================== */
+
+/* Import the primary typography font from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap");
+
+/* * Root Variables 
+ * Centralized color palette and theme settings for consistency and easy updates.
+ * Using descriptive variables prevents hardcoding hex values throughout the CSS.
+ */
+:root {
+    --primary-blue-color: #137fec;
+    --primary-blue-hover: #0e5fb0;
+    --background-light-color: #f8fafc;
+    --surface-white-color: #ffffff;
+    --text-dark-color: #1e293b;
+    --text-muted-color: #64748b;
+    --border-light-color: #e2e8f0;
+    --danger-red-color: #ef4444;
+    --success-green-color: #10b981;
+    --warning-orange-color: #f59e0b;
+}
+
+/* * Universal Reset
+ * Removes default browser margins/padding and ensures borders/padding 
+ * are included in the element's total width/height calculations.
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lexend", sans-serif;
+}
+
+/* Enable smooth scrolling for anchor links across the entire document */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Base typography and background application */
+body {
+    background-color: var(--background-light-color);
+    color: var(--text-dark-color);
+    line-height: 1.6;
+}
+
+/* Reset default anchor tag behaviors */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Remove default bullet points from all unordered lists */
+ul {
+    list-style: none;
+}
+
+/* Mobile responsive adjustment for the body */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 0px;
+    }
+}

@@ -1,0 +1,167 @@
+/* ==========================================================================
+    ABOUT US PAGE STYLES
+    Handles the presentation of the company mission, values, and hero banner.
+    ========================================================================== */
+
+/* --- Hero Banner Section --- */
+/* Uses a linear gradient overlay to ensure text remains readable against the background image */
+.about-hero-section {
+    background-image:
+        linear-gradient(rgba(19, 31, 51, 0.4), rgba(19, 31, 51, 0.55)),
+        url("../images/our-story-background.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 120px 20px;
+    border-bottom: 1px solid var(--border-light-color);
+    text-align: center;
+}
+
+.about-hero-title {
+    font-size: 54px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--surface-white-color);
+}
+
+.about-hero-subtitle {
+    font-size: 20px;
+    color: #f1f5f9;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* --- Mission Statement Section --- */
+/* Flexbox layout to sit image and text side-by-side on larger screens */
+.about-mission-section {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-mission-image {
+    flex: 1;
+}
+
+.about-mission-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.about-mission-content {
+    flex: 1;
+}
+
+/* Small label above the main mission title */
+.mission-badge {
+    background-color: #e0f2fe;
+    color: var(--primary-blue-color);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.mission-title {
+    font-size: 42px;
+    font-weight: 700;
+    margin: 25px 0;
+    line-height: 1.2;
+}
+
+.mission-text {
+    color: var(--text-muted-color);
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+/* --- Core Values Section --- */
+.about-values-section {
+    background-color: #f1f5f9;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.values-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.values-subtitle {
+    color: var(--text-muted-color);
+    font-size: 18px;
+    margin-bottom: 60px;
+}
+
+/* Auto-fitting grid to automatically handle varying screen widths */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.value-card {
+    background-color: white;
+    padding: 50px;
+    border-radius: 16px;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.value-icon {
+    color: var(--primary-blue-color);
+    font-size: 48px;
+    margin-bottom: 25px;
+}
+
+.value-card-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.value-card-text {
+    color: var(--text-muted-color);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* --- About Us Responsive Styles --- */
+/* Stack mission image and text vertically on tablets */
+@media (max-width: 992px) {
+    .about-mission-section {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Shrink typography and padding on mobile screens */
+@media (max-width: 768px) {
+    .about-hero-section {
+        padding: 60px 20px;
+    }
+    .about-hero-title {
+        font-size: 36px;
+    }
+    .about-hero-subtitle {
+        font-size: 16px;
+    }
+    .about-mission-section {
+        margin: 40px auto;
+    }
+    .mission-title {
+        font-size: 32px;
+    }
+    .mission-text {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,229 @@
+/* ==========================================================================
+    GLOBAL LAYOUT STRUCTURE
+    Controls the main architectural components: Header, Navigation, and Footer.
+   ========================================================================== */
+
+/* --- Header & Navigation --- */
+
+/* Sticky header that remains visible as the user scrolls down the page */
+.main-navigation-header {
+    background-color: var(--surface-white-color);
+    border-bottom: 1px solid var(--border-light-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Centered container for navigation items to cap maximum width */
+.navigation-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+/* Wrapper for the logo and brand text */
+.brand-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark-color);
+}
+
+.brand-logo-image {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Main navigation link list */
+.navigation-links {
+    display: flex;
+    gap: 30px;
+    font-weight: 500;
+}
+
+/* Interactive states for navigation links */
+.navigation-links a:hover,
+.navigation-links a.active {
+    color: var(--primary-blue-color);
+}
+
+/* --- Search & Actions Bar --- */
+
+/* Container for search input and cart button */
+.search-and-actions-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Search input styling with space reserved for the inner icon */
+.search-input-field {
+    padding: 10px 15px 10px 40px;
+    border-radius: 20px;
+    border: 1px solid var(--border-light-color);
+    background-color: var(--background-light-color);
+    width: 320px;
+    transition: width 0.3s;
+    font-size: 13px;
+}
+
+.search-input-wrapper {
+    position: relative;
+}
+
+/* Absolute positioning for the search icon inside the input wrapper */
+.search-input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted-color);
+    font-size: 20px;
+}
+
+/* Shopping cart trigger button */
+.shopping-cart-button {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--text-muted-color);
+}
+
+/* Notification badge showing number of items in the cart */
+.cart-item-count-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: var(--primary-blue-color);
+    color: var(--surface-white-color);
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+}
+
+/* ==========================================================================
+    GLOBAL FOOTER
+    Styles for the bottom section containing links, brand info, and copyright.
+   ========================================================================== */
+
+.main-footer-container {
+    background-color: var(--surface-white-color);
+    border-top: 1px solid var(--border-light-color);
+    padding: 50px 20px 20px;
+    margin-top: 50px;
+}
+
+/* Responsive grid for footer link categories */
+.footer-columns-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-brand-description {
+    color: var(--text-muted-color);
+    font-size: 13px;
+    margin-top: 15px;
+    max-width: 300px;
+}
+
+.footer-column-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.footer-link-list li {
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--text-muted-color);
+}
+
+/* Display accepted payment methods in a wrapping row */
+.payment-methods-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.payment-logo-image {
+    height: 35px;
+    width: 52px;
+    border: 1px solid var(--border-light-color);
+    border-radius: 4px;
+    padding: 4px;
+    background-color: white;
+    object-fit: contain;
+}
+
+/* Bottom copyright attribution text */
+.footer-copyright {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light-color);
+    text-align: center;
+    color: var(--text-muted-color);
+    font-size: 12px;
+}
+
+/* --- Layout Responsive Styles --- */
+
+/* Tablet breakpoint adjustments */
+@media (max-width: 992px) {
+    .footer-columns-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+/* Mobile breakpoint adjustments */
+@media (max-width: 768px) {
+    .navigation-container {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 15px;
+        justify-content: center;
+        gap: 15px;
+    }
+    .brand-logo-container {
+        width: 100%;
+        justify-content: center;
+    }
+    .navigation-links {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+    .search-and-actions-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .search-input-wrapper {
+        flex-grow: 1;
+    }
+    .search-input-field {
+        width: 100%;
+    }
+    .footer-columns-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .footer-brand-description {
+        max-width: 100%;
+    }
+}

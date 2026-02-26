@@ -1,0 +1,146 @@
+/* ==========================================================================
+    USER INTERFACE COMPONENTS
+    Global utility UI modules such as floating buttons, toast notifications, 
+    and custom modal dialogues.
+   ========================================================================== */
+
+/* --- Back to Top Floating Action Button --- */
+/* Fixed to bottom right, hidden by default (toggled via JS on scroll) */
+.back-to-top-button {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary-blue-color);
+    color: var(--surface-white-color);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    transition: background-color 0.3s;
+}
+
+.back-to-top-button:hover {
+    background-color: var(--primary-blue-hover);
+}
+
+/* --- Toast Notification Banner --- */
+/* Transient pop-up messages centered on the screen */
+.custom-notification-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(51, 51, 51, 0.9);
+    color: #ffffff;
+    padding: 15px 25px;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 3000;
+    font-size: 16px;
+    animation: fadeInCenterAnimation 0.3s ease-out;
+    cursor: pointer;
+    text-align: center;
+    width: max-content;
+    max-width: 90%;
+}
+
+/* Keyframe animation for making the toast fade and slide into view */
+@keyframes fadeInCenterAnimation {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* --- Custom Modal Dialog System --- */
+
+/* Semi-transparent backdrop to obscure the rest of the application */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* Container defining the modal popup box dimensions and style */
+.custom-modal-box {
+    background-color: #ffffff;
+    padding: 30px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 480px;
+    width: 95%; /* Adjusts dynamically on smaller viewports */
+}
+
+/* Basic dismiss button */
+.custom-modal-close-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.custom-modal-close-button:hover {
+    background-color: #0056b3;
+}
+
+/* Modal layout grouping for positive/negative actions (e.g., Delete Confirmation) */
+.custom-modal-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* Action button for dismissing a modal without side effects */
+.custom-modal-cancel-button {
+    padding: 10px 20px;
+    background-color: var(--border-light-color);
+    color: var(--text-dark-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.custom-modal-cancel-button:hover {
+    background-color: #cbd5e1;
+}
+
+/* Action button strictly styled for critical actions (e.g., "Remove Item") */
+.custom-modal-confirm-button {
+    padding: 10px 20px;
+    background-color: var(--danger-red-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.custom-modal-confirm-button:hover {
+    background-color: #dc2626;
+}

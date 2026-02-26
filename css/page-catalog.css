@@ -1,0 +1,341 @@
+/* ==========================================================================
+    CATALOG PAGE (Product Grid, Product Cards)
+    Handles the product listings, filters sidebar, and pagination controls.
+   ========================================================================== */
+
+/* Wrapper for the main catalog sections */
+.section-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.section-title-wrapper {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    color: var(--text-muted-color);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.view-all-link {
+    color: var(--primary-blue-color);
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Responsive grid that automatically wraps items based on available width */
+.product-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
+}
+
+/* --- Product Cards --- */
+.product-card-container {
+    background-color: var(--surface-white-color);
+    border: 1px solid var(--border-light-color);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s ease;
+}
+
+.product-card-container:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+.product-image-wrapper {
+    height: 240px;
+    background-color: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    position: relative; /* Context for absolute positioning of child elements */
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* e.g., "New" or "Sale" badge over the image */
+.product-status-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--surface-white-color);
+    padding: 3px 6px;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 4px;
+}
+
+/* Wrapper for text content to flex to fill the remaining space */
+.product-details-wrapper {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-category-label {
+    color: var(--primary-blue-color);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.product-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.product-author-brand {
+    color: var(--text-muted-color);
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+/* Statistics row (e.g., items sold, stock status) */
+.product-stats-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.stat-sold {
+    color: var(--primary-blue-color);
+}
+
+.stat-stock {
+    color: var(--success-green-color);
+}
+
+.product-short-description {
+    color: var(--text-muted-color);
+    font-size: 11px;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Pushes the price and button to the bottom evenly */
+}
+
+/* Pinned to the bottom of the card */
+.product-price-and-action {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid var(--border-light-color);
+    padding-top: 12px;
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark-color);
+}
+
+.add-to-cart-button {
+    background-color: var(--primary-blue-color);
+    color: var(--surface-white-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}
+
+.add-to-cart-button:hover {
+    background-color: var(--primary-blue-hover);
+}
+
+/* ==========================================================================
+    CATALOG PAGE (Sidebar, Filters, Pagination)
+   ========================================================================== */
+
+/* Main layout combining the filter sidebar and main catalog area */
+.catalog-layout-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Sidebar for filtering options */
+.catalog-sidebar-filter {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.filter-section-title {
+    font-size: 13px;
+    color: var(--text-muted-color);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.filter-options-list li {
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--text-muted-color);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.filter-options-list li:hover,
+.filter-options-list li.active-filter {
+    color: var(--primary-blue-color);
+    font-weight: 700;
+}
+
+.catalog-main-content {
+    flex-grow: 1;
+}
+
+/* Apply/Reset filter button layout */
+.price-action-group {
+    display: flex;
+    gap: 8px;
+}
+
+.button-apply {
+    flex: 1;
+    background-color: var(--primary-blue-color);
+    color: var(--surface-white-color);
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button-apply:hover {
+    background-color: var(--primary-blue-hover);
+}
+
+.button-reset {
+    flex: 1;
+    background-color: var(--border-light-color);
+    color: var(--text-dark-color);
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button-reset:hover {
+    background-color: #cbd5e1;
+}
+
+/* --- Pagination Elements --- */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light-color);
+}
+
+.page-button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid var(--border-light-color);
+    background: var(--surface-white-color);
+    color: var(--text-muted-color);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.page-button:hover:not(:disabled) {
+    background: var(--background-light-color);
+    color: var(--primary-blue-color);
+    border-color: var(--primary-blue-color);
+}
+
+.page-button.active {
+    background: var(--primary-blue-color);
+    color: var(--surface-white-color);
+    border-color: var(--primary-blue-color);
+}
+
+.page-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* --- Catalog Responsive Styles --- */
+/* Push sidebar on top of the grid and split it into two columns on tablets */
+@media (max-width: 992px) {
+    .catalog-layout-container {
+        flex-direction: column;
+    }
+    .catalog-sidebar-filter {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        align-items: start;
+    }
+    .filter-group .filter-section-title {
+        margin-top: 0 !important;
+    }
+}
+
+/* Consolidate sidebar elements and reduce product card sizes for mobile */
+@media (max-width: 768px) {
+    .catalog-sidebar-filter {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .product-grid-layout {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+    }
+    .product-image-wrapper {
+        height: 200px;
+    }
+}
