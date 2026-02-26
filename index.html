@@ -1,114 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unlimited Page - Homepage</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <header class="main-navigation-header">
-        <div class="navigation-container">
-            <a href="index.html" class="brand-logo-container">
-                <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image">
-                UnlimitedPage
-            </a>
-            <nav class="navigation-links">
-                <a href="index.html" class="active">Home</a>
-                <a href="catalog.html?category=Books">Books</a>
-                <a href="catalog.html?category=Stationery">Stationery</a>
-            </nav>
-            <div class="search-and-actions-container">
-                <div class="search-input-wrapper">
-                    <span class="material-icons-outlined search-input-icon">search</span>
-                    <input type="text" class="search-input-field" placeholder="Search by Title/Item, Genre or Creator">
-                </div>
-                <a href="cart.html" class="shopping-cart-button">
-                    <span class="material-icons-outlined">shopping_cart</span>
-                    <span class="cart-item-count-badge" id="global-cart-badge">0</span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <section class="section-container">
-            <div class="section-title-wrapper">
-                <div>
-                    <h2 class="section-title">Books</h2>
-                    <p class="section-subtitle">Academic, Fiction, Business, and more</p>
-                </div>
-                <a href="catalog.html?category=Books" class="view-all-link">View All <span class="material-icons-outlined" style="font-size: 16px;">arrow_forward</span></a>
-            </div>
-            <div class="product-grid-layout" id="books-grid"></div>
-        </section>
-
-        <section class="section-container">
-            <div class="section-title-wrapper">
-                <div>
-                    <h2 class="section-title">Stationery</h2>
-                    <p class="section-subtitle">Premium supplies for your daily productivity and creative needs.</p>
-                </div>
-                <a href="catalog.html?category=Stationery" class="view-all-link">View All <span class="material-icons-outlined" style="font-size: 16px;">arrow_forward</span></a>
-            </div>
-            <div class="product-grid-layout" id="stationery-grid"></div>
-        </section>
-
-        <section class="section-container">
-            <div class="section-title-wrapper">
-                <div>
-                    <h2 class="section-title">Best Sellers</h2>
-                    <p class="section-subtitle">Most sold items loved by our customers</p>
-                </div>
-                <a href="catalog.html?category=Best" class="view-all-link">View All <span class="material-icons-outlined" style="font-size: 16px;">arrow_forward</span></a>
-            </div>
-            <div class="product-grid-layout" id="best-sellers-grid"></div>
-        </section>
-    </main>
-
-    <footer class="main-footer-container">
-        <div class="footer-columns-wrapper">
-            <div>
-                <a href="index.html" class="brand-logo-container" style="margin-bottom: 10px;">
-                    <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Unlimited Page - Homepage</title>
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/global-variables.css" />
+        <link rel="stylesheet" href="css/layout-structure.css" />
+        <link rel="stylesheet" href="css/user-interface-components.css" />
+        <link rel="stylesheet" href="css/page-catalog.css" />
+    </head>
+    <body>
+        <header class="main-navigation-header">
+            <div class="navigation-container">
+                <a href="index.html" class="brand-logo-container">
+                    <img
+                        src="images/website-logo.jpg"
+                        alt="Unlimited Page Logo"
+                        class="brand-logo-image"
+                    />
                     UnlimitedPage
                 </a>
-                <p class="footer-brand-description">Fueling creativity and productivity. Unlimited Page was born from a simple idea: great books and premium supplies should be accessible to everyone.</p>
-            </div>
-            <div>
-                <h4 class="footer-column-title">Company</h4>
-                <ul class="footer-link-list">
-                    <li><a href="about.html">About Us</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="footer-column-title">Shop</h4>
-                <ul class="footer-link-list">
-                    <li><a href="catalog.html?category=Books">Books</a></li>
-                    <li><a href="catalog.html?category=Stationery">Stationery</a></li>
-                    <li><a href="catalog.html?category=Best">Best Sellers</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="footer-column-title">Payment Methods</h4>
-                <div class="payment-methods-grid">
-                    <img src="images/gcash-logo.jpg" alt="GCash" class="payment-logo-image">
-                    <img src="images/maya-logo.jpg" alt="Maya" class="payment-logo-image">
-                    <img src="images/visa-logo.jpg" alt="Visa" class="payment-logo-image">
-                    <img src="images/mastercard-logo.jpg" alt="Mastercard" class="payment-logo-image">
-                    <img src="images/cash-on-delivery-logo.jpg" alt="Cash on Delivery" class="payment-logo-image">
+                <nav class="navigation-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="catalog.html?category=Books">Books</a>
+                    <a href="catalog.html?category=Stationery">Stationery</a>
+                </nav>
+                <div class="search-and-actions-container">
+                    <div class="search-input-wrapper">
+                        <span class="material-icons-outlined search-input-icon"
+                            >search</span
+                        >
+                        <input
+                            type="text"
+                            class="search-input-field"
+                            placeholder="Search by Title/Item, Genre or Creator"
+                        />
+                    </div>
+                    <a href="cart.html" class="shopping-cart-button">
+                        <span class="material-icons-outlined"
+                            >shopping_cart</span
+                        >
+                        <span
+                            class="cart-item-count-badge"
+                            id="global-cart-badge"
+                            >0</span
+                        >
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="footer-copyright"><p>© 2026 Unlimited Page. All rights reserved.</p></div>
-    </footer>
+        </header>
 
-    <button id="back-to-top" class="back-to-top-button" onclick="scrollToTop()">
-        <span class="material-icons-outlined">arrow_upward</span>
-    </button>
+        <main>
+            <section class="section-container">
+                <div class="section-title-wrapper">
+                    <div>
+                        <h2 class="section-title">Books</h2>
+                        <p class="section-subtitle">
+                            Academic, Fiction, Business, and more
+                        </p>
+                    </div>
+                    <a href="catalog.html?category=Books" class="view-all-link"
+                        >View All
+                        <span
+                            class="material-icons-outlined"
+                            style="font-size: 16px"
+                            >arrow_forward</span
+                        ></a
+                    >
+                </div>
+                <div class="product-grid-layout" id="books-grid"></div>
+            </section>
 
-    <script src="js/script.js"></script>
-</body>
+            <section class="section-container">
+                <div class="section-title-wrapper">
+                    <div>
+                        <h2 class="section-title">Stationery</h2>
+                        <p class="section-subtitle">
+                            Premium supplies for your daily productivity and
+                            creative needs.
+                        </p>
+                    </div>
+                    <a
+                        href="catalog.html?category=Stationery"
+                        class="view-all-link"
+                        >View All
+                        <span
+                            class="material-icons-outlined"
+                            style="font-size: 16px"
+                            >arrow_forward</span
+                        ></a
+                    >
+                </div>
+                <div class="product-grid-layout" id="stationery-grid"></div>
+            </section>
+
+            <section class="section-container">
+                <div class="section-title-wrapper">
+                    <div>
+                        <h2 class="section-title">Best Sellers</h2>
+                        <p class="section-subtitle">
+                            Most sold items loved by our customers
+                        </p>
+                    </div>
+                    <a href="catalog.html?category=Best" class="view-all-link"
+                        >View All
+                        <span
+                            class="material-icons-outlined"
+                            style="font-size: 16px"
+                            >arrow_forward</span
+                        ></a
+                    >
+                </div>
+                <div class="product-grid-layout" id="best-sellers-grid"></div>
+            </section>
+        </main>
+
+        <footer class="main-footer-container">
+            <div class="footer-columns-wrapper">
+                <div>
+                    <a
+                        href="index.html"
+                        class="brand-logo-container"
+                        style="margin-bottom: 10px"
+                    >
+                        <img
+                            src="images/website-logo.jpg"
+                            alt="Unlimited Page Logo"
+                            class="brand-logo-image"
+                        />
+                        UnlimitedPage
+                    </a>
+                    <p class="footer-brand-description">
+                        Fueling creativity and productivity. Unlimited Page was
+                        born from a simple idea: great books and premium
+                        supplies should be accessible to everyone.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="footer-column-title">Company</h4>
+                    <ul class="footer-link-list">
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-column-title">Shop</h4>
+                    <ul class="footer-link-list">
+                        <li><a href="catalog.html?category=Books">Books</a></li>
+                        <li>
+                            <a href="catalog.html?category=Stationery"
+                                >Stationery</a
+                            >
+                        </li>
+                        <li>
+                            <a href="catalog.html?category=Best"
+                                >Best Sellers</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-column-title">Payment Methods</h4>
+                    <div class="payment-methods-grid">
+                        <img
+                            src="images/payment-method/gcash-logo.jpg"
+                            alt="GCash"
+                            class="payment-logo-image"
+                        />
+                        <img
+                            src="images/payment-method/maya-logo.jpg"
+                            alt="Maya"
+                            class="payment-logo-image"
+                        />
+                        <img
+                            src="images/payment-method/visa-logo.jpg"
+                            alt="Visa"
+                            class="payment-logo-image"
+                        />
+                        <img
+                            src="images/payment-method/mastercard-logo.jpg"
+                            alt="Mastercard"
+                            class="payment-logo-image"
+                        />
+                        <img
+                            src="images/payment-method/cash-on-delivery-logo.jpg"
+                            alt="Cash on Delivery"
+                            class="payment-logo-image"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2026 Unlimited Page. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <button
+            id="back-to-top"
+            class="back-to-top-button"
+            onclick="scrollToTop()"
+        >
+            <span class="material-icons-outlined">arrow_upward</span>
+        </button>
+
+        <script src="js/product-data.js"></script>
+        <script src="js/user-interface-utilities.js"></script>
+        <script src="js/shopping-cart-manager.js"></script>
+        <script src="js/catalog-renderer.js"></script>
+        <script src="js/main-initialization.js"></script>
+    </body>
 </html>
