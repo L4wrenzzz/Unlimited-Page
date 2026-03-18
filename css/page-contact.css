@@ -1,0 +1,84 @@
+/* ==========================================================================
+    CONTACT US PAGE STYLES
+    Handles the centered card layout and typography for the contact info.
+   ========================================================================== */
+
+.contact-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Ensures the card is centered vertically on the screen */
+    padding: 60px 20px;
+}
+
+.contact-information-card {
+    background-color: var(--surface-white-color);
+    border: 1px solid var(--border-light-color);
+    border-radius: 12px;
+    padding: 60px 40px;
+    text-align: center;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.contact-title-heading {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-dark-color);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.contact-subtitle-text {
+    font-size: 16px;
+    color: var(--text-muted-color);
+    margin-bottom: 50px;
+}
+
+.contact-detail-label {
+    font-size: 16px;
+    color: var(--text-muted-color);
+    margin-bottom: 15px;
+}
+
+.contact-phone-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-dark-color);
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.contact-email-section {
+    font-size: 16px;
+    color: var(--text-muted-color);
+    margin-top: 40px;
+}
+
+.contact-email-link {
+    color: var(--primary-blue-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.contact-email-link:hover {
+    color: var(--primary-blue-hover);
+    text-decoration: underline;
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 768px) {
+    .contact-information-card {
+        padding: 40px 20px;
+    }
+    
+    .contact-title-heading {
+        font-size: 28px;
+    }
+    
+    .contact-phone-number {
+        font-size: 28px;
+    }
+}
