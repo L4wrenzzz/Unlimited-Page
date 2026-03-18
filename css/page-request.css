@@ -1,0 +1,117 @@
+/* ==========================================================================
+    REQUEST A BOOK PAGE STYLES
+    Handles the layout and form styling for the request portal.
+   ========================================================================== */
+
+.request-page-container {
+    max-width: 1200px;
+    margin: 60px auto 100px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.request-form-card {
+    background-color: var(--surface-white-color);
+    border: 1px solid var(--border-light-color);
+    border-radius: 12px;
+    padding: 50px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.request-header-text {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.request-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-dark-color);
+    margin-bottom: 15px;
+}
+
+.request-subtitle {
+    font-size: 14px;
+    color: var(--text-muted-color);
+    line-height: 1.6;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+/* --- Form Layout & Inputs --- */
+.request-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark-color);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    padding: 12px 15px;
+    border: 1px solid var(--border-light-color);
+    border-radius: 8px;
+    background-color: var(--background-light-color);
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-dark-color);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input::placeholder {
+    color: #94a3b8;
+}
+
+.form-input:focus {
+    border-color: var(--primary-blue-color);
+    background-color: var(--surface-white-color);
+    box-shadow: 0 0 0 3px rgba(19, 127, 236, 0.1);
+}
+
+.form-helper-text {
+    font-size: 11px;
+    color: var(--text-muted-color);
+    margin-top: 6px;
+}
+
+.submit-request-button {
+    background-color: var(--primary-blue-color);
+    color: var(--surface-white-color);
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.submit-request-button:hover {
+    background-color: var(--primary-blue-hover);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 768px) {
+    .request-form-card {
+        padding: 30px 20px;
+    }
+    .request-title {
+        font-size: 26px;
+    }
+}
