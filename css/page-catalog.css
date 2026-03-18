@@ -3,7 +3,6 @@
     Handles the product listings, filters sidebar, and pagination controls.
    ========================================================================== */
 
-/* Wrapper for the main catalog sections */
 .section-container {
     max-width: 1200px;
     margin: 60px auto;
@@ -37,7 +36,6 @@
     gap: 4px;
 }
 
-/* Responsive grid that automatically wraps items based on available width */
 .product-grid-layout {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
@@ -66,7 +64,7 @@
     justify-content: center;
     align-items: center;
     padding: 15px;
-    position: relative; /* Context for absolute positioning of child elements */
+    position: relative;
 }
 
 .product-image {
@@ -77,32 +75,11 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* e.g., "New" or "Sale" badge over the image */
-.product-status-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: var(--surface-white-color);
-    padding: 3px 6px;
-    font-size: 10px;
-    font-weight: 700;
-    border-radius: 4px;
-}
-
-/* Wrapper for text content to flex to fill the remaining space */
 .product-details-wrapper {
     padding: 15px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-}
-
-.product-category-label {
-    color: var(--primary-blue-color);
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 4px;
 }
 
 .product-title {
@@ -118,7 +95,6 @@
     margin-bottom: 8px;
 }
 
-/* Statistics row (e.g., items sold, stock status) */
 .product-stats-container {
     display: flex;
     justify-content: space-between;
@@ -127,22 +103,9 @@
     margin-bottom: 10px;
 }
 
-.stat-sold {
-    color: var(--primary-blue-color);
-}
+.stat-sold { color: var(--primary-blue-color); }
+.stat-stock { color: var(--success-green-color); }
 
-.stat-stock {
-    color: var(--success-green-color);
-}
-
-.product-short-description {
-    color: var(--text-muted-color);
-    font-size: 11px;
-    margin-bottom: 15px;
-    flex-grow: 1; /* Pushes the price and button to the bottom evenly */
-}
-
-/* Pinned to the bottom of the card */
 .product-price-and-action {
     display: flex;
     flex-direction: column;
@@ -174,15 +137,13 @@
     width: 100%;
 }
 
-.add-to-cart-button:hover {
-    background-color: var(--primary-blue-hover);
-}
+.add-to-cart-button:hover { background-color: var(--primary-blue-hover); }
+
 
 /* ==========================================================================
     CATALOG PAGE (Sidebar, Filters, Pagination)
    ========================================================================== */
 
-/* Main layout combining the filter sidebar and main catalog area */
 .catalog-layout-container {
     display: flex;
     gap: 30px;
@@ -191,7 +152,6 @@
     padding: 0 20px;
 }
 
-/* Sidebar for filtering options */
 .catalog-sidebar-filter {
     width: 220px;
     flex-shrink: 0;
@@ -223,45 +183,60 @@
     flex-grow: 1;
 }
 
-/* Apply/Reset filter button layout */
-.price-action-group {
-    display: flex;
-    gap: 8px;
+/* --- Price Range Styling --- */
+.price-filter-container {
+    display: grid;
+    /* 3 Columns: Input, Hyphen, Input */
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px 8px; /* 10px row gap, 8px column gap */
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.price-separator {
+    color: var(--text-muted-color);
+    font-weight: 700;
+    text-align: center;
+}
+
+.price-range-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-light-color);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.price-range-input:focus { border-color: var(--primary-blue-color); }
+
+.button-apply, .button-reset {
+    width: 100%; /* Fills the grid column perfectly */
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .button-apply {
-    flex: 1;
     background-color: var(--primary-blue-color);
     color: var(--surface-white-color);
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-.button-apply:hover {
-    background-color: var(--primary-blue-hover);
-}
+.button-apply:hover { background-color: var(--primary-blue-hover); }
 
 .button-reset {
-    flex: 1;
     background-color: var(--border-light-color);
     color: var(--text-dark-color);
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-.button-reset:hover {
-    background-color: #cbd5e1;
-}
+.button-reset:hover { background-color: #cbd5e1; }
+
 
 /* --- Pagination Elements --- */
 .pagination-container {
@@ -308,11 +283,8 @@
 }
 
 /* --- Catalog Responsive Styles --- */
-/* Push sidebar on top of the grid and split it into two columns on tablets */
 @media (max-width: 992px) {
-    .catalog-layout-container {
-        flex-direction: column;
-    }
+    .catalog-layout-container { flex-direction: column; }
     .catalog-sidebar-filter {
         width: 100%;
         display: grid;
@@ -320,12 +292,9 @@
         gap: 30px;
         align-items: start;
     }
-    .filter-group .filter-section-title {
-        margin-top: 0 !important;
-    }
+    .filter-group .filter-section-title { margin-top: 0 !important; }
 }
 
-/* Consolidate sidebar elements and reduce product card sizes for mobile */
 @media (max-width: 768px) {
     .catalog-sidebar-filter {
         grid-template-columns: 1fr;
@@ -335,7 +304,5 @@
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 15px;
     }
-    .product-image-wrapper {
-        height: 200px;
-    }
+    .product-image-wrapper { height: 200px; }
 }
