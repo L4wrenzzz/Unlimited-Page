@@ -1,161 +1,125 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Unlimited Page - Cart</title>
-        <link
-            href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="css/global-variables.css" />
-        <link rel="stylesheet" href="css/layout-structure.css" />
-        <link rel="stylesheet" href="css/user-interface-components.css" />
-        <link rel="stylesheet" href="css/page-cart.css" />
-    </head>
-    <body class="cart-page-body">
-        <header class="main-navigation-header">
-            <div class="navigation-container">
-                <a href="index.html" class="brand-logo-container">
-                    <img
-                        src="images/website-logo.jpg"
-                        alt="Unlimited Page Logo"
-                        class="brand-logo-image"
-                    />
-                    UnlimitedPage
-                </a>
-                <nav class="navigation-links">
-                    <a href="index.html">Home</a>
-                    <a href="catalog.html?category=Books">Books</a>
-                    <a href="catalog.html?category=Stationery">Stationery</a>
-                </nav>
-                <div class="search-and-actions-container">
-                    <div class="search-input-wrapper">
-                        <span class="material-icons-outlined search-input-icon"
-                            >search</span
-                        >
-                        <input
-                            type="text"
-                            class="search-input-field"
-                            placeholder="Search by Title/Item, Genre or Creator"
-                        />
-                    </div>
-                    <a href="cart.html" class="shopping-cart-button">
-                        <span class="material-icons-outlined"
-                            >shopping_cart</span
-                        >
-                        <span
-                            class="cart-item-count-badge"
-                            id="global-cart-badge"
-                            >0</span
-                        >
-                    </a>
-                </div>
-            </div>
-        </header>
 
-        <div style="max-width: 1200px; margin: 40px auto 0; padding: 0 20px">
-            <a
-                href="catalog.html"
-                style="
-                    color: var(--primary-blue-color);
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unlimited Page - Cart</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="css/global-variables.css" />
+    <link rel="stylesheet" href="css/layout-structure.css" />
+    <link rel="stylesheet" href="css/user-interface-components.css" />
+    <link rel="stylesheet" href="css/page-cart.css" />
+</head>
+
+<body class="cart-page-body">
+    <header class="main-navigation-header">
+        <div class="navigation-top-row">
+            <div class="header-logo-section">
+                <a href="index.html" class="brand-logo-container">
+                    <img src="images/website-logo.png" alt="Unlimited Page Logo" class="brand-logo-image" />
+                    Unlimited Page
+                </a>
+            </div>
+
+            <div class="search-and-actions-container">
+                <div class="search-input-wrapper">
+                    <span class="material-icons-outlined search-input-icon">search</span>
+                    <input type="text" class="search-input-field" placeholder="Search" />
+                </div>
+                <a href="cart.html" class="shopping-cart-button">
+                    <img src="images/header-cart-icon.png" alt="Cart"
+                        style="width: 24px; height: 24px; object-fit: contain;" />
+                    <span class="cart-item-count-badge" id="global-cart-badge">0</span>
+                </a>
+            </div>
+
+            <div class="header-spacer-section"></div>
+        </div>
+
+        <nav class="navigation-bottom-row">
+            <a href="index.html">Home</a>
+            <a href="catalog.html?category=Books">Books</a>
+            <a href="catalog.html?category=Stationery">Stationery</a>
+            <a href="request-book.html">Request a Book</a>
+            <a href="sell-book.html">Sell Your Book</a>
+        </nav>
+    </header>
+
+    <div style="max-width: 1200px; margin: 40px auto 0; padding: 0 20px">
+        <a href="catalog.html" style="
+                    color: var(--text-muted-color);
                     font-weight: 600;
                     margin-bottom: 20px;
                     display: inline-flex;
                     align-items: center;
                     gap: 5px;
-                "
-            >
-                <span class="material-icons-outlined" style="font-size: 16px"
-                    >arrow_back</span
-                >
-                Continue Shopping
-            </a>
-            <h2 class="section-title">Your Cart</h2>
-        </div>
+                ">
+            <span class="material-icons-outlined" style="font-size: 16px">arrow_back</span>
+            Continue Shopping
+        </a>
+        <h2 class="section-title">Your Cart</h2>
+    </div>
 
-        <main class="cart-layout-container">
-            <section class="cart-items-section">
-                <div class="cart-table-header">
-                    <span>PRODUCT</span>
-                    <span style="text-align: center">PRICE</span>
-                    <span style="text-align: center">QUANTITY</span>
-                    <span style="text-align: right">TOTAL</span>
-                </div>
-                <div id="cart-items-container"></div>
-            </section>
+    <main class="cart-layout-container">
+        <section class="cart-items-section">
+            <div class="cart-table-header">
+                <span>PRODUCT</span>
+                <span style="text-align: center">PRICE</span>
+                <span style="text-align: center">QUANTITY</span>
+                <span style="text-align: right">TOTAL</span>
+            </div>
+            <div id="cart-items-container"></div>
+        </section>
 
-            <div class="cart-summary-wrapper" id="order-summary-box">
-                <h3 class="cart-summary-header">Order Summary</h3>
-                <aside class="cart-summary-section">
-                    <div
-                        id="summary-items-list"
-                        style="
+        <div class="cart-summary-wrapper" id="order-summary-box">
+            <h3 class="cart-summary-header">Order Summary</h3>
+            <aside class="cart-summary-section">
+                <div id="summary-items-list" style="
                             margin-bottom: 15px;
                             padding-bottom: 15px;
                             border-bottom: 1px dashed var(--border-light-color);
                             display: none;
-                        "
-                    ></div>
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span id="cart-subtotal" style="font-weight: 600"
-                            >₱0.00</span
-                        >
-                    </div>
-                    <div class="summary-row">
-                        <span>Shipping estimate</span>
-                        <span id="cart-shipping" style="font-weight: 600"
-                            >₱0.00</span
-                        >
-                    </div>
+                        "></div>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal" style="font-weight: 600">₱0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping estimate</span>
+                    <span id="cart-shipping" style="font-weight: 600">₱0.00</span>
+                </div>
 
-                    <div
-                        class="summary-row"
-                        id="discount-row"
-                        style="
+                <div class="summary-row" id="discount-row" style="
                             display: none;
                             color: var(--danger-red-color);
                             font-weight: 600;
-                        "
-                    >
-                        <span>Promo Discount</span>
-                        <span id="cart-discount-amount">-₱0.00</span>
-                    </div>
+                        ">
+                    <span>Promo Discount</span>
+                    <span id="cart-discount-amount">-₱0.00</span>
+                </div>
 
-                    <div style="margin-top: 25px">
-                        <p
-                            style="
+                <div style="margin-top: 25px">
+                    <p style="
                                 font-size: 11px;
                                 color: var(--text-muted-color);
                                 margin-bottom: 8px;
-                            "
-                        >
-                            Use code <strong>"DEATHNOTE"</strong> for a ₱299
-                            discount on orders of ₱1000 or more. (One-time use
-                            only)
-                        </p>
-                        <div
-                            style="
+                            ">
+                        Use code <strong>"DEATHNOTE"</strong> for a ₱299
+                        discount on orders of ₱1000 or more. (One-time use
+                        only)
+                    </p>
+                    <div style="
                                 display: flex;
                                 justify-content: space-between;
-                            "
-                        >
-                            <input
-                                type="text"
-                                id="promo-code-input"
-                                placeholder="Promo Code"
-                                style="
+                            ">
+                        <input type="text" id="promo-code-input" placeholder="Promo Code" style="
                                     padding: 10px;
                                     border: 1px solid var(--border-light-color);
                                     border-radius: 6px;
                                     width: 65%;
-                                "
-                            />
-                            <button
-                                id="promo-apply-button"
-                                onclick="applyPromoCode()"
-                                style="
+                                " />
+                        <button id="promo-apply-button" onclick="applyPromoCode()" style="
                                     padding: 10px;
                                     background-color: var(
                                         --background-light-color
@@ -167,211 +131,138 @@
                                     font-weight: 600;
                                     font-size: 12px;
                                     color: var(--text-dark-color);
-                                "
-                            >
-                                Apply
-                            </button>
-                        </div>
-                        <p
-                            id="promo-message"
-                            style="
+                                ">
+                            Apply
+                        </button>
+                    </div>
+                    <p id="promo-message" style="
                                 font-size: 11px;
                                 margin-top: 8px;
                                 font-weight: 600;
-                            "
-                        ></p>
-                    </div>
+                            "></p>
+                </div>
 
-                    <div
-                        style="
+                <div style="
                             margin-top: 25px;
                             padding-top: 15px;
                             border-top: 1px solid var(--border-light-color);
-                        "
-                    >
-                        <span
-                            style="
+                        ">
+                    <span style="
                                 font-size: 13px;
                                 font-weight: 700;
                                 display: block;
                                 margin-bottom: 10px;
-                            "
-                            >Payment Method</span
-                        >
-                        <div class="checkout-payment-methods">
-                            <div
-                                class="checkout-payment-method selected"
-                                data-method="GCash"
-                                onclick="selectPayment('GCash')"
-                            >
-                                <img src="images/payment-method/gcash-logo.jpg" alt="GCash" />
-                            </div>
-                            <div
-                                class="checkout-payment-method"
-                                data-method="Maya"
-                                onclick="selectPayment('Maya')"
-                            >
-                                <img src="images/payment-method/maya-logo.jpg" alt="Maya" />
-                            </div>
-                            <div
-                                class="checkout-payment-method"
-                                data-method="Visa"
-                                onclick="selectPayment('Visa')"
-                            >
-                                <img src="images/payment-method/visa-logo.jpg" alt="Visa" />
-                            </div>
-                            <div
-                                class="checkout-payment-method"
-                                data-method="Mastercard"
-                                onclick="selectPayment('Mastercard')"
-                            >
-                                <img
-                                    src="images/payment-method/mastercard-logo.jpg"
-                                    alt="Mastercard"
-                                />
-                            </div>
-                            <div
-                                class="checkout-payment-method"
-                                data-method="Cash on Delivery"
-                                onclick="selectPayment('Cash on Delivery')"
-                            >
-                                <img
-                                    src="images/payment-method/cash-on-delivery-logo.jpg"
-                                    alt="Cash on Delivery"
-                                />
-                            </div>
+                            ">Payment Method</span>
+                    <div class="checkout-payment-methods">
+                        <div class="checkout-payment-method selected" data-method="GCash"
+                            onclick="selectPayment('GCash')">
+                            <img src="images/payment-method/gcash-logo.jpg" alt="GCash" />
+                        </div>
+                        <div class="checkout-payment-method" data-method="Maya" onclick="selectPayment('Maya')">
+                            <img src="images/payment-method/maya-logo.jpg" alt="Maya" />
+                        </div>
+                        <div class="checkout-payment-method" data-method="Visa" onclick="selectPayment('Visa')">
+                            <img src="images/payment-method/visa-logo.jpg" alt="Visa" />
+                        </div>
+                        <div class="checkout-payment-method" data-method="Mastercard"
+                            onclick="selectPayment('Mastercard')">
+                            <img src="images/payment-method/mastercard-logo.jpg" alt="Mastercard" />
+                        </div>
+                        <div class="checkout-payment-method" data-method="Cash on Delivery"
+                            onclick="selectPayment('Cash on Delivery')">
+                            <img src="images/payment-method/cash-on-delivery-logo.jpg" alt="Cash on Delivery" />
                         </div>
                     </div>
+                </div>
 
-                    <div class="summary-total-row">
-                        <span>Order Total</span>
-                        <span
-                            id="cart-total"
-                            style="color: var(--primary-blue-color)"
-                            >₱0.00</span
-                        >
-                    </div>
+                <div class="summary-total-row">
+                    <span>Order Total</span>
+                    <span id="cart-total" style="color: var(--primary-blue-color)">₱0.00</span>
+                </div>
 
-                    <button
-                        class="checkout-button desktop-checkout-button"
-                        onclick="processCheckout()"
-                    >
-                        PROCEED TO CHECKOUT
-                    </button>
-                </aside>
+                <button class="checkout-button desktop-checkout-button" onclick="processCheckout()">
+                    PROCEED TO CHECKOUT
+                </button>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="main-footer-container">
+        <div class="footer-columns-wrapper">
+            <div>
+                <a href="index.html" class="brand-logo-container" style="margin-bottom: 10px">
+                    <img src="images/website-logo.png" alt="Unlimited Page Logo" class="brand-logo-image" />
+                    Unlimited Page
+                </a>
+                <p class="footer-brand-description">
+                    Fueling the minds of tomorrow. Unlimited Page was born from a simple idea: academic knowledge should
+                    be boundless and accessible to everyone.
+                </p>
             </div>
-        </main>
-
-        <footer class="main-footer-container">
-            <div class="footer-columns-wrapper">
-                <div>
-                    <a
-                        href="index.html"
-                        class="brand-logo-container"
-                        style="margin-bottom: 10px"
-                    >
-                        <img
-                            src="images/website-logo.jpg"
-                            alt="Unlimited Page Logo"
-                            class="brand-logo-image"
-                        />
-                        UnlimitedPage
-                    </a>
-                    <p class="footer-brand-description">
-                        Fueling creativity and productivity. Unlimited Page was
-                        born from a simple idea: great books and premium
-                        supplies should be accessible to everyone.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="footer-column-title">Company</h4>
-                    <ul class="footer-link-list">
-                        <li><a href="about.html">About Us</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-column-title">Shop</h4>
-                    <ul class="footer-link-list">
-                        <li><a href="catalog.html?category=Books">Books</a></li>
-                        <li>
-                            <a href="catalog.html?category=Stationery"
-                                >Stationery</a
-                            >
-                        </li>
-                        <li>
-                            <a href="catalog.html?category=Best"
-                                >Best Sellers</a
-                            >
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-column-title">Payment Methods</h4>
-                    <div class="payment-methods-grid">
-                        <img
-                            src="images/payment-method/gcash-logo.jpg"
-                            alt="GCash"
-                            class="payment-logo-image"
-                        />
-                        <img
-                            src="images/payment-method/maya-logo.jpg"
-                            alt="Maya"
-                            class="payment-logo-image"
-                        />
-                        <img
-                            src="images/payment-method/visa-logo.jpg"
-                            alt="Visa"
-                            class="payment-logo-image"
-                        />
-                        <img
-                            src="images/payment-method/mastercard-logo.jpg"
-                            alt="Mastercard"
-                            class="payment-logo-image"
-                        />
-                        <img
-                            src="images/payment-method/cash-on-delivery-logo.jpg"
-                            alt="Cash on Delivery"
-                            class="payment-logo-image"
-                        />
-                    </div>
+            <div>
+                <h4 class="footer-column-title">About Unlimited Page</h4>
+                <ul class="footer-link-list">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title">Shop</h4>
+                <ul class="footer-link-list">
+                    <li><a href="index.html">New Arrivals</a></li>
+                    <li><a href="catalog.html?category=Best">Best Sellers</a></li>
+                    <li><a href="catalog.html?category=Books">Books</a></li>
+                    <li><a href="catalog.html?category=Stationery">Stationery</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title">Services</h4>
+                <ul class="footer-link-list">
+                    <li><a href="request-book.html">Request a Book</a></li>
+                    <li><a href="sell-book.html">Sell Your Book</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title" style="text-align: center;">Payment Methods</h4>
+                <div class="payment-methods-grid">
+                    <img src="images/payment-method/gcash-logo.jpg" alt="GCash" class="payment-logo-image" />
+                    <img src="images/payment-method/maya-logo.jpg" alt="Maya" class="payment-logo-image" />
+                    <img src="images/payment-method/visa-logo.jpg" alt="Visa" class="payment-logo-image" />
+                    <img src="images/payment-method/mastercard-logo.jpg" alt="Mastercard" class="payment-logo-image" />
+                    <img src="images/payment-method/cash-on-delivery-logo.jpg" alt="Cash on Delivery"
+                        class="payment-logo-image" />
                 </div>
             </div>
-            <div class="footer-copyright">
-                <p>© 2026 Unlimited Page. All rights reserved.</p>
-            </div>
-        </footer>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Unlimited Page. All rights reserved.</p>
+        </div>
+    </footer>
 
-        <div class="mobile-checkout-bar">
-            <div class="total-wrapper">
-                <span class="total-label">Order Total</span>
-                <span class="total-price" id="mobile-cart-total">₱0.00</span>
-            </div>
-            <button class="checkout-button" onclick="scrollToSummary()">
-                <span
-                    class="material-icons-outlined"
-                    style="
+    <div class="mobile-checkout-bar">
+        <div class="total-wrapper">
+            <span class="total-label">Order Total</span>
+            <span class="total-price" id="mobile-cart-total">₱0.00</span>
+        </div>
+        <button class="checkout-button" onclick="scrollToSummary()">
+            <span class="material-icons-outlined" style="
                         vertical-align: middle;
                         margin-right: 4px;
                         font-size: 16px;
-                    "
-                    >receipt_long</span
-                >
-                View Summary
-            </button>
-        </div>
-
-        <button
-            id="back-to-top"
-            class="back-to-top-button"
-            onclick="scrollToTop()"
-        >
-            <span class="material-icons-outlined">arrow_upward</span>
+                    ">receipt_long</span>
+            View Summary
         </button>
+    </div>
 
-        <script src="js/product-data.js"></script>
-        <script src="js/user-interface-utilities.js"></script>
-        <script src="js/shopping-cart-manager.js"></script>
-        <script src="js/catalog-renderer.js"></script>
-        <script src="js/main-initialization.js"></script>
-    </body>
+    <button id="back-to-top" class="back-to-top-button" onclick="scrollToTop()">
+        <span class="material-icons-outlined">arrow_upward</span>
+    </button>
+
+    <script src="js/product-data.js"></script>
+    <script src="js/user-interface-utilities.js"></script>
+    <script src="js/shopping-cart-manager.js"></script>
+    <script src="js/catalog-renderer.js"></script>
+    <script src="js/main-initialization.js"></script>
+</body>
+
 </html>
