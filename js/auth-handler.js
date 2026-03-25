@@ -141,6 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
                 
                 showToastNotification("Profile saved successfully!");
+
+                if (typeof updateHeaderAccount === "function") updateHeaderAccount();
             }
         });
     }
