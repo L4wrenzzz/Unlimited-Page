@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unlimited Page - Account Profile</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="css/global-variables.css" />
+    <link rel="stylesheet" href="css/layout-structure.css" />
+    <link rel="stylesheet" href="css/user-interface-components.css" />
+    <link rel="stylesheet" href="css/page-account.css" />
+</head>
+
+<body>
+    <header class="main-navigation-header">
+        <div class="navigation-top-row">
+            <div class="header-logo-section">
+                <a href="index.html" class="brand-logo-container">
+                    <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image" />
+                    Unlimited Page
+                </a>
+            </div>
+
+            <div class="search-and-actions-container">
+                <div class="search-input-wrapper">
+                    <span class="material-icons-outlined search-input-icon">search</span>
+                    <input type="text" class="search-input-field" placeholder="Search" />
+                </div>
+                <a href="cart.html" class="shopping-cart-button">
+                    <img src="images/header-cart-icon.png" alt="Cart"
+                        style="width: 24px; height: 24px; object-fit: contain;" />
+                    <span class="cart-item-count-badge" id="global-cart-badge">0</span>
+                </a>
+                <a href="login.html" class="account-button">
+                    <img src="images/account-icon.png" alt="Account"
+                        style="width: 24px; height: 24px; object-fit: contain;" />
+                </a>
+                <span class="header-user-name">Guest</span>
+            </div>
+            <div class="header-spacer-section"></div>
+        </div>
+
+        <nav class="navigation-bottom-row">
+            <a href="index.html">Home</a>
+            <a href="catalog.html?category=Books">Books</a>
+            <a href="catalog.html?category=Stationery">Stationery</a>
+            <a href="request-book.html">Request a Book</a>
+            <a href="sell-book.html">Sell Your Book</a>
+        </nav>
+    </header>
+
+    <main class="account-page-container">
+        <div class="account-header">
+            <h1 class="account-title">Account Profile</h1>
+            <p class="account-subtitle">Manage your personal information.</p>
+        </div>
+
+        <section class="profile-photo-section">
+            <div class="profile-avatar-placeholder">
+                <img id="profile-image-preview" src="images/userProfile.png" alt="Profile Photo"
+                    style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="profile-photo-details">
+                <h3>Profile Photo</h3>
+                <p>File size: 1MB<br>Supported formats: JPG, PNG.</p>
+                <input type="file" id="profile-image-upload" accept="image/png, image/jpeg" style="display: none;">
+                <button type="button" class="upload-image-button"
+                    onclick="document.getElementById('profile-image-upload').click()">Upload Image</button>
+            </div>
+        </section>
+
+        <form id="account-form">
+            <div class="account-form-grid">
+                <div class="form-input-group">
+                    <label class="account-form-label">Name</label>
+                    <input type="text" id="account-name" class="form-input" placeholder="Enter your name" maxlength="16" />
+                </div>
+
+                <div class="form-input-group">
+                    <label class="account-form-label">Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="account-password" class="form-input"
+                            placeholder="Enter your password" />
+                        <span class="material-icons-outlined password-toggle-icon"
+                            id="account-password-toggle-icon">visibility</span>
+                    </div>
+                </div>
+
+                <div class="form-input-group">
+                    <label class="account-form-label">Email</label>
+                    <input type="email" id="account-email" class="form-input" placeholder="Enter your email"
+                        oninput="this.value = this.value.toLowerCase()" />
+                </div>
+
+                <div class="form-input-group">
+                    <label class="account-form-label">Phone Number</label>
+                    <input type="tel" id="account-phone-number" class="form-input"
+                        placeholder="Enter your phone number" />
+                </div>
+
+                <div class="form-input-group">
+                    <label class="account-form-label">Date of Birth</label>
+                    <input type="text" id="account-date-of-birth" class="form-input" placeholder="mm/dd/yyyy" />
+                </div>
+
+                <div class="form-input-group">
+                    <label class="account-form-label">Gender</label>
+                    <div class="gender-selection-group">
+                        <label class="gender-radio-label">
+                            <input type="radio" name="gender" value="male" id="account-gender-male"
+                                class="gender-radio-input" />
+                            Male
+                        </label>
+                        <label class="gender-radio-label">
+                            <input type="radio" name="gender" value="female" id="account-gender-female"
+                                class="gender-radio-input" />
+                            Female
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="account-action-row">
+                <button type="button" class="logout-button" id="logout-button">Logout</button>
+                <button type="submit" class="save-profile-button" id="save-profile-button">Save</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="main-footer-container">
+        <div class="footer-columns-wrapper">
+            <div>
+                <a href="index.html" class="brand-logo-container" style="margin-bottom: 10px">
+                    <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image" />
+                    Unlimited Page
+                </a>
+                <p class="footer-brand-description">
+                    Fueling the minds of tomorrow. Unlimited Page was born from a simple idea: academic knowledge should
+                    be boundless and accessible to everyone.
+                </p>
+            </div>
+            <div>
+                <h4 class="footer-column-title">About UnlimitedPage</h4>
+                <ul class="footer-link-list">
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title">Customer Service</h4>
+                <ul class="footer-link-list">
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title" style="text-align: center;">Payment Methods</h4>
+                <div class="payment-methods-grid">
+                    <img src="images/payment-method/gcash-logo.jpg" alt="GCash" class="payment-logo-image" />
+                    <img src="images/payment-method/maya-logo.jpg" alt="Maya" class="payment-logo-image" />
+                    <img src="images/payment-method/visa-logo.jpg" alt="Visa" class="payment-logo-image" />
+                    <img src="images/payment-method/mastercard-logo.jpg" alt="Mastercard" class="payment-logo-image" />
+                    <img src="images/payment-method/cash-on-delivery-logo.jpg" alt="Cash on Delivery"
+                        class="payment-logo-image" />
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Unlimited Page. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/product-data.js"></script>
+    <script src="js/user-interface-utilities.js"></script>
+    <script src="js/shopping-cart-manager.js"></script>
+    <script src="js/auth-handler.js"></script>
+    <script src="js/main-initialization.js"></script>
+</body>
+
+</html>

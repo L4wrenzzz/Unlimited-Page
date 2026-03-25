@@ -1,0 +1,213 @@
+/* ==========================================================================
+    ACCOUNT PROFILE PAGE STYLES
+   ========================================================================== */
+
+.account-page-container {
+    max-width: 900px;
+    margin: 60px auto 100px;
+    padding: 0 20px;
+}
+
+.account-header {
+    margin-bottom: 40px;
+}
+
+.account-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-dark-color);
+    margin-bottom: 10px;
+}
+
+.account-subtitle {
+    font-size: 15px;
+    color: var(--text-muted-color);
+}
+
+/* Profile Photo Section */
+.profile-photo-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.profile-avatar-placeholder {
+    width: 120px;
+    height: 120px;
+    background-color: #f1f5f9; /* Light background behind image */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--border-light-color);
+}
+
+.profile-photo-details h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.profile-photo-details p {
+    font-size: 13px;
+    color: var(--text-muted-color);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.upload-image-button {
+    background-color: #e2e8f0;
+    color: var(--text-dark-color);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.upload-image-button:hover {
+    background-color: #cbd5e1;
+}
+
+/* Form Grid */
+.account-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px 40px;
+    margin-bottom: 50px;
+}
+
+.account-form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark-color);
+    margin-bottom: 8px;
+}
+
+/* Styled inputs to match the mockup */
+.account-form-grid .form-input {
+    width: 100%;
+    background-color: #f1f5f9;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--text-dark-color);
+    transition: all 0.2s ease;
+}
+
+.account-form-grid .form-input::placeholder {
+    color: #94a3b8;
+}
+
+.account-form-grid .form-input:focus {
+    background-color: var(--surface-white-color);
+    border-color: var(--primary-blue-color);
+    box-shadow: 0 0 0 3px rgba(19, 127, 236, 0.1);
+    outline: none;
+}
+
+/* Gender Radio Buttons */
+.gender-selection-group {
+    display: flex;
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.gender-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.gender-radio-input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--text-dark-color);
+    cursor: pointer;
+}
+
+/* Action Buttons */
+.account-action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light-color);
+}
+
+.logout-button {
+    background-color: transparent;
+    color: var(--danger-red-color);
+    border: 1px solid var(--danger-red-color);
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-button:hover {
+    background-color: #fef2f2;
+}
+
+.save-profile-button {
+    background-color: transparent;
+    color: var(--success-green-color);
+    border: 1px solid var(--success-green-color);
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-profile-button:hover {
+    background-color: #f0fdf4;
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper .form-input {
+    padding-right: 45px;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 15px;
+    color: var(--text-muted-color);
+    cursor: pointer;
+    font-size: 20px;
+    transition: color 0.2s;
+}
+
+.password-toggle-icon:hover {
+    color: var(--text-dark-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .account-form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .profile-photo-section {
+        flex-direction: column;
+        text-align: center;
+    }
+}
