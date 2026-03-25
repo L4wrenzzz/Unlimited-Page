@@ -4,14 +4,18 @@
     Handles adding/removing items, promo codes, and calculating totals.
    ========================================================================== */
 
-let rawCartData = JSON.parse(localStorage.getItem("unlimitedPageCart")) || [];
+// Make the cart dynamic based on the logged-in user
+const activeUserEmail = localStorage.getItem("unlimitedPage_CurrentUser") || "guest";
+window.CART_STORAGE_KEY = `unlimitedPageCart_${activeUserEmail}`;
+
+let rawCartData = JSON.parse(localStorage.getItem(window.CART_STORAGE_KEY)) || [];
 
 let userShoppingCart = rawCartData.filter((cartItem) =>
     productDatabase.some((databaseItem) => databaseItem.id === cartItem.id),
 );
 
 if (rawCartData.length !== userShoppingCart.length) {
-    localStorage.setItem("unlimitedPageCart", JSON.stringify(userShoppingCart));
+    localStorage.setItem(window.CART_STORAGE_KEY, JSON.stringify(userShoppingCart));
 }
 
 let currentPromoDiscount = 0;
@@ -71,7 +75,7 @@ function addProductToCart(productId) {
         showToastNotification(`${productToAdd.title} has been added to your cart!`);
     }
 
-    localStorage.setItem("unlimitedPageCart", JSON.stringify(userShoppingCart));
+    localStorage.setItem(window.CART_STORAGE_KEY, JSON.stringify(userShoppingCart));
     updateCartBadge();
 }
 
@@ -79,7 +83,7 @@ function toggleCartItemSelection(productId) {
     const targetItem = userShoppingCart.find((databaseItem) => databaseItem.id === productId);
     if (targetItem) {
         targetItem.isSelectedForOrder = !targetItem.isSelectedForOrder;
-        localStorage.setItem("unlimitedPageCart", JSON.stringify(userShoppingCart));
+        localStorage.setItem(window.CART_STORAGE_KEY, JSON.stringify(userShoppingCart));
         initCart();
     }
 }
@@ -99,7 +103,7 @@ function manualCartQuantityUpdate(productId, inputValue) {
         }
 
         userShoppingCart[itemIndex].quantity = newQuantity;
-        localStorage.setItem("unlimitedPageCart", JSON.stringify(userShoppingCart));
+        localStorage.setItem(window.CART_STORAGE_KEY, JSON.stringify(userShoppingCart));
 
         updateCartBadge();
         initCart();
@@ -123,7 +127,7 @@ function deleteItemFromCart(productId) {
             `Are you sure you want to remove\n<strong>${productInfo.title}</strong>\nfrom your cart?`,
             () => {
                 userShoppingCart.splice(itemIndex, 1);
-                localStorage.setItem("unlimitedPageCart", JSON.stringify(userShoppingCart));
+                localStorage.setItem(window.CART_STORAGE_KEY, JSON.stringify(userShoppingCart));
                 updateCartBadge();
                 initCart();
                 showToastNotification(`${productInfo.title} removed from cart.`);
@@ -249,7 +253,7 @@ function processCheckout() {
     }
 
     userShoppingCart = userShoppingCart.filter((cartItem) => !cartItem.isSelectedForOrder);
-    localStorage.setItem("unlimitedPageCart", JSON.stringify(userShoppingCart));
+    localStorage.setItem(window.CART_STORAGE_KEY, JSON.stringify(userShoppingCart));
 
     isPromoApplied = false;
     currentPromoDiscount = 0;
