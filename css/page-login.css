@@ -1,0 +1,178 @@
+/* ==========================================================================
+    LOGIN PAGE STYLES
+   ========================================================================== */
+
+.login-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    padding: 60px 20px;
+}
+
+.login-form-card {
+    background-color: var(--surface-white-color);
+    border: 1px solid var(--border-light-color);
+    border-radius: 16px; /* Increased rounding to match mockup */
+    padding: 50px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04); /* Softer, broader shadow */
+    text-align: center;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-dark-color);
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    color: var(--text-muted-color);
+    margin-bottom: 35px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    text-align: left;
+}
+
+.login-form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark-color);
+    margin-bottom: 8px;
+}
+
+/* Override standard form inputs to match the mockup's filled style */
+.login-form .form-input {
+    width: 100%;
+    background-color: #f1f5f9; /* Solid light grey background */
+    border: 1px solid transparent; /* Hidden border initially */
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--text-dark-color);
+    transition: all 0.2s ease;
+}
+
+.login-form .form-input::placeholder {
+    color: #94a3b8;
+}
+
+.login-form .form-input:focus {
+    background-color: var(--surface-white-color);
+    border-color: var(--primary-blue-color);
+    box-shadow: 0 0 0 3px rgba(19, 127, 236, 0.1);
+    outline: none;
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper .form-input {
+    padding-right: 45px; /* Make room for the eye icon */
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 15px;
+    color: var(--text-muted-color);
+    cursor: pointer;
+    font-size: 20px;
+    transition: color 0.2s;
+}
+
+.password-toggle-icon:hover {
+    color: var(--text-dark-color);
+}
+
+.login-submit-button {
+    background-color: var(--primary-blue-color);
+    color: var(--surface-white-color);
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 5px;
+}
+
+.login-submit-button:hover {
+    background-color: var(--primary-blue-hover);
+}
+
+.login-submit-button:active {
+    transform: scale(0.98);
+}
+
+/* Divider with lines */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--border-light-color);
+}
+
+.auth-divider::before {
+    margin-right: 15px;
+}
+
+.auth-divider::after {
+    margin-left: 15px;
+}
+
+/* Google Button */
+.google-login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    background-color: var(--surface-white-color);
+    color: var(--text-dark-color);
+    border: 1px solid var(--border-light-color);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.google-login-button:hover {
+    background-color: var(--background-light-color);
+    border-color: #cbd5e1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-form-card {
+        padding: 40px 20px;
+    }
+    .login-title {
+        font-size: 24px;
+    }
+}

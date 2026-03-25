@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unlimited Page - Login</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="css/global-variables.css" />
+    <link rel="stylesheet" href="css/layout-structure.css" />
+    <link rel="stylesheet" href="css/user-interface-components.css" />
+    <link rel="stylesheet" href="css/page-login.css" />
+</head>
+
+<body>
+    <header class="main-navigation-header">
+        <div class="navigation-top-row">
+            <div class="header-logo-section">
+                <a href="index.html" class="brand-logo-container">
+                    <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image" />
+                    Unlimited Page
+                </a>
+            </div>
+
+            <div class="search-and-actions-container">
+                <div class="search-input-wrapper">
+                    <span class="material-icons-outlined search-input-icon">search</span>
+                    <input type="text" class="search-input-field" placeholder="Search" />
+                </div>
+                <a href="cart.html" class="shopping-cart-button">
+                    <img src="images/header-cart-icon.png" alt="Cart"
+                        style="width: 24px; height: 24px; object-fit: contain;" />
+                    <span class="cart-item-count-badge" id="global-cart-badge">0</span>
+                </a>
+                <a href="login.html" class="account-button">
+                    <img src="images/account-icon.png" alt="Account"
+                        style="width: 24px; height: 24px; object-fit: contain;" />
+                </a>
+                <span class="header-user-name">Guest</span>
+            </div>
+            <div class="header-spacer-section"></div>
+        </div>
+
+        <nav class="navigation-bottom-row">
+            <a href="index.html">Home</a>
+            <a href="catalog.html?category=Books">Books</a>
+            <a href="catalog.html?category=Stationery">Stationery</a>
+            <a href="request-book.html">Request a Book</a>
+            <a href="sell-book.html">Sell Your Book</a>
+        </nav>
+    </header>
+
+    <main class="login-page-container">
+        <div class="login-form-card">
+            <h1 class="login-title">Welcome to Unlimited Page</h1>
+            <p class="login-subtitle">Please enter your details to access your collection.</p>
+
+            <form id="login-form" class="login-form">
+                <div class="form-input-group">
+                    <label class="login-form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter your email"
+                        oninput="this.value = this.value.toLowerCase()" required />
+                </div>
+
+                <div class="form-input-group">
+                    <label class="login-form-label">Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="login-password-input" class="form-input"
+                            placeholder="Enter your password" required />
+                        <span class="material-icons-outlined password-toggle-icon"
+                            id="password-toggle-icon">visibility</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-submit-button">Log In</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="main-footer-container">
+        <div class="footer-columns-wrapper">
+            <div>
+                <a href="index.html" class="brand-logo-container" style="margin-bottom: 10px">
+                    <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image" />
+                    Unlimited Page
+                </a>
+                <p class="footer-brand-description">
+                    Fueling the minds of tomorrow. Unlimited Page was born from a simple idea: academic knowledge should
+                    be boundless and accessible to everyone.
+                </p>
+            </div>
+            <div>
+                <h4 class="footer-column-title">About UnlimitedPage</h4>
+                <ul class="footer-link-list">
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title">Customer Service</h4>
+                <ul class="footer-link-list">
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title" style="text-align: center;">Payment Methods</h4>
+                <div class="payment-methods-grid">
+                    <img src="images/payment-method/gcash-logo.jpg" alt="GCash" class="payment-logo-image" />
+                    <img src="images/payment-method/maya-logo.jpg" alt="Maya" class="payment-logo-image" />
+                    <img src="images/payment-method/visa-logo.jpg" alt="Visa" class="payment-logo-image" />
+                    <img src="images/payment-method/mastercard-logo.jpg" alt="Mastercard" class="payment-logo-image" />
+                    <img src="images/payment-method/cash-on-delivery-logo.jpg" alt="Cash on Delivery"
+                        class="payment-logo-image" />
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Unlimited Page. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/product-data.js"></script>
+    <script src="js/user-interface-utilities.js"></script>
+    <script src="js/shopping-cart-manager.js"></script>
+    <script src="js/auth-handler.js"></script>
+    <script src="js/main-initialization.js"></script>
+</body>
+
+</html>
