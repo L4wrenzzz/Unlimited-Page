@@ -84,7 +84,11 @@ function manualDetailQuantityUpdate(val) {
 
 function addBulkQuantityToCart(productId, quantityToAdd) {
     const productToAdd = productDatabase.find(item => item.id === productId);
-    let existingCart = JSON.parse(localStorage.getItem("unlimitedPageCart")) || [];
+    
+    // Use the dynamic cart key, defaulting to guest if not found
+    let cartKey = window.CART_STORAGE_KEY || "unlimitedPageCart_guest";
+    let existingCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+    
     let cartItemIndex = existingCart.findIndex(item => item.id === productId);
 
     if (cartItemIndex > -1) {
@@ -110,7 +114,8 @@ function addBulkQuantityToCart(productId, quantityToAdd) {
         showToastNotification(`${quantityToAdd}x ${productToAdd.title} added to your cart!`);
     }
 
-    localStorage.setItem("unlimitedPageCart", JSON.stringify(existingCart));
+    // Save using the dynamic user key
+    localStorage.setItem(cartKey, JSON.stringify(existingCart));
     
     if (typeof updateCartBadge === "function") {
         userShoppingCart = existingCart;
