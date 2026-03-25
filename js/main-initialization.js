@@ -95,16 +95,48 @@ function initHomepage() {
     renderProductCards("stationery-grid", stationeryListArray);
 }
 
+function updateHeaderAccount() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const currentUserEmail = localStorage.getItem("unlimitedPage_CurrentUser");
+    const usersDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    
+    let displayName = "Guest";
+    
+    if (isLoggedIn && currentUserEmail && usersDatabase[currentUserEmail]) {
+        displayName = usersDatabase[currentUserEmail].name || "User";
+    }
+    
+    // Limit to exactly 16 characters
+    if (displayName.length > 16) {
+        displayName = displayName.substring(0, 16);
+    }
+    
+    // 1. Update the account button links
+    const accountButtonsList = document.querySelectorAll(".account-button");
+    accountButtonsList.forEach(button => {
+        button.href = isLoggedIn ? "account.html" : "login.html";
+    });
+
+    // 2. Update the separate name text spans directly
+    const nameSpansList = document.querySelectorAll(".header-user-name");
+    nameSpansList.forEach(span => {
+        span.textContent = displayName;
+    });
+}
+
 /**
  * Event Listener waiting for the HTML document to fully parse before executing scripts.
  * This is a fundamental best practice to avoid trying to manipulate elements that don't exist yet.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    updateCartBadge(); // Initialize cart icon number
-    setupGlobalSearch(); // Attach listener to the search bar
-    initCarousel(); // Setup hero banner sliding logic
-    initHomepage(); // Populate homepage grids if they exist
-    initCatalog(); // Setup catalog filtering and pagination if on catalog page
-    initCart(); // Render cart items if on cart page
-    setupMobileCheckoutObserver(); // Handle sticky mobile checkout bar behavior
+    // We add 'typeof' checks so the script doesn't crash on pages that don't have these functions!
+    if (typeof updateCartBadge === "function") updateCartBadge(); 
+    if (typeof setupGlobalSearch === "function") setupGlobalSearch(); 
+    if (typeof initCarousel === "function") initCarousel(); 
+    if (typeof initHomepage === "function") initHomepage(); 
+    if (typeof initCatalog === "function") initCatalog(); 
+    if (typeof initCart === "function") initCart(); 
+    if (typeof setupMobileCheckoutObserver === "function") setupMobileCheckoutObserver(); 
+    
+    updateHeaderAccount(); // Now this will successfully run on every page!
 });
