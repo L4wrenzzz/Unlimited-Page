@@ -53,7 +53,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Pushes the entire block down to balance with image */
 }
 
 .detail-title {
@@ -105,7 +104,6 @@
     color: var(--text-dark-color);
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-light-color);
 }
 
 /* Actions */
@@ -161,8 +159,10 @@
 .action-buttons-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 15px;
 }
 
+/* FIXED BUTTON COLORS */
 .btn-add-cart,
 .btn-buy-now {
     padding: 10px 20px;
@@ -181,21 +181,21 @@
 }
 
 .btn-add-cart {
-    background-color: var(--primary-blue-color);
-    color: white;
+    background-color: #dbeafe; /* Light Blue */
+    color: var(--primary-blue-color);
 }
 
 .btn-add-cart:hover {
-    background-color: var(--primary-blue-hover);
+    background-color: #bfdbfe;
 }
 
 .btn-buy-now {
-    background-color: #3700FF;
+    background-color: var(--primary-blue-color); /* Solid Blue */
     color: white;
 }
 
 .btn-buy-now:hover {
-    background-color: #2c01c7;
+    background-color: var(--primary-blue-hover);
 }
 
 /* Full Width About Item Section */
@@ -229,7 +229,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    /* Lowers the button to perfectly align with the bottom of the star score */
     margin-bottom: 20px;
 }
 
@@ -293,25 +292,11 @@
     margin-bottom: 30px;
 }
 
-/* Fixed the animation bug that was causing the modal overlap behavior */
-@keyframes fadeInReviewAnimation {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 .review-card {
     background: white;
     border: 1px solid var(--border-light-color);
     padding: 25px;
     border-radius: 12px;
-    animation: fadeInReviewAnimation 0.4s ease-out;
 }
 
 .review-user-header {
@@ -346,11 +331,41 @@
     margin-left: auto;
 }
 
+/* --- Review Text Truncation --- */
+.review-text-wrapper {
+    margin-bottom: 15px;
+}
+
 .review-text {
     font-size: 13px;
     line-height: 1.6;
     color: var(--text-dark-color);
-    margin-bottom: 15px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    margin-bottom: 0;
+}
+
+.review-text.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit text to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.see-more-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted-color);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 5px;
+    text-decoration: underline;
+}
+
+.see-more-btn:hover {
+    color: var(--primary-blue-color);
 }
 
 .btn-helpful {
@@ -412,6 +427,22 @@
     border-color: var(--primary-blue-color);
     background-color: var(--surface-white-color);
     box-shadow: 0 0 0 3px rgba(19, 127, 236, 0.1);
+}
+
+.submit-review-button {
+    background-color: var(--primary-blue-color);
+    color: var(--surface-white-color);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-review-button:hover {
+    background-color: var(--primary-blue-hover);
 }
 
 /* --- OVERRIDE: Related Products Grid --- */
