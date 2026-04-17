@@ -163,7 +163,7 @@ function applyFiltersAndRender() {
     if (!isNaN(minPriceLimit)) filteredDatabase = filteredDatabase.filter(item => item.price >= minPriceLimit);
     if (!isNaN(maxPriceLimit)) filteredDatabase = filteredDatabase.filter(item => item.price <= maxPriceLimit);
 
-    const sortOption = document.getElementById("catalog-sort-select")?.value || "Most Sold";
+    const sortOption = document.getElementById("catalog-sort-select")?.value || "Most Popular";
 
     if (sortOption === "Name: A to Z") {
         filteredDatabase.sort((itemA, itemB) => itemA.title.localeCompare(itemB.title));
