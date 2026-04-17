@@ -26,14 +26,14 @@
     font-size: 36px;
     font-weight: 800;
     color: var(--text-dark-color);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     letter-spacing: 1px;
 }
 
 .contact-subtitle-text {
     font-size: 16px;
     color: var(--text-muted-color);
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .contact-detail-label {
@@ -53,19 +53,12 @@
 .contact-email-section {
     font-size: 16px;
     color: var(--text-muted-color);
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
-.contact-email-link {
+.contact-email-text {
     color: var(--primary-blue-color);
-    text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.contact-email-link:hover {
-    color: var(--primary-blue-hover);
-    text-decoration: underline;
 }
 
 /* --- Responsive Layout --- */
