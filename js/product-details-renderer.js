@@ -222,7 +222,7 @@ function initReviewSystem() {
 
         const newReview = {
             id: 'rev_' + Date.now(),
-            userEmail: currentUserEmail, // Link review to the account email to stay perfectly synced
+            userEmail: currentUserEmail, 
             name: finalName,
             initials: initials,
             avatar: userAvatar, 
@@ -273,12 +273,21 @@ function getStarsHTML(ratingAmount, fontSize = 16) {
     `;
 }
 
-function toggleReviewLike(reviewId) {
+function toggleReviewLike(reviewId, buttonElement) {
     const reviewToUpdate = currentProductReviews.find(r => r.id === reviewId);
     if (reviewToUpdate) {
+        // Update data silently
         reviewToUpdate.liked = !reviewToUpdate.liked;
         localStorage.setItem(`unlimitedPageReviews_${currentProductId}`, JSON.stringify(currentProductReviews));
-        renderReviewsList();
+        
+        // Update DOM element directly to preserve the "See more" state
+        if (reviewToUpdate.liked) {
+            buttonElement.classList.add('liked');
+            buttonElement.innerHTML = '<span class="material-icons-outlined">thumb_up</span> 1';
+        } else {
+            buttonElement.classList.remove('liked');
+            buttonElement.innerHTML = '<span class="material-icons-outlined">thumb_up</span> 0';
+        }
     }
 }
 
@@ -368,7 +377,7 @@ function renderReviewsList() {
     } else {
         gridContainer.style.display = "grid"; 
         
-        // Fetch the users database once to sync avatars dynamically
+        // Fetch the users database once to sync avatars/names dynamically
         const usersDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
         
         gridContainer.innerHTML = paginatedReviews.map(r => {
@@ -377,8 +386,10 @@ function renderReviewsList() {
             
             const isLongText = r.text.length > 140;
             
-            // DYNAMIC AVATAR SYNC LOGIC
+            // DYNAMIC NAME & AVATAR SYNC LOGIC
             let currentAvatar = r.avatar;
+            let currentName = r.name;
+            let currentInitials = r.initials;
             let matchingUser = null;
             
             // Check if the review is linked to an email, otherwise try to match by name (for older reviews)
@@ -388,23 +399,30 @@ function renderReviewsList() {
                 matchingUser = Object.values(usersDatabase).find(u => u.name === r.name);
             }
             
-            // Apply the user's latest avatar if it exists
-            if (matchingUser && matchingUser.avatar) {
-                currentAvatar = matchingUser.avatar;
+            // Apply the user's latest avatar, name, and initials if they exist in the DB
+            if (matchingUser) {
+                if (matchingUser.avatar) {
+                    currentAvatar = matchingUser.avatar;
+                }
+                if (matchingUser.name) {
+                    currentName = matchingUser.name;
+                    currentInitials = currentName.substring(0, 2).toUpperCase();
+                }
             }
             
             // Render initials by default, unless there is a custom image
-            let avatarDisplayHTML = r.initials;
+            let avatarDisplayHTML = currentInitials;
             if (currentAvatar && currentAvatar !== "images/userProfile.png") {
-                avatarDisplayHTML = `<img src="${currentAvatar}" alt="${r.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                avatarDisplayHTML = `<img src="${currentAvatar}" alt="${currentName}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
             }
             
+            // Note we pass `this` to toggleReviewLike so it only updates the clicked button!
             return `
             <article class="review-card">
                 <div class="review-user-header">
                     <div class="avatar" style="background-color: #f1f5f9; color: var(--text-dark-color);">${avatarDisplayHTML}</div>
                     <div class="user-meta">
-                        <h4>${r.name}</h4>
+                        <h4>${currentName}</h4>
                         <span>${formattedTime}</span>
                     </div>
                     <div class="review-stars">${getStarsHTML(r.rating, 14)}</div>
@@ -415,7 +433,7 @@ function renderReviewsList() {
                     ${isLongText ? `<button class="see-more-btn" onclick="toggleReviewText(this, '${r.id}')">See more</button>` : ''}
                 </div>
                 
-                <button class="btn-helpful ${r.liked ? 'liked' : ''}" onclick="toggleReviewLike('${r.id}')">
+                <button class="btn-helpful ${r.liked ? 'liked' : ''}" onclick="toggleReviewLike('${r.id}', this)">
                     <span class="material-icons-outlined">thumb_up</span> ${r.liked ? 1 : 0}
                 </button>
             </article>
@@ -423,7 +441,6 @@ function renderReviewsList() {
         }).join('');
     }
     
-    // Draw the numbered buttons based on our filtered array
     renderReviewPagination(totalFilteredReviews);
 }
 
