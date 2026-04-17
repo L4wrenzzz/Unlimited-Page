@@ -129,7 +129,29 @@ function updateHeaderAccount() {
  * This is a fundamental best practice to avoid trying to manipulate elements that don't exist yet.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    // We add 'typeof' checks so the script doesn't crash on pages that don't have these functions!
+    // --- GLOBAL ROUTE PROTECTION (Security Guard) ---
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    
+    // Safely get the current filename without URL parameters
+    const pathArray = window.location.pathname.split("/");
+    let currentFileName = pathArray[pathArray.length - 1].split("?")[0];
+    
+    // Added "cart.html" to the list of protected pages
+    const protectedPages = ["account.html", "request-book.html", "sell-book.html", "cart.html"];
+    
+    // If user tries to access a protected page while logged out
+    if (protectedPages.includes(currentFileName) && !isLoggedIn) {
+        window.location.href = "login.html";
+        return; // Stop initialization
+    }
+
+    // If user is already logged in, they shouldn't see the login page
+    if (currentFileName === "login.html" && isLoggedIn) {
+        window.location.href = "account.html";
+        return;
+    }
+
+    // --- INITIALIZE ALL COMPONENTS ---
     if (typeof updateCartBadge === "function") updateCartBadge(); 
     if (typeof setupGlobalSearch === "function") setupGlobalSearch(); 
     if (typeof initCarousel === "function") initCarousel(); 
