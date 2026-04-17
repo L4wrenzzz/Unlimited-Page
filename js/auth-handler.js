@@ -7,19 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- DATABASE MOCK ---
     let usersDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     let currentUserEmail = localStorage.getItem("unlimitedPage_CurrentUser");
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-    // --- ROUTE PROTECTION (Security Guard) ---
-    // Prevent logged-out users from seeing the account page, and logged-in users from seeing the login page
-    const currentFileName = window.location.pathname.split("/").pop();
-    if (currentFileName === "account.html" && !isLoggedIn) {
-        window.location.href = "login.html";
-        return; // Stop executing the rest of the script
-    }
-    if (currentFileName === "login.html" && isLoggedIn) {
-        window.location.href = "account.html";
-        return;
-    }
 
     // --- LOGIN PAGE ELEMENTS ---
     const loginFormElement = document.getElementById("login-form");
