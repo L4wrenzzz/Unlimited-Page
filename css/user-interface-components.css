@@ -4,31 +4,6 @@
     and custom modal dialogues.
    ========================================================================== */
 
-/* --- Back to Top Floating Action Button --- */
-/* Fixed to bottom right, hidden by default (toggled via JS on scroll) */
-.back-to-top-button {
-    display: none;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: var(--primary-blue-color);
-    color: var(--surface-white-color);
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 999;
-    transition: background-color 0.3s;
-}
-
-.back-to-top-button:hover {
-    background-color: var(--primary-blue-hover);
-}
-
 /* --- Toast Notification Banner --- */
 /* Transient pop-up messages centered on the screen */
 .custom-notification-toast {
@@ -43,23 +18,10 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     z-index: 3000;
     font-size: 16px;
-    animation: fadeInCenterAnimation 0.3s ease-out;
     cursor: pointer;
     text-align: center;
     width: max-content;
     max-width: 90%;
-}
-
-/* Keyframe animation for making the toast fade and slide into view */
-@keyframes fadeInCenterAnimation {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -40%);
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
 }
 
 /* --- Custom Modal Dialog System --- */
