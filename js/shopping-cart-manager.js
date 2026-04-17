@@ -350,7 +350,7 @@ function initCart() {
                                 <img src="${toggleIcon}" alt="Toggle" style="width: 14px; height: 14px; margin-right: 4px; object-fit: contain;"> ${toggleText}
                             </button>
                             <button class="cart-item-delete-button" onclick="deleteItemFromCart('${productInfo.id}')">
-                                <img src="images/remove-from-cart-icon.png" alt="Delete" style="width: 14px; height: 14px; margin-right: 4px; object-fit: contain;"> Remove from Cart
+                                <img src="images/trash-bin-icon.png" alt="Delete" style="width: 14px; height: 14px; margin-right: 4px; object-fit: contain;"> Remove from Cart
                             </button>
                         </div>
                     </div>
