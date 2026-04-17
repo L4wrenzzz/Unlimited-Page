@@ -208,9 +208,17 @@
     font-size: 13px;
     outline: none;
     transition: border-color 0.2s;
+    -moz-appearance: textfield; /* Hides arrows in Firefox */
 }
 
 .price-range-input:focus { border-color: var(--primary-blue-color); }
+
+/* Hides arrows in Webkit browsers (Chrome, Safari, Edge) */
+.price-range-input::-webkit-outer-spin-button,
+.price-range-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 .button-apply, .button-reset {
     width: 100%; /* Fills the grid column perfectly */
