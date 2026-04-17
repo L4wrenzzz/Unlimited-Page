@@ -120,7 +120,7 @@
 
 .header-user-name {
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--text-dark-color);
     white-space: nowrap; 
 }
