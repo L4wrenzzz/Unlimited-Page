@@ -53,26 +53,6 @@ function scrollToSummary() {
 }
 
 /**
- * Smoothly scrolls the window back to the very top of the page.
- */
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-// Global Event Listener to toggle the visibility of the "Back to Top" floating button
-window.addEventListener("scroll", () => {
-    const backToTopButton = document.getElementById("back-to-top");
-    if (backToTopButton) {
-        // Show button if scrolled down 300px, otherwise hide it
-        if (window.scrollY > 300) {
-            backToTopButton.style.display = "flex";
-        } else {
-            backToTopButton.style.display = "none";
-        }
-    }
-});
-
-/**
  * Observes scroll position to hide the mobile checkout bar once the
  * actual order summary box comes into view (to avoid overlapping duplicate UI).
  */
