@@ -62,7 +62,7 @@ function addProductToCart(productId) {
             userShoppingCart.splice(existingCartItemIndex, 1);
             userShoppingCart.unshift(existingCartItem);
 
-            showToastNotification(`Increased quantity of ${productToAdd.title} in cart.`);
+            showToastNotification("Item has been added to your shopping cart");
         } else {
             showToastNotification("Maximum stock reached.");
         }
@@ -72,7 +72,7 @@ function addProductToCart(productId) {
             quantity: 1,
             isSelectedForOrder: true,
         });
-        showToastNotification(`${productToAdd.title} has been added to your cart!`);
+        showToastNotification("Item has been added to your shopping cart");
     }
 
     localStorage.setItem(window.CART_STORAGE_KEY, JSON.stringify(userShoppingCart));
