@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unlimited Page - Addresses</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="css/global-variables.css" />
+    <link rel="stylesheet" href="css/layout-structure.css" />
+    <link rel="stylesheet" href="css/user-interface-components.css" />
+    <link rel="stylesheet" href="css/page-account.css" />
+    <link rel="stylesheet" href="css/page-addresses.css" /> 
+</head>
+<body>
+    <header class="main-navigation-header">
+        <div class="navigation-top-row">
+            <div class="header-logo-section">
+                <a href="index.html" class="brand-logo-container">
+                    <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image" />
+                    Unlimited Page
+                </a>
+            </div>
+            <div class="search-and-icons-group">
+                <div class="search-input-wrapper">
+                    <span class="material-icons-outlined search-input-icon">search</span>
+                    <input type="text" class="search-input-field" placeholder="Search" />
+                </div>
+                <a href="cart.html" class="shopping-cart-button">
+                    <img src="images/header-cart-icon.png" alt="Cart" style="width: 24px; height: 24px; object-fit: contain;" />
+                    <span class="cart-item-count-badge" id="global-cart-badge">0</span>
+                </a>
+                <a href="account.html" class="account-button">
+                    <img src="images/account-icon.png" alt="Account" style="width: 24px; height: 24px; object-fit: contain;" />
+                </a>
+            </div>
+        </div>
+        <nav class="navigation-bottom-row">
+            <a href="index.html">Home</a>
+            <a href="catalog.html?category=Books">Books</a>
+            <a href="catalog.html?category=Stationery">Stationery</a>
+            <a href="request-book.html">Request a Book</a>
+            <a href="sell-book.html">Sell Your Book</a>
+        </nav>
+    </header>
+
+    <main class="account-page-container">
+        <div class="account-layout">
+            <aside class="account-sidebar">
+                <h2 class="sidebar-title">User Settings</h2>
+                <nav class="sidebar-nav">
+                    <a href="account.html" class="sidebar-menu-item">
+                        <img src="images/account-icon.png" alt="Account Details" class="sidebar-icon">
+                        <span>Account Details</span>
+                    </a>
+                    <a href="addresses.html" class="sidebar-menu-item active">
+                        <img src="images/address-icon.png" alt="Addresses" class="sidebar-icon">
+                        <span>Addresses</span>
+                    </a>
+                    <a href="#" class="sidebar-menu-item">
+                        <img src="images/payment-methods-icon.png" alt="Payment Methods" class="sidebar-icon">
+                        <span>Payment Methods</span>
+                    </a>
+                    <a href="#" class="sidebar-menu-item logout-link" id="logout-button">
+                        <img src="images/logout-icon.png" alt="Logout" class="sidebar-icon">
+                        <span>Logout</span>
+                    </a>
+                </nav>
+            </aside>
+    
+            <section class="account-content-area">
+                <div class="addresses-header-row">
+                    <div class="account-header">
+                        <h1 class="account-title">Addresses</h1>
+                        <p class="account-subtitle">Manage your billing address</p>
+                    </div>
+                    <button class="add-address-button" onclick="openAddressModal()">
+                        + Add New Address
+                    </button>
+                </div>
+            
+                <div class="addresses-grid" id="addresses-container">
+                    </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer-container">
+        <div class="footer-columns-wrapper">
+            <div>
+                <a href="index.html" class="brand-logo-container" style="margin-bottom: 10px">
+                    <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image" />
+                    Unlimited Page
+                </a>
+                <p class="footer-brand-description">
+                    Unlimited Page was started with a simple goal: making great books and school supplies easy to find
+                    and affordable for everyone.
+                </p>
+            </div>
+            <div>
+                <h4 class="footer-column-title">About UnlimitedPage</h4>
+                <ul class="footer-link-list">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title">Customer Service</h4>
+                <ul class="footer-link-list">
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-column-title" style="text-align: center;">Payment Methods</h4>
+                <div class="payment-methods-grid">
+                    <img src="images/payment-method/gcash-logo.jpg" alt="GCash" class="payment-logo-image" />
+                    <img src="images/payment-method/maya-logo.jpg" alt="Maya" class="payment-logo-image" />
+                    <img src="images/payment-method/visa-logo.jpg" alt="Visa" class="payment-logo-image" />
+                    <img src="images/payment-method/mastercard-logo.jpg" alt="Mastercard" class="payment-logo-image" />
+                    <img src="images/payment-method/cash-on-delivery-logo.jpg" alt="Cash on Delivery"
+                        class="payment-logo-image" />
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Unlimited Page. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="address-modal-overlay" class="custom-modal-overlay" style="display: none;">
+        <div class="custom-modal-box address-modal-box">
+            <div class="modal-header">
+                <h2>Add New Address</h2>
+                <button class="close-modal-icon" onclick="closeAddressModal()">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+
+            <form id="address-form" class="address-form-layout">
+                <div class="form-row-split">
+                    <div class="form-input-group">
+                        <label class="form-label">Address Label</label>
+                        <input type="text" id="addr-label" class="form-input" placeholder="Enter your address label" required />
+                    </div>
+                    <div class="form-input-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" id="addr-phone" class="form-input" placeholder="Enter your phone number" required />
+                    </div>
+                </div>
+
+                <div class="form-input-group">
+                    <label class="form-label">Street Address, Building, House No.</label>
+                    <textarea id="addr-street" class="form-input no-resize-textarea" placeholder="Enter your full street address" required></textarea>
+                </div>
+
+                <div class="form-row-split">
+                    <div class="form-input-group">
+                        <label class="form-label">City</label>
+                        <input type="text" id="addr-city" class="form-input" placeholder="Enter your city" required />
+                    </div>
+                    <div class="form-input-group">
+                        <label class="form-label">State/Province</label>
+                        <input type="text" id="addr-state" class="form-input" placeholder="Enter your state/province" required />
+                    </div>
+                </div>
+
+                <div class="form-input-group half-width-input">
+                    <label class="form-label">Zip Code</label>
+                    <input type="text" id="addr-zip" class="form-input" placeholder="Enter your zip code" required />
+                </div>
+
+                <div class="default-checkbox-wrapper">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="addr-is-default" />
+                        Set as default billing/shipping address
+                    </label>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="cancel-text-button" onclick="closeAddressModal()">Cancel</button>
+                    <button type="submit" class="save-primary-button">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/product-data.js"></script>
+    <script src="js/user-interface-utilities.js"></script>
+    <script src="js/shopping-cart-manager.js"></script>
+    <script src="js/auth-handler.js"></script>
+    <script src="js/main-initialization.js"></script>
+    <script src="js/address-handler.js"></script> 
+</body>
+</html>
