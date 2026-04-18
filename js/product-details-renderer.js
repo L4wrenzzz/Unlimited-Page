@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         const qtyToadd = parseInt(document.getElementById('detail-quantity').value);
-        addBulkQuantityToCart(product.id, qtyToadd);
+        addBulkQuantityToCart(product.id, qtyToadd, false); // Pass false to hide toast
         window.location.href = "cart.html";
     });
 
@@ -93,10 +93,9 @@ function manualDetailQuantityUpdate(val) {
     inputField.value = newVal;
 }
 
-function addBulkQuantityToCart(productId, quantityToAdd) {
+function addBulkQuantityToCart(productId, quantityToAdd, showToast = true) {
     const productToAdd = productDatabase.find(item => item.id === productId);
 
-    // Use the dynamic cart key, defaulting to guest if not found
     let cartKey = window.CART_STORAGE_KEY || "unlimitedPageCart_guest";
     let existingCart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
@@ -112,9 +111,9 @@ function addBulkQuantityToCart(productId, quantityToAdd) {
 
         if (cartItem.quantity > productToAdd.stock) {
             cartItem.quantity = productToAdd.stock;
-            showToastNotification("Maximum stock reached.");
+            if (showToast) showToastNotification("Maximum stock reached.");
         } else {
-            showToastNotification(`Added ${quantityToAdd} more to your cart!`);
+            if (showToast) showToastNotification("Item has been added to your shopping cart");
         }
     } else {
         existingCart.unshift({
@@ -122,10 +121,9 @@ function addBulkQuantityToCart(productId, quantityToAdd) {
             quantity: quantityToAdd,
             isSelectedForOrder: true
         });
-        showToastNotification(`${quantityToAdd}x ${productToAdd.title} added to your cart!`);
+        if (showToast) showToastNotification("Item has been added to your shopping cart");
     }
 
-    // Save using the dynamic user key
     localStorage.setItem(cartKey, JSON.stringify(existingCart));
 
     if (typeof updateCartBadge === "function") {
@@ -243,7 +241,6 @@ function initReviewSystem() {
 
         currentReviewPage = 1;
         renderReviewsList();
-        showToastNotification("Thank you! Your review has been posted.");
     });
 
     const filterTabs = document.querySelectorAll('.filter-tab');
