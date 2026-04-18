@@ -25,10 +25,11 @@
     background-color: var(--primary-blue-hover);
 }
 
+/* Change grid to a single column list */
 .addresses-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
 /* Empty State Styling */
@@ -40,12 +41,12 @@
     font-size: 15px;
 }
 
-/* Address Card Styling */
+/* --- Address Card Styling --- */
 .address-card {
     background-color: var(--surface-white-color);
     border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    padding: 25px 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
     border: 1px solid var(--border-light-color);
     display: flex;
     flex-direction: column;
@@ -62,54 +63,101 @@
     margin-bottom: 20px;
 }
 
-.address-label {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-dark-color);
+/* Grouping for Name | Phone Number */
+.address-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 1;
+    /* Pushes the badge/button to the right */
+    padding-right: 15px;
 }
 
+.address-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark-color);
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.address-separator {
+    color: var(--text-muted-color);
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.address-phone-inline {
+    color: var(--text-muted-color);
+    font-size: 14px;
+}
+
+/* Badges and Interactive Pills */
 .default-badge {
     background-color: #dcfce7;
     color: #16a34a;
     font-size: 11px;
     font-weight: 800;
-    padding: 4px 12px;
-    border-radius: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
     text-transform: uppercase;
+}
+
+.set-default-button {
+    background-color: #f1f5f9;
+    color: var(--text-dark-color);
+    border: 1px solid var(--border-light-color);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.set-default-button:hover {
+    background-color: #e2e8f0;
+}
+
+/* Bottom section separating details (left) from actions (right) */
+.address-body-actions-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 .address-details {
     color: var(--text-muted-color);
     font-size: 14px;
     line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-.address-phone {
-    color: var(--text-muted-color);
-    font-size: 13px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-light-color);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 75%;
 }
 
 .address-actions {
     display: flex;
-    justify-content: space-between;
-    margin-top: auto;
+    gap: 20px;
 }
 
 .address-actions button {
     background: none;
     border: none;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
     text-transform: uppercase;
 }
 
-.btn-edit { color: var(--primary-blue-color); }
-.btn-delete { color: var(--danger-red-color); }
+.button-edit {
+    color: var(--primary-blue-color);
+}
+
+.button-delete {
+    color: var(--danger-red-color);
+}
+
 
 /* --- Modal Styling --- */
 .address-modal-box {
@@ -142,7 +190,8 @@
 .address-form-layout {
     display: flex;
     flex-direction: column;
-    gap: 16px; /* Tighter gap to keep modal compact */
+    gap: 16px;
+    /* Tighter gap to keep modal compact */
 }
 
 /* 2-Column Grid for Address Rows */
@@ -154,7 +203,7 @@
 
 /* Limit Zip Code to match the left column */
 .half-width-input {
-    width: calc(50% - 8px); 
+    width: calc(50% - 8px);
 }
 
 .form-label {
@@ -188,7 +237,8 @@
 .no-resize-textarea {
     resize: none;
     overflow-y: auto;
-    height: 80px; /* Fixed height to prevent modal from getting too long */
+    height: 80px;
+    /* Fixed height to prevent modal from getting too long */
     font-family: inherit;
 }
 
@@ -227,8 +277,8 @@
     cursor: pointer;
 }
 
-.cancel-text-button:hover { 
-    color: var(--text-dark-color); 
+.cancel-text-button:hover {
+    color: var(--text-dark-color);
 }
 
 .save-primary-button {
@@ -247,15 +297,35 @@
     background-color: var(--primary-blue-hover);
 }
 
-/* Mobile Responsiveness for Modal */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
+
+    /* Address Card Mobile Fixes */
+    .address-body-actions-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .address-details {
+        max-width: 100%;
+    }
+
+    .address-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    /* Modal Mobile Fixes */
     .address-modal-box {
         padding: 25px 20px;
     }
+
     .form-row-split {
         grid-template-columns: 1fr;
         gap: 16px;
     }
+
     .half-width-input {
         width: 100%;
     }
