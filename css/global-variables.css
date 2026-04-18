@@ -56,6 +56,16 @@ ul {
     list-style: none;
 }
 
+/* Fix WebKit autofill default blue background */
+.form-input:-webkit-autofill,
+.form-input:-webkit-autofill:hover, 
+.form-input:-webkit-autofill:focus, 
+.form-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--surface-white-color) inset !important;
+    -webkit-text-fill-color: var(--text-dark-color) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 /* Mobile responsive adjustment for the body */
 @media (max-width: 768px) {
     body {
