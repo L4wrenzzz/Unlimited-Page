@@ -3,13 +3,96 @@
    ========================================================================== */
 
 .account-page-container {
-    max-width: 900px;
+    max-width: 1200px;
+    /* Widened to fit the sidebar */
     margin: 60px auto 100px;
     padding: 0 20px;
 }
 
+/* New Layout wrapper to sit sidebar and content side-by-side */
+.account-layout {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+/* --- Sidebar Styles --- */
+.account-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+}
+
+.sidebar-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark-color);
+    margin-bottom: 25px;
+    padding-left: 20px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    color: var(--text-dark-color);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.sidebar-menu-item:hover {
+    background-color: var(--surface-white-color);
+}
+
+/* The Active State (White bg, blue text, blue left bar) */
+.sidebar-menu-item.active {
+    background-color: var(--surface-white-color);
+    color: var(--primary-blue-color);
+}
+
+.sidebar-menu-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 5px;
+    background-color: var(--primary-blue-color);
+    border-radius: 0 4px 4px 0;
+}
+
+/* Logout link specifics */
+.sidebar-menu-item.logout-link {
+    color: var(--danger-red-color);
+    margin-top: 15px;
+}
+
+/* --- Content Area --- */
+.account-content-area {
+    flex-grow: 1;
+    max-width: 700px;
+    /* Keeps inputs slightly smaller by restricting the width */
+}
+
 .account-header {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .account-title {
@@ -24,36 +107,97 @@
     color: var(--text-muted-color);
 }
 
-/* Profile Photo Section */
+/* --- Form Layout --- */
+.account-form-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* 1. Top Row */
+.form-row-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    /* Vertically centers the photo with the inputs */
+}
+
+.top-inputs-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.top-photo-column {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* 2. Middle Row */
+.form-row-middle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+/* 3. Bottom Row */
+.form-row-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: flex-end;
+    /* Aligns the button with the bottom of the DOB input */
+}
+
+.bottom-left-inputs {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.dob-group {
+    flex: 1.2;
+}
+
+.gender-group {
+    flex: 1;
+}
+
+.bottom-right-action {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- Profile Photo Section --- */
 .profile-photo-section {
     display: flex;
     align-items: center;
-    gap: 30px;
-    margin-bottom: 40px;
+    gap: 20px;
 }
 
 .profile-avatar-placeholder {
-    width: 120px;
-    height: 120px;
-    background-color: #f1f5f9; /* Light background behind image */
+    width: 100px;
+    height: 100px;
+    background-color: #f1f5f9;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     border: 1px solid var(--border-light-color);
+    flex-shrink: 0;
 }
 
 .profile-photo-details h3 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     margin-bottom: 5px;
 }
 
 .profile-photo-details p {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-muted-color);
-    margin-bottom: 15px;
     line-height: 1.5;
 }
 
@@ -61,9 +205,9 @@
     background-color: #e2e8f0;
     color: var(--text-dark-color);
     border: none;
-    padding: 10px 18px;
+    padding: 8px 16px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -73,14 +217,7 @@
     background-color: #cbd5e1;
 }
 
-/* Form Grid */
-.account-form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px 40px;
-    margin-bottom: 50px;
-}
-
+/* --- Form Inputs --- */
 .account-form-label {
     display: block;
     font-size: 13px;
@@ -89,82 +226,70 @@
     margin-bottom: 8px;
 }
 
-/* Styled inputs to match the mockup */
-.account-form-grid .form-input {
+.form-input {
     width: 100%;
     background-color: var(--surface-white-color);
     border: 1px solid var(--border-light-color);
     border-radius: 8px;
-    padding: 14px 16px;
+    padding: 12px 16px;
     font-size: 14px;
     color: var(--text-dark-color);
     transition: all 0.2s ease;
 }
 
-.account-form-grid .form-input::placeholder {
+.form-input::placeholder {
     color: #94a3b8;
 }
 
-.account-form-grid .form-input:focus {
+.form-input:focus {
     background-color: var(--surface-white-color);
     border-color: var(--primary-blue-color);
     box-shadow: 0 0 0 3px rgba(19, 127, 236, 0.1);
     outline: none;
 }
 
-/* Gender Radio Buttons */
+/* --- DOB & Gender Side-by-Side --- */
+.dob-gender-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
 .gender-selection-group {
     display: flex;
-    gap: 30px;
-    margin-top: 15px;
+    gap: 20px;
 }
 
 .gender-radio-label {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 15px;
+    gap: 8px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
 }
 
 .gender-radio-input {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     accent-color: var(--text-dark-color);
     cursor: pointer;
 }
 
-/* Action Buttons */
+/* --- Action Button --- */
 .account-action-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-light-color);
-}
-
-.logout-button {
-    background-color: transparent;
-    color: var(--danger-red-color);
-    border: 1px solid var(--danger-red-color);
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.logout-button:hover {
-    background-color: #fef2f2;
+    padding-top: 10px;
+    /* Divider removed completely! */
 }
 
 .save-profile-button {
     background-color: transparent;
-    color: var(--success-green-color);
-    border: 1px solid var(--success-green-color);
-    padding: 12px 30px;
+    color: var(--primary-blue-color);
+    border: 1px solid var(--primary-blue-color);
+    padding: 15px 15px;
     border-radius: 8px;
     font-weight: 700;
     font-size: 14px;
@@ -173,9 +298,10 @@
 }
 
 .save-profile-button:hover {
-    background-color: #f0fdf4;
+    background-color: #eff6ff;
 }
 
+/* --- Password Toggle --- */
 .password-input-wrapper {
     position: relative;
     display: flex;
@@ -199,15 +325,38 @@
     color: var(--text-dark-color);
 }
 
-/* Responsive */
+/* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
-    .account-form-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .profile-photo-section {
+    .account-layout {
         flex-direction: column;
-        text-align: center;
+        gap: 30px;
+    }
+
+    .form-row-top,
+    .form-row-middle,
+    .form-row-bottom {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .top-photo-column {
+        order: -1;
+        /* Pushes the profile photo to the very top on mobile */
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .bottom-left-inputs {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .bottom-right-action {
+        justify-content: stretch;
+    }
+
+    .save-profile-button {
+        width: 100%;
+        /* Makes button full width on mobile */
     }
 }

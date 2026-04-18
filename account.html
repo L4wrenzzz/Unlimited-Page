@@ -49,82 +49,121 @@
     </header>
 
     <main class="account-page-container">
-        <div class="account-header">
-            <h1 class="account-title">Account Profile</h1>
-            <p class="account-subtitle">Manage your personal information.</p>
+        <div class="account-layout">
+
+            <aside class="account-sidebar">
+                <h2 class="sidebar-title">User Settings</h2>
+                <nav class="sidebar-nav">
+                    <a href="account.html" class="sidebar-menu-item active">
+                        <img src="images/account-icon.png" alt="Account Details" class="sidebar-icon">
+                        <span>Account Details</span>
+                    </a>
+
+                    <a href="addresses.html" class="sidebar-menu-item">
+                        <img src="images/address-icon.png" alt="Addresses" class="sidebar-icon">
+                        <span>Addresses</span>
+                    </a>
+                    <a href="#" class="sidebar-menu-item">
+                        <img src="images/payment-methods-icon.png" alt="Payment Methods" class="sidebar-icon">
+                        <span>Payment Methods</span>
+                    </a>
+
+                    <a href="#" class="sidebar-menu-item logout-link" id="logout-button">
+                        <img src="images/logout-icon.png" alt="Logout" class="sidebar-icon">
+                        <span>Logout</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="account-content-area">
+                <div class="account-header">
+                    <h1 class="account-title">Account Details</h1>
+                    <p class="account-subtitle">Manage your personal information.</p>
+                </div>
+
+                <form id="account-form" class="account-form-layout">
+
+                    <div class="form-row-top">
+                        <div class="top-inputs-column">
+                            <div class="form-input-group">
+                                <label class="account-form-label">Name</label>
+                                <input type="text" id="account-name" class="form-input" placeholder="Enter your name"
+                                    maxlength="16" />
+                            </div>
+                            <div class="form-input-group">
+                                <label class="account-form-label">Password</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="account-password" class="form-input"
+                                        placeholder="**********" />
+                                    <span class="material-icons-outlined password-toggle-icon"
+                                        id="account-password-toggle-icon">visibility</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="top-photo-column">
+                            <section class="profile-photo-section">
+                                <div class="profile-avatar-placeholder">
+                                    <img id="profile-image-preview" src="images/userProfile.png" alt="Profile Photo"
+                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div class="profile-photo-details">
+                                    <h3>Profile Photo</h3>
+                                    <p style="margin-bottom: 10px;">File size: 1MB<br>Supported formats: JPG, PNG.</p>
+                                    <input type="file" id="profile-image-upload" accept="image/png, image/jpeg"
+                                        style="display: none;">
+                                    <button type="button" class="upload-image-button"
+                                        onclick="document.getElementById('profile-image-upload').click()">Upload
+                                        Image</button>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="form-row-middle">
+                        <div class="form-input-group">
+                            <label class="account-form-label">Email</label>
+                            <input type="email" id="account-email" class="form-input" placeholder="Enter your email"
+                                oninput="this.value = this.value.toLowerCase()" />
+                        </div>
+                        <div class="form-input-group">
+                            <label class="account-form-label">Phone Number</label>
+                            <input type="tel" id="account-phone-number" class="form-input"
+                                placeholder="Enter your phone number" />
+                        </div>
+                    </div>
+
+                    <div class="form-row-bottom">
+                        <div class="bottom-left-inputs">
+                            <div class="form-input-group dob-group">
+                                <label class="account-form-label">Date of Birth</label>
+                                <input type="text" id="account-date-of-birth" class="form-input"
+                                    placeholder="mm/dd/yyyy" />
+                            </div>
+                            <div class="form-input-group gender-group">
+                                <label class="account-form-label">Gender</label>
+                                <div class="gender-selection-group" style="margin-top: 10px;">
+                                    <label class="gender-radio-label">
+                                        <input type="radio" name="gender" value="male" id="account-gender-male"
+                                            class="gender-radio-input" /> Male
+                                    </label>
+                                    <label class="gender-radio-label">
+                                        <input type="radio" name="gender" value="female" id="account-gender-female"
+                                            class="gender-radio-input" /> Female
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bottom-right-action">
+                            <button type="submit" class="save-profile-button" id="save-profile-button">Save
+                                Changes</button>
+                        </div>
+                    </div>
+
+                </form>
+            </section>
         </div>
-
-        <section class="profile-photo-section">
-            <div class="profile-avatar-placeholder">
-                <img id="profile-image-preview" src="images/userProfile.png" alt="Profile Photo"
-                    style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="profile-photo-details">
-                <h3>Profile Photo</h3>
-                <p>File size: 1MB<br>Supported formats: JPG, PNG.</p>
-                <input type="file" id="profile-image-upload" accept="image/png, image/jpeg" style="display: none;">
-                <button type="button" class="upload-image-button"
-                    onclick="document.getElementById('profile-image-upload').click()">Upload Image</button>
-            </div>
-        </section>
-
-        <form id="account-form">
-            <div class="account-form-grid">
-                <div class="form-input-group">
-                    <label class="account-form-label">Name</label>
-                    <input type="text" id="account-name" class="form-input" placeholder="Enter your name"
-                        maxlength="16" />
-                </div>
-
-                <div class="form-input-group">
-                    <label class="account-form-label">Password</label>
-                    <div class="password-input-wrapper">
-                        <input type="password" id="account-password" class="form-input"
-                            placeholder="Enter your password" />
-                        <span class="material-icons-outlined password-toggle-icon"
-                            id="account-password-toggle-icon">visibility</span>
-                    </div>
-                </div>
-
-                <div class="form-input-group">
-                    <label class="account-form-label">Email</label>
-                    <input type="email" id="account-email" class="form-input" placeholder="Enter your email"
-                        oninput="this.value = this.value.toLowerCase()" />
-                </div>
-
-                <div class="form-input-group">
-                    <label class="account-form-label">Phone Number</label>
-                    <input type="tel" id="account-phone-number" class="form-input"
-                        placeholder="Enter your phone number" />
-                </div>
-
-                <div class="form-input-group">
-                    <label class="account-form-label">Date of Birth</label>
-                    <input type="text" id="account-date-of-birth" class="form-input" placeholder="mm/dd/yyyy" />
-                </div>
-
-                <div class="form-input-group">
-                    <label class="account-form-label">Gender</label>
-                    <div class="gender-selection-group">
-                        <label class="gender-radio-label">
-                            <input type="radio" name="gender" value="male" id="account-gender-male"
-                                class="gender-radio-input" />
-                            Male
-                        </label>
-                        <label class="gender-radio-label">
-                            <input type="radio" name="gender" value="female" id="account-gender-female"
-                                class="gender-radio-input" />
-                            Female
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="account-action-row">
-                <button type="button" class="logout-button" id="logout-button">Logout</button>
-                <button type="submit" class="save-profile-button" id="save-profile-button">Save Changes</button>
-            </div>
-        </form>
     </main>
 
     <footer class="main-footer-container">
