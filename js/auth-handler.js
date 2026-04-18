@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (usersDatabase[emailValue]) {
                 if (usersDatabase[emailValue].password === passwordValue) {
-                    processAuthenticationSuccess(emailValue, "Logging in...");
+                    processAuthenticationSuccess(emailValue, "Logging in");
                 } else {
                     showToastNotification("Incorrect password. Please try again.");
                 }
@@ -101,7 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (usersDatabase[emailValue]) {
                 showToastNotification("Email is already registered. Please Log In.");
             } else {
-                const namePrefixString = emailValue.split('@')[0].substring(0, 16); 
+                // Remove any numbers or symbols from the generated name
+                let namePrefixString = emailValue.split('@')[0].replace(/[^a-zA-Z\s]/g, '').substring(0, 16); 
+                if(!namePrefixString) namePrefixString = "User"; // Fallback if email was purely numbers
+
                 usersDatabase[emailValue] = {
                     email: emailValue,
                     password: passwordValue,
@@ -112,8 +115,39 @@ document.addEventListener("DOMContentLoaded", () => {
                     avatar: "images/userProfile.png"
                 };
                 localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
-                processAuthenticationSuccess(emailValue, "Account created successfully! Logging in...");
+                processAuthenticationSuccess(emailValue, ""); // Sent as empty string to hide toast
             }
+        });
+    }
+
+    const nameErrorText = document.getElementById("name-error-text");
+    if (accountNameInput) {
+        
+        // 1. Handle regular typing and pasting
+        accountNameInput.addEventListener("input", function() {
+            // Strip out numbers and symbols
+            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+
+            // Hide the error text if they delete characters and drop below 16
+            if (this.value.length < 16) {
+                if (nameErrorText) nameErrorText.style.display = "none";
+            } else if (this.value.length >= 16) {
+                if (nameErrorText) nameErrorText.style.display = "block";
+            }
+        });
+
+        // 2. Catch them trying to type when it's ALREADY at 16 characters
+        accountNameInput.addEventListener("keydown", function(e) {
+            // e.key.length === 1 ensures we only trigger on actual letters/numbers, 
+            // and NOT control keys like 'Backspace', 'Tab', or 'ArrowLeft'
+            if (this.value.length >= 16 && e.key.length === 1) {
+                if (nameErrorText) nameErrorText.style.display = "block";
+            }
+        });
+
+        // 3. Hide the error text when the user clicks away or clicks the Save button
+        accountNameInput.addEventListener("blur", function() {
+            if (nameErrorText) nameErrorText.style.display = "none";
         });
     }
 
@@ -166,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
                 
-                showToastNotification("Profile saved successfully!");
+                showToastNotification("Changes saved successfully!");
 
                 if (typeof updateHeaderAccount === "function") updateHeaderAccount();
             }
@@ -178,6 +212,19 @@ document.addEventListener("DOMContentLoaded", () => {
         imageUploadInputElement.addEventListener("change", function() {
             const uploadedFile = this.files[0];
             if (uploadedFile) {
+                // Validate size (1MB = 1048576 bytes)
+                if (uploadedFile.size > 1048576) {
+                    showToastNotification("Image must be 1MB or less.");
+                    this.value = ""; // Clear file
+                    return;
+                }
+                // Validate file format
+                if (uploadedFile.type !== "image/jpeg" && uploadedFile.type !== "image/png") {
+                    showToastNotification("Only JPG and PNG formats are supported.");
+                    this.value = ""; // Clear file
+                    return;
+                }
+
                 const fileReader = new FileReader();
                 fileReader.onload = function(eventResult) {
                     const base64ImageString = eventResult.target.result;
@@ -203,8 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
         logoutButtonElement.addEventListener("click", (event) => {
             event.preventDefault();
             localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("unlimitedPage_CurrentUser"); 
-            showToastNotification("Successfully logged out.");
+            localStorage.removeItem("unlimitedPage_CurrentUser");
             
             setTimeout(() => {
                 window.location.href = "login.html";
@@ -216,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function processAuthenticationSuccess(emailString, messageString) {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("unlimitedPage_CurrentUser", emailString); 
-        showToastNotification(messageString); 
+        if(messageString) showToastNotification(messageString); 
         setTimeout(() => { window.location.href = "account.html"; }, 1000);
     }
 
