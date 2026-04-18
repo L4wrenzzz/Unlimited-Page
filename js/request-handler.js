@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const requestedTitle = document.getElementById("book-title").value;
 
             // Show success toast (Function is imported from user-interface-utilities.js)
-            showToastNotification(`Successfully requested: "${requestedTitle}". We'll keep you updated!`);
+            showToastNotification(`Successfully requested: "${requestedTitle}".`);
 
             // Clear the form fields back to empty
             requestForm.reset();
