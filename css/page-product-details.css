@@ -420,7 +420,7 @@
     padding: 12px 15px;
     border: 1px solid var(--border-light-color);
     border-radius: 8px;
-    background-color: var(--background-light-color);
+    background-color: var(--surface-white-color);
     font-family: inherit;
     font-size: 14px;
     color: var(--text-dark-color);

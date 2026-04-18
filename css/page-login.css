@@ -52,8 +52,8 @@
 /* Override standard form inputs to match the mockup's filled style */
 .login-form .form-input {
     width: 100%;
-    background-color: #f1f5f9; /* Solid light grey background */
-    border: 1px solid transparent; /* Hidden border initially */
+    background-color: var(--surface-white-color);
+    border: 1px solid var(--border-light-color);
     border-radius: 8px;
     padding: 14px 16px;
     font-size: 14px;

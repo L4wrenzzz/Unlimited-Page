@@ -60,7 +60,7 @@
     padding: 10px 15px 10px 40px;
     border-radius: 20px;
     border: 1px solid var(--border-light-color);
-    background-color: var(--background-light-color);
+    background-color: var(--surface-white-color);
     transition: all 0.3s;
     font-size: 13px;
     outline: none;
