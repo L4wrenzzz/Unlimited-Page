@@ -89,6 +89,9 @@
                                 <label class="account-form-label">Name</label>
                                 <input type="text" id="account-name" class="form-input" placeholder="Enter your name"
                                     maxlength="16" />
+                                <span id="name-error-text"
+                                    style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;">
+                                    Max 16 characters.</span>
                             </div>
                             <div class="form-input-group">
                                 <label class="account-form-label">Password</label>
@@ -129,7 +132,8 @@
                         <div class="form-input-group">
                             <label class="account-form-label">Phone Number</label>
                             <input type="tel" id="account-phone-number" class="form-input"
-                                placeholder="Enter your phone number" />
+                                placeholder="Enter your phone number"
+                                oninput="this.value = this.value.replace(/[^0-9+]/g, '')" />
                         </div>
                     </div>
 
@@ -138,7 +142,8 @@
                             <div class="form-input-group dob-group">
                                 <label class="account-form-label">Date of Birth</label>
                                 <input type="text" id="account-date-of-birth" class="form-input"
-                                    placeholder="mm/dd/yyyy" />
+                                    placeholder="mm/dd/yyyy"
+                                    oninput="this.value = this.value.replace(/[^0-9/]/g, '')" />
                             </div>
                             <div class="form-input-group gender-group">
                                 <label class="account-form-label">Gender</label>
