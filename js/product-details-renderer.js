@@ -372,7 +372,7 @@ function renderReviewsList() {
     const paginatedReviews = reviewsToRender.slice(startIndex, startIndex + REVIEWS_PER_PAGE);
 
     if (paginatedReviews.length === 0) {
-        gridContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted-color); padding: 40px 0;">No reviews to show yet. Be the first to write one!</p>`;
+        gridContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted-color); padding: 40px 0;">No reviews to show yet.</p>`;
         gridContainer.style.display = "block";
     } else {
         gridContainer.style.display = "grid";
