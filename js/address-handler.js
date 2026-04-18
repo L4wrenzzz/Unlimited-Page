@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "login.html";
         return;
     }
-    
+
     renderAddresses();
 
     // Handle form submission
@@ -56,48 +56,79 @@ function renderAddresses() {
         return;
     }
 
+    // Notice the updated HTML structure combining the Name and Phone
     container.innerHTML = addresses.map((addr, index) => `
         <article class="address-card ${addr.isDefault ? 'default-address' : ''}">
             <div class="address-card-header">
-                <span class="address-label">${addr.label}</span>
-                ${addr.isDefault ? '<span class="default-badge">Default</span>' : ''}
+                <div class="address-title-group">
+                    <span class="address-label">${addr.label}</span>
+                    <span class="address-separator">|</span>
+                    <span class="address-phone-inline">${addr.phone}</span>
+                </div>
+                ${addr.isDefault
+            ? '<span class="default-badge">DEFAULT</span>'
+            : `<button class="set-default-button" onclick="setDefaultAddress(${index})">Set as Default</button>`}
             </div>
-            <div class="address-details">
-                ${addr.street}<br>
-                ${addr.city}, ${addr.state}, ${addr.zip}
-            </div>
-            <div class="address-phone">
-                ${addr.phone}
-            </div>
-            <div class="address-actions">
-                <button class="btn-edit" onclick="editAddress(${index})">Edit</button>
-                ${!addr.isDefault ? `<button class="btn-delete" onclick="deleteAddress(${index})">Delete</button>` : ''}
+            
+            <div class="address-body-actions-wrapper">
+                <div class="address-details">
+                    ${addr.street}<br>
+                    ${addr.city}, ${addr.state}, ${addr.zip}
+                </div>
+                <div class="address-actions">
+                    ${!addr.isDefault ? `<button class="button-delete" onclick="deleteAddress(${index})">DELETE</button>` : ''}
+                    <button class="button-edit" onclick="editAddress(${index})">EDIT</button>
+                </div>
             </div>
         </article>
     `).join('');
 }
 
+function setDefaultAddress(index) {
+    const { email, db, user } = getUserData();
+
+    // 1. Turn off default for all addresses
+    user.addresses.forEach(addr => addr.isDefault = false);
+
+    // 2. Turn on default ONLY for the clicked index
+    user.addresses[index].isDefault = true;
+
+    // 3. Re-sort the array so the new default jumps to the top
+    user.addresses.sort((a, b) => b.isDefault - a.isDefault);
+
+    // 4. Save to database
+    db[email] = user;
+    localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
+
+    // 5. Re-render the page to show changes
+    renderAddresses();
+
+    if (typeof showToastNotification === 'function') {
+        showToastNotification("Default address updated.");
+    }
+}
+
 function editAddress(index) {
     const { user } = getUserData();
     const addr = user.addresses[index];
-    
+
     editingAddressIndex = index;
-    
+
     // Update Modal Title
     document.querySelector(".modal-header h2").textContent = "Edit Address";
-    
+
     // Populate Fields
-    document.getElementById("addr-label").value = addr.label;
-    document.getElementById("addr-phone").value = addr.phone;
-    document.getElementById("addr-street").value = addr.street;
-    document.getElementById("addr-city").value = addr.city;
-    document.getElementById("addr-state").value = addr.state;
-    document.getElementById("addr-zip").value = addr.zip;
-    
+    document.getElementById("addr-label").value = addr.label || "";
+    document.getElementById("addr-phone").value = addr.phone || "";
+    document.getElementById("addr-street").value = addr.street || "";
+    document.getElementById("addr-city").value = addr.city || "";
+    document.getElementById("addr-state").value = addr.state || "";
+    document.getElementById("addr-zip").value = addr.zip || "";
+
     // Handle Default Checkbox
     const defaultCheckbox = document.getElementById("addr-is-default");
     defaultCheckbox.checked = addr.isDefault;
-    
+
     // Prevent user from unchecking the default box if it's already the default address
     // (They must make another address default to remove this one's status)
     defaultCheckbox.disabled = addr.isDefault;
@@ -131,7 +162,7 @@ function saveAddress() {
 
     // 4. Save Data
     const addressObj = { label, phone, street, city, state, zip, isDefault };
-    
+
     if (editingAddressIndex !== null) {
         user.addresses[editingAddressIndex] = addressObj;
         if (typeof showToastNotification === 'function') showToastNotification("Address updated successfully.");
@@ -144,14 +175,14 @@ function saveAddress() {
     user.addresses.sort((a, b) => b.isDefault - a.isDefault);
     db[email] = user;
     localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
-    
+
     closeAddressModal();
     renderAddresses();
 }
 
 function deleteAddress(index) {
     const { email, db, user } = getUserData();
-    
+
     // Double-check to prevent deleting default (backup security)
     if (user.addresses[index].isDefault) return;
 
@@ -160,7 +191,7 @@ function deleteAddress(index) {
     db[email] = user;
     localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
     renderAddresses();
-    
+
     if (typeof showToastNotification === 'function') {
         showToastNotification("Address deleted.");
     }
