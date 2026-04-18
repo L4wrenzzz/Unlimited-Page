@@ -16,7 +16,7 @@
     border-radius: 16px; /* Increased rounding to match mockup */
     padding: 50px;
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04); /* Softer, broader shadow */
     text-align: center;
 }
@@ -144,27 +144,35 @@
     margin-left: 15px;
 }
 
-/* Google Button */
-.google-login-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    background-color: var(--surface-white-color);
-    color: var(--text-dark-color);
-    border: 1px solid var(--border-light-color);
-    border-radius: 8px;
-    padding: 14px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
+/* --- Auth Agreement & Switch Links --- */
+.auth-agreement-text {
+    font-size: 11px;
+    color: var(--text-muted-color);
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1.5;
 }
 
-.google-login-button:hover {
-    background-color: var(--background-light-color);
-    border-color: #cbd5e1;
+.auth-agreement-text a,
+.auth-switch-text a {
+    color: var(--primary-blue-color);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+    text-decoration: underline;
+}
+
+.auth-agreement-text a:hover,
+.auth-switch-text a:hover {
+    color: var(--primary-blue-hover);
+}
+
+.auth-switch-text {
+    font-size: 13px;
+    color: var(--text-dark-color);
+    text-align: center;
+    margin-top: 25px;
 }
 
 /* Responsive */

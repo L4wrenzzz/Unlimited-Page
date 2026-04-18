@@ -50,28 +50,61 @@
 
     <main class="login-page-container">
         <div class="login-form-card">
-            <h1 class="login-title">Welcome to Unlimited Page</h1>
-            <p class="login-subtitle">Please enter your details to access your collection.</p>
-
-            <form id="login-form" class="login-form">
-                <div class="form-input-group">
-                    <label class="login-form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="Enter your email"
-                        oninput="this.value = this.value.toLowerCase()" required />
-                </div>
-
-                <div class="form-input-group">
-                    <label class="login-form-label">Password</label>
-                    <div class="password-input-wrapper">
-                        <input type="password" id="login-password-input" class="form-input"
-                            placeholder="Enter your password" required />
-                        <span class="material-icons-outlined password-toggle-icon"
-                            id="password-toggle-icon">visibility</span>
+            <div id="login-view">
+                <h1 class="login-title">Welcome to Unlimited Page</h1>
+                <p class="login-subtitle">Please enter your details to access your collection.</p>
+        
+                <form id="login-form" class="login-form">
+                    <div class="form-input-group">
+                        <label class="login-form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="Enter your email" oninput="this.value = this.value.toLowerCase()" required />
                     </div>
-                </div>
-
-                <button type="submit" class="login-submit-button">Log In</button>
-            </form>
+        
+                    <div class="form-input-group">
+                        <label class="login-form-label">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="login-password-input" class="form-input" placeholder="Enter your password" required />
+                            <span class="material-icons-outlined password-toggle-icon" id="password-toggle-icon">visibility</span>
+                        </div>
+                    </div>
+        
+                    <p class="auth-agreement-text">
+                        By logging in, you agree to Unlimited Page’s <a href="terms-of-service.html">Terms of Service</a> & <a href="privacy-policy.html">Privacy Policy</a>
+                    </p>
+        
+                    <button type="submit" class="login-submit-button">Log In</button>
+                </form>
+        
+                <p class="auth-switch-text">New to Unlimited Page? <a href="#" id="show-signup-link">Sign Up</a></p>
+            </div>
+        
+            <div id="signup-view" style="display: none;">
+                <h1 class="login-title">Create an Account</h1>
+                <p class="login-subtitle">Create an account to build and access your collection</p>
+        
+                <form id="signup-form" class="login-form">
+                    <div class="form-input-group">
+                        <label class="login-form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="Enter your email" oninput="this.value = this.value.toLowerCase()" required />
+                    </div>
+        
+                    <div class="form-input-group">
+                        <label class="login-form-label">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signup-password-input" class="form-input" placeholder="Enter your password" required />
+                            <span class="material-icons-outlined password-toggle-icon" id="signup-password-toggle-icon">visibility</span>
+                        </div>
+                    </div>
+        
+                    <p class="auth-agreement-text">
+                        By signing up, you agree to Unlimited Page’s <a href="terms-of-service.html">Terms of Service</a> & <a href="privacy-policy.html">Privacy Policy</a>
+                    </p>
+        
+                    <button type="submit" class="login-submit-button">Sign Up</button>
+                </form>
+        
+                <p class="auth-switch-text">Have an account? <a href="#" id="show-login-link">Log In</a></p>
+            </div>
         </div>
     </main>
 

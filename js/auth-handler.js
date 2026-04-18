@@ -46,14 +46,38 @@ document.addEventListener("DOMContentLoaded", () => {
     setupPasswordToggle(accountPasswordInput, accountPasswordToggleIcon);
 
     // 2. Login & Registration Logic
+    // --- View Toggling Logic ---
+    const loginView = document.getElementById("login-view");
+    const signupView = document.getElementById("signup-view");
+    const showSignupLink = document.getElementById("show-signup-link");
+    const showLoginLink = document.getElementById("show-login-link");
+
+    if (showSignupLink && showLoginLink) {
+        showSignupLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            loginView.style.display = "none";
+            signupView.style.display = "block";
+        });
+
+        showLoginLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            signupView.style.display = "none";
+            loginView.style.display = "block";
+        });
+    }
+
+    // --- Sign Up Password Eye Toggle ---
+    const signupPasswordInput = document.getElementById("signup-password-input");
+    const signupPasswordToggle = document.getElementById("signup-password-toggle-icon");
+    setupPasswordToggle(signupPasswordInput, signupPasswordToggle);
+
+    // 2. Login Logic (Strictly checks for existing users)
     if (loginFormElement) {
         loginFormElement.addEventListener("submit", (event) => {
             event.preventDefault();
-            // Force lowercase to ensure case-insensitive matching in the database
             const emailValue = loginFormElement.querySelector('input[type="email"]').value.trim().toLowerCase();
             const passwordValue = loginPasswordInput.value;
 
-            // Check if user exists
             if (usersDatabase[emailValue]) {
                 if (usersDatabase[emailValue].password === passwordValue) {
                     processAuthenticationSuccess(emailValue, "Logging in...");
@@ -61,7 +85,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToastNotification("Incorrect password. Please try again.");
                 }
             } else {
-                // User doesn't exist, register them automatically
+                showToastNotification("Account not found. Please Sign Up first.");
+            }
+        });
+    }
+
+    // 2.5 Registration Logic (Strictly creates new users)
+    const signupFormElement = document.getElementById("signup-form");
+    if (signupFormElement) {
+        signupFormElement.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const emailValue = signupFormElement.querySelector('input[type="email"]').value.trim().toLowerCase();
+            const passwordValue = signupPasswordInput.value;
+
+            if (usersDatabase[emailValue]) {
+                showToastNotification("Email is already registered. Please Log In.");
+            } else {
                 const namePrefixString = emailValue.split('@')[0].substring(0, 16); 
                 usersDatabase[emailValue] = {
                     email: emailValue,
