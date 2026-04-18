@@ -104,6 +104,7 @@
     color: var(--text-dark-color);
     margin-bottom: 20px;
     padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light-color);
 }
 
 /* Actions */
@@ -114,7 +115,7 @@
     margin-bottom: 20px;
 }
 
-.qty-label {
+.quantity-label {
     font-weight: 700;
     font-size: 14px;
 }
@@ -162,9 +163,8 @@
     gap: 15px;
 }
 
-/* FIXED BUTTON COLORS */
-.btn-add-cart,
-.btn-buy-now {
+.button-add-cart,
+.button-buy-now {
     padding: 10px 20px;
     height: 40px;
     width: 200px;
@@ -180,21 +180,23 @@
     border: none;
 }
 
-.btn-add-cart {
-    background-color: #dbeafe; /* Light Blue */
+.button-add-cart {
+    background-color: #dbeafe;
+    /* Light Blue */
     color: var(--primary-blue-color);
 }
 
-.btn-add-cart:hover {
+.button-add-cart:hover {
     background-color: #bfdbfe;
 }
 
-.btn-buy-now {
-    background-color: var(--primary-blue-color); /* Solid Blue */
+.button-buy-now {
+    background-color: var(--primary-blue-color);
+    /* Solid Blue */
     color: white;
 }
 
-.btn-buy-now:hover {
+.button-buy-now:hover {
     background-color: var(--primary-blue-hover);
 }
 
@@ -249,7 +251,7 @@
     font-weight: 800;
 }
 
-.btn-write-review {
+.button-write-review {
     background-color: white;
     border: 1px solid var(--border-light-color);
     padding: 10px 20px;
@@ -259,7 +261,7 @@
     transition: background-color 0.2s;
 }
 
-.btn-write-review:hover {
+.button-write-review:hover {
     background-color: var(--background-light-color);
 }
 
@@ -290,6 +292,8 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-bottom: 30px;
+    align-items: start;
+    /* Prevents cards from aggressively stretching their height to match the tallest sibling in a row */
 }
 
 .review-card {
@@ -347,12 +351,13 @@
 
 .review-text.collapsed {
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit text to 3 lines */
+    -webkit-line-clamp: 3;
+    /* Limit text to 3 lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.see-more-btn {
+.see-more-button {
     background: none;
     border: none;
     color: var(--text-muted-color);
@@ -364,11 +369,11 @@
     text-decoration: underline;
 }
 
-.see-more-btn:hover {
+.see-more-button:hover {
     color: var(--primary-blue-color);
 }
 
-.btn-helpful {
+.button-helpful {
     background: none;
     border: none;
     color: var(--text-muted-color);
@@ -381,11 +386,11 @@
     transition: color 0.2s;
 }
 
-.btn-helpful .material-icons-outlined {
+.button-helpful .material-icons-outlined {
     font-size: 14px;
 }
 
-.btn-helpful.liked {
+.button-helpful.liked {
     color: var(--primary-blue-color);
 }
 

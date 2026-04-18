@@ -334,7 +334,7 @@ function initCart() {
 
         const itemHTML = `
             <article class="cart-item-row ${opacityClass}">
-                <div class="cart-item-product-col">
+                <div class="cart-item-product-column">
                     <a href="product-details.html?id=${productInfo.id}" style="display: block;">
                         <img src="${productInfo.imageFile}" alt="${productInfo.title}" class="cart-item-image" onerror="this.src='https://placehold.co/300x420?text=Image+Missing'">
                     </a>
@@ -356,7 +356,7 @@ function initCart() {
                     </div>
                 </div>
                 
-                <div class="cart-item-price-col" style="font-weight: 600; text-align: center;">${formatCurrency(productInfo.price)}</div>
+                <div class="cart-item-price-column" style="font-weight: 600; text-align: center;">${formatCurrency(productInfo.price)}</div>
                 
                 <div class="cart-quantity-selector" style="justify-self: center;">
                     <button class="quantity-button" onclick="changeCartQuantity('${productInfo.id}', -1)">-</button>
@@ -366,7 +366,7 @@ function initCart() {
                     <button class="quantity-button" onclick="changeCartQuantity('${productInfo.id}', 1)">+</button>
                 </div>
                 
-                <div class="cart-item-total-col" style="font-weight: 700; text-align: right; font-size: 16px; color: var(--primary-blue-color);">
+                <div class="cart-item-total-column" style="font-weight: 700; text-align: right; font-size: 16px; color: var(--primary-blue-color);">
                     ${formatCurrency(productInfo.price * cartItem.quantity)}
                 </div>
             </article>

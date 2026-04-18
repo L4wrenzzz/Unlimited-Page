@@ -99,7 +99,7 @@ function updateHeaderAccount() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     const currentUserEmail = localStorage.getItem("unlimitedPage_CurrentUser");
     const usersDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
-    
+
     let displayName = "Guest";
     
     if (isLoggedIn && currentUserEmail && usersDatabase[currentUserEmail]) {
@@ -111,16 +111,10 @@ function updateHeaderAccount() {
         displayName = displayName.substring(0, 16);
     }
     
-    // 1. Update the account button links
+    // Update the account button links
     const accountButtonsList = document.querySelectorAll(".account-button");
     accountButtonsList.forEach(button => {
         button.href = isLoggedIn ? "account.html" : "login.html";
-    });
-
-    // 2. Update the separate name text spans directly
-    const nameSpansList = document.querySelectorAll(".header-user-name");
-    nameSpansList.forEach(span => {
-        span.textContent = displayName;
     });
 }
 

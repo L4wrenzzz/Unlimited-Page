@@ -51,7 +51,7 @@
 }
 
 /* Left column containing image and text details */
-.cart-item-product-col {
+.cart-item-product-column {
     display: flex;
     gap: 15px;
     align-items: center;
@@ -152,11 +152,13 @@
     padding: 4px 0;
     outline: none;
 }
+
 .quantity-input-field::-webkit-outer-spin-button,
 .quantity-input-field::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 .quantity-input-field[type="number"] {
     appearance: textfield;
 }
@@ -303,6 +305,7 @@
     .cart-layout-container {
         flex-direction: column;
     }
+
     .cart-summary-wrapper {
         width: 100%;
         position: static;
@@ -315,33 +318,40 @@
     .cart-table-header {
         display: none !important;
     }
+
     .cart-item-row {
         display: grid;
         grid-template-columns: 75px 1fr;
         gap: 15px;
         align-items: start;
     }
-    .cart-item-product-col {
+
+    .cart-item-product-column {
         display: contents;
     }
+
     .cart-item-image {
         width: 75px;
         height: 105px;
         margin: 0;
     }
+
     .cart-item-details {
         width: 100%;
     }
-    .cart-item-price-col {
+
+    .cart-item-price-column {
         display: none !important;
     }
+
     .cart-quantity-selector {
         grid-column: 2;
         justify-self: start;
         margin-top: 5px;
     }
+
     /* Restructure the total column to look like a summary row inside the card */
-    .cart-item-total-col {
+    .cart-item-total-column {
         grid-column: 1 / -1;
         display: flex;
         justify-content: flex-end;
@@ -352,17 +362,20 @@
         width: 100% !important;
         text-align: right !important;
     }
-    .cart-item-total-col::before {
+
+    .cart-item-total-column::before {
         content: "Item Total: ";
         font-weight: 500;
         color: var(--text-muted-color);
         font-size: 13px;
         margin-right: auto;
     }
+
     /* Activate mobile checkout bar and push "back to top" button above it */
     .mobile-checkout-bar {
         display: flex;
     }
+
     .cart-page-body .back-to-top-button {
         bottom: 100px;
     }

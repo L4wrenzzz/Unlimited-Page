@@ -112,19 +112,6 @@
     padding: 2px 5px;
 }
 
-/* --- Right Section: Isolated User Name --- */
-.user-name-container {
-    justify-self: start; 
-    padding-left: 10px; 
-}
-
-.header-user-name {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text-dark-color);
-    white-space: nowrap; 
-}
-
 /* Navigation Links (Bottom Row) */
 .navigation-bottom-row {
     max-width: 1200px;
@@ -323,11 +310,6 @@
     .search-and-icons-group {
         width: 100%;
         justify-content: space-between;
-    }
-
-    .user-name-container {
-        align-self: center;
-        padding-left: 0;
     }
 
     .navigation-bottom-row {

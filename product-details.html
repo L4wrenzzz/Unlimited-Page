@@ -38,10 +38,6 @@
                         style="width: 24px; height: 24px; object-fit: contain;" />
                 </a>
             </div>
-
-            <div class="user-name-container">
-                <span class="header-user-name">Guest</span>
-            </div>
         </div>
 
         <nav class="navigation-bottom-row">
@@ -80,7 +76,7 @@
 
                 <div class="detail-actions-section">
                     <div class="quantity-wrapper">
-                        <span class="qty-label">Quantity:</span>
+                        <span class="quantity-label">Quantity:</span>
                         <div class="detail-quantity-selector">
                             <button type="button" onclick="changeDetailQuantity(-1)">-</button>
                             <input type="number" id="detail-quantity" value="1" min="1"
@@ -88,15 +84,17 @@
                                 onchange="manualDetailQuantityUpdate(this.value)">
                             <button type="button" onclick="changeDetailQuantity(1)">+</button>
                         </div>
-                        <span id="detail-stock" class="detail-stock-stat" data-stock="0" style="margin-left: 15px; color: var(--success-green-color); font-weight: 600; font-size: 14px;">Stock: 0</span>
+                        <span id="detail-stock" class="detail-stock-stat" data-stock="0"
+                            style="margin-left: 15px; color: var(--success-green-color); font-weight: 600; font-size: 14px;">Stock:
+                            0</span>
                     </div>
 
                     <div class="action-buttons-grid">
-                        <button id="detail-add-cart-btn" class="btn-add-cart">
+                        <button id="detail-add-cart-button" class="button-add-cart">
                             <img src="images/blue-shopping-cart-icon.png" alt="Cart"
                                 style="width: 18px; height: 18px; object-fit: contain;"> Add to Cart
                         </button>
-                        <button id="detail-buy-now-btn" class="btn-buy-now">Buy Now</button>
+                        <button id="detail-buy-now-button" class="button-buy-now">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -104,7 +102,7 @@
 
         <div class="detail-about-section">
             <h4>About this item</h4>
-            <p id="detail-desc">Loading description...</p>
+            <p id="detail-description">Loading description...</p>
         </div>
 
         <section class="product-reviews-section">
@@ -116,7 +114,7 @@
                         <span id="review-huge-stars"></span>
                     </div>
                 </div>
-                <button class="btn-write-review" onclick="openReviewModal()">Write a Review</button>
+                <button class="button-write-review" onclick="openReviewModal()">Write a Review</button>
             </div>
 
             <div class="review-filters" id="review-filters-container">
@@ -130,7 +128,8 @@
 
             <div class="reviews-grid" id="reviews-grid-container"></div>
 
-            <div class="pagination-container" id="review-pagination-container" style="border: none; padding-top: 0; display: none;"></div>
+            <div class="pagination-container" id="review-pagination-container"
+                style="border: none; padding-top: 0; display: none;"></div>
         </section>
 
         <section class="related-products-section">
@@ -155,6 +154,8 @@
                 <h4 class="footer-column-title">About UnlimitedPage</h4>
                 <ul class="footer-link-list">
                     <li><a href="about.html">About Us</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
                 </ul>
             </div>
             <div>
@@ -197,11 +198,12 @@
 
             <label class="form-label" style="display: block; margin-bottom: 5px;">Your Review</label>
             <textarea id="review-text" class="review-form-input" placeholder="What did you like or dislike?"
-                style="width: 100%; height: 120px; resize: none; overflow-y: auto; margin-bottom: 25px;" required></textarea>
+                style="width: 100%; height: 120px; resize: none; overflow-y: auto; margin-bottom: 25px;"
+                required></textarea>
 
             <div style="display: flex; justify-content: flex-end; gap: 10px;">
                 <button class="custom-modal-cancel-button" onclick="closeReviewModal()">Cancel</button>
-                <button class="submit-review-button" id="submit-review-btn">Submit Review</button>
+                <button class="submit-review-button" id="submit-review-button">Submit Review</button>
             </div>
         </div>
     </div>
