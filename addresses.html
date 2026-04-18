@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,8 +10,9 @@
     <link rel="stylesheet" href="css/layout-structure.css" />
     <link rel="stylesheet" href="css/user-interface-components.css" />
     <link rel="stylesheet" href="css/page-account.css" />
-    <link rel="stylesheet" href="css/page-addresses.css" /> 
+    <link rel="stylesheet" href="css/page-addresses.css" />
 </head>
+
 <body>
     <header class="main-navigation-header">
         <div class="navigation-top-row">
@@ -26,11 +28,13 @@
                     <input type="text" class="search-input-field" placeholder="Search" />
                 </div>
                 <a href="cart.html" class="shopping-cart-button">
-                    <img src="images/header-cart-icon.png" alt="Cart" style="width: 24px; height: 24px; object-fit: contain;" />
+                    <img src="images/header-cart-icon.png" alt="Cart"
+                        style="width: 24px; height: 24px; object-fit: contain;" />
                     <span class="cart-item-count-badge" id="global-cart-badge">0</span>
                 </a>
                 <a href="account.html" class="account-button">
-                    <img src="images/account-icon.png" alt="Account" style="width: 24px; height: 24px; object-fit: contain;" />
+                    <img src="images/account-icon.png" alt="Account"
+                        style="width: 24px; height: 24px; object-fit: contain;" />
                 </a>
             </div>
         </div>
@@ -66,7 +70,7 @@
                     </a>
                 </nav>
             </aside>
-    
+
             <section class="account-content-area">
                 <div class="addresses-header-row">
                     <div class="account-header">
@@ -77,9 +81,9 @@
                         + Add New Address
                     </button>
                 </div>
-            
+
                 <div class="addresses-grid" id="addresses-container">
-                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -141,17 +145,20 @@
                 <div class="form-row-split">
                     <div class="form-input-group">
                         <label class="form-label">Address Label</label>
-                        <input type="text" id="addr-label" class="form-input" placeholder="Enter your address label" required />
+                        <input type="text" id="addr-label" class="form-input" placeholder="Enter your address label"
+                            required />
                     </div>
                     <div class="form-input-group">
                         <label class="form-label">Phone Number</label>
-                        <input type="text" id="addr-phone" class="form-input" placeholder="Enter your phone number" required />
+                        <input type="text" id="addr-phone" class="form-input" placeholder="Enter your phone number"
+                            required oninput="this.value = this.value.replace(/[^0-9+]/g, '')" />
                     </div>
                 </div>
 
                 <div class="form-input-group">
                     <label class="form-label">Street Address, Building, House No.</label>
-                    <textarea id="addr-street" class="form-input no-resize-textarea" placeholder="Enter your full street address" required></textarea>
+                    <textarea id="addr-street" class="form-input no-resize-textarea"
+                        placeholder="Enter your full street address" required></textarea>
                 </div>
 
                 <div class="form-row-split">
@@ -161,7 +168,8 @@
                     </div>
                     <div class="form-input-group">
                         <label class="form-label">State/Province</label>
-                        <input type="text" id="addr-state" class="form-input" placeholder="Enter your state/province" required />
+                        <input type="text" id="addr-state" class="form-input" placeholder="Enter your state/province"
+                            required />
                     </div>
                 </div>
 
@@ -190,6 +198,7 @@
     <script src="js/shopping-cart-manager.js"></script>
     <script src="js/auth-handler.js"></script>
     <script src="js/main-initialization.js"></script>
-    <script src="js/address-handler.js"></script> 
+    <script src="js/address-handler.js"></script>
 </body>
+
 </html>
