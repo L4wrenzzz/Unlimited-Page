@@ -198,8 +198,11 @@
 
             <label class="form-label" style="display: block; margin-bottom: 5px;">Your Review</label>
             <textarea id="review-text" class="review-form-input" placeholder="What did you like or dislike?"
-                style="width: 100%; height: 120px; resize: none; overflow-y: auto; margin-bottom: 25px;"
+                style="width: 100%; height: 120px; resize: none; overflow-y: auto; margin-bottom: 5px;"
                 required></textarea>
+            <span id="review-error-msg"
+                style="color: var(--danger-red-color); font-size: 11px; display: none; margin-bottom: 15px;">Please
+                enter a review message.</span>
 
             <div style="display: flex; justify-content: flex-end; gap: 10px;">
                 <button class="custom-modal-cancel-button" onclick="closeReviewModal()">Cancel</button>
