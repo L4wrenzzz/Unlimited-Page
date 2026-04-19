@@ -75,9 +75,11 @@
                     <label for="request-reason" class="form-label">Reason for Request</label>
                     <input type="text" id="request-reason" class="form-input"
                         placeholder="e.g Academic, Personal Interest, or Urgency" required />
-                    <span class="form-helper-text">We'll notify you as soon as the book is available.</span>
                 </div>
 
+                <div id="request-success-msg"
+                    style="display:none; color: var(--success-green-color); text-align: center; margin-top: 15px; font-weight: 600; font-size: 14px; word-break: break-word; overflow-wrap: break-word;">
+                </div>
                 <button type="submit" class="submit-request-button">Submit Request</button>
             </form>
         </div>
