@@ -411,7 +411,7 @@ function renderReviewsList() {
 
             // Render initials by default, unless there is a custom image
             let avatarDisplayHTML = currentInitials;
-            if (currentAvatar && currentAvatar !== "images/userProfile.png") {
+            if (currentAvatar && currentAvatar !== "images/user-profile.png") {
                 avatarDisplayHTML = `<img src="${currentAvatar}" alt="${currentName}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
             }
 

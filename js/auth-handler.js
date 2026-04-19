@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     phone: "",
                     dob: "",
                     gender: "",
-                    avatar: "images/userProfile.png"
+                    avatar: "images/user-profile.png"
                 };
                 localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
                 processAuthenticationSuccess(emailValue, "");

@@ -590,7 +590,7 @@ function initCart() {
 
         const opacityClass = cartItem.isSelectedForOrder ? "" : "omitted-from-order";
         const toggleButtonClass = cartItem.isSelectedForOrder ? "remove-button" : "add-button";
-        const toggleIcon = cartItem.isSelectedForOrder ? "images/remove-icon-remove-order.png" : "images/check-icon-place-order.png";
+        const toggleIcon = cartItem.isSelectedForOrder ? "images/remove-order-icon.png" : "images/add-order-icon.png";
         const toggleText = cartItem.isSelectedForOrder ? "Remove" : "Add";
 
         const itemHTML = `
