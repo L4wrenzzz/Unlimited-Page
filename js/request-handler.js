@@ -5,20 +5,17 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const requestForm = document.getElementById("book-request-form");
-
     if (requestForm) {
         requestForm.addEventListener("submit", (event) => {
-            // Prevent the default browser behavior of refreshing the page
             event.preventDefault();
-
-            // Grab the title input to make the toast message feel personalized
             const requestedTitle = document.getElementById("book-title").value;
+            const successMessageElement = document.getElementById("request-success-msg");
 
-            // Show success toast (Function is imported from user-interface-utilities.js)
-            showToastNotification(`Successfully requested: "${requestedTitle}".`);
+            successMessageElement.textContent = `Successfully requested: "${requestedTitle}". We will notify you once available.`;
+            successMessageElement.style.display = "block";
 
-            // Clear the form fields back to empty
             requestForm.reset();
+            setTimeout(() => { successMessageElement.style.display = "none"; }, 30000);
         });
     }
-});
+}); 
