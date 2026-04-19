@@ -299,6 +299,76 @@
     margin-top: 0;
 }
 
+/* --- Checkout View & Modal Styles --- */
+.checkout-section-block {
+    background-color: var(--surface-white-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-light-color);
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.change-address-btn {
+    background: none;
+    border: none;
+    color: var(--primary-blue-color);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.address-modal-radio-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-light-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.address-modal-radio-container:hover {
+    background-color: var(--background-light-color);
+}
+
+.address-modal-add-btn {
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 8px; 
+    background-color: var(--primary-blue-color); 
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.address-modal-add-btn:hover {
+    background-color: var(--primary-blue-hover);
+}
+
+/* --- Checkout Payment Card Selection --- */
+.checkout-selectable-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid var(--border-light-color) !important; /* Overrides the default 1px */
+    margin: 0 !important; /* Overrides previous inline styles */
+}
+
+.checkout-selectable-card:hover {
+    border-color: #cbd5e1 !important;
+}
+
+.checkout-selectable-card.selected {
+    border-color: var(--primary-blue-color) !important;
+}
+
 /* --- Cart Responsive Styles --- */
 /* Shift summary section below cart items on tablets */
 @media (max-width: 992px) {
