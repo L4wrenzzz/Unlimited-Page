@@ -94,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (!input.value) {
                     if (errorMessageElement) {
-                        errorMessageElement.textContent = "Please upload an image.";
                         errorMessageElement.style.display = "block";
                     }
                     hasError = true;
@@ -115,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.querySelector('.appraisal-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-            setTimeout(() => { if (successMessageElement) successMessageElement.style.display = "none"; }, 5000);
+            setTimeout(() => { if (successMessageElement) successMessageElement.style.display = "none"; }, 30000);
         });
     }
 });

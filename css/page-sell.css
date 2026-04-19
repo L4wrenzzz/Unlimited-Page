@@ -282,13 +282,6 @@
     margin-top: 20px;
 }
 
-.submission-disclaimer {
-    font-size: 12px;
-    color: var(--text-muted-color);
-    line-height: 1.6;
-    margin-bottom: 25px;
-}
-
 .submit-appraisal-button {
     background-color: var(--primary-blue-color);
     color: var(--surface-white-color);
