@@ -4,15 +4,11 @@
     Handles adding/removing items, promo codes, and calculating totals.
    ========================================================================== */
 
-// Make the cart dynamic based on the logged-in user
 const activeUserEmail = localStorage.getItem("unlimitedPage_CurrentUser") || "guest";
 window.CART_STORAGE_KEY = `unlimitedPageCart_${activeUserEmail}`;
 
 let rawCartData = JSON.parse(localStorage.getItem(window.CART_STORAGE_KEY)) || [];
-
-let userShoppingCart = rawCartData.filter((cartItem) =>
-    productDatabase.some((databaseItem) => databaseItem.id === cartItem.id),
-);
+let userShoppingCart = rawCartData.filter((cartItem) => productDatabase.some((databaseItem) => databaseItem.id === cartItem.id));
 
 if (rawCartData.length !== userShoppingCart.length) {
     localStorage.setItem(window.CART_STORAGE_KEY, JSON.stringify(userShoppingCart));
@@ -21,20 +17,13 @@ if (rawCartData.length !== userShoppingCart.length) {
 let currentPromoDiscount = 0;
 let isPromoApplied = false;
 let promoBurnedDatabase = JSON.parse(localStorage.getItem("promoBurned")) || false;
-let selectedPaymentMethod = "Cash on Delivery";
 
-function selectPayment(paymentMethodString) {
-    selectedPaymentMethod = paymentMethodString;
-    const paymentMethodElements = document.querySelectorAll(".checkout-payment-method");
-
-    paymentMethodElements.forEach((paymentElement) => {
-        if (paymentElement.getAttribute("data-method") === paymentMethodString) {
-            paymentElement.classList.add("selected");
-        } else {
-            paymentElement.classList.remove("selected");
-        }
-    });
-}
+// Checkout State Variables
+let isCheckoutViewActive = false;
+let selectedCheckoutAddressIndex = null;
+let selectedCheckoutAddressData = null; // Tracks the actual address data to survive re-sorting
+let selectedPaymentCategory = "Cash on Delivery";
+let selectedPaymentMethodIndex = null; 
 
 function updateCartBadge() {
     const badgeElement = document.getElementById("global-cart-badge");
@@ -43,10 +32,12 @@ function updateCartBadge() {
     }
 }
 
-/**
- * Adds a new item to the cart or increments its quantity if it's already there.
- */
 function addProductToCart(productId) {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = "login.html";
+        return;
+    }
+
     const productToAdd = productDatabase.find((databaseItem) => databaseItem.id === productId);
     if (!productToAdd) return;
 
@@ -210,23 +201,284 @@ function applyPromoCode() {
     initCart();
 }
 
-function processCheckout() {
-    const selectedCartItems = userShoppingCart.filter((cartItem) => cartItem.isSelectedForOrder);
+/* ==========================================================================
+    CHECKOUT VIEW LOGIC (Address & Payment Methods)
+   ========================================================================== */
 
+function toggleCheckoutView(showCheckout) {
+    if (showCheckout) {
+        proceedToCheckoutView();
+    } else {
+        document.getElementById("cart-items-view").style.display = "block";
+        document.getElementById("checkout-details-view").style.display = "none";
+        
+        const mainBtn = document.getElementById("main-checkout-btn");
+        mainBtn.textContent = "PROCEED TO CHECKOUT";
+        mainBtn.onclick = proceedToCheckoutView;
+
+        const backLink = document.getElementById("cart-back-link");
+        backLink.innerHTML = '<span class="material-icons-outlined" style="font-size: 16px">arrow_back</span> Continue Shopping';
+        backLink.onclick = null;
+        backLink.href = "catalog.html";
+        
+        document.getElementById("cart-main-title").textContent = "Your Cart";
+        isCheckoutViewActive = false;
+    }
+}
+
+function proceedToCheckoutView() {
+    const selectedCartItems = userShoppingCart.filter((cartItem) => cartItem.isSelectedForOrder);
+    
     if (selectedCartItems.length === 0) {
         showToastNotification("Please select at least one item to place an order.");
         return;
     }
 
+    document.getElementById("cart-items-view").style.display = "none";
+    document.getElementById("checkout-details-view").style.display = "block";
+
+    const mainBtn = document.getElementById("main-checkout-btn");
+    mainBtn.textContent = "PLACE ORDER";
+    mainBtn.onclick = placeOrder;
+
+    const backLink = document.getElementById("cart-back-link");
+    backLink.innerHTML = '<span class="material-icons-outlined" style="font-size: 16px">arrow_back</span> Back to Cart';
+    backLink.href = "#";
+    backLink.onclick = (e) => { e.preventDefault(); toggleCheckoutView(false); };
+    
+    document.getElementById("cart-main-title").textContent = "Checkout Details";
+
+    renderCheckoutAddress();
+    renderCheckoutPaymentMethods();
+
+    isCheckoutViewActive = true;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderCheckoutAddress() {
+    const container = document.getElementById("checkout-address-container");
+    const changeBtn = document.getElementById("change-address-btn");
+    
+    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const email = localStorage.getItem("unlimitedPage_CurrentUser");
+    const addresses = (db[email] || {}).addresses || [];
+
+    if (addresses.length === 0) {
+        container.innerHTML = `
+            <button class="add-address-button" onclick="openAddressModal()">
+                + Add New Address
+            </button>
+        `;
+        changeBtn.style.display = "none";
+        selectedCheckoutAddressIndex = null;
+        selectedCheckoutAddressData = null;
+        return;
+    }
+
+    changeBtn.style.display = "block";
+
+    // Re-sync index bulletproof check: Survives array re-sorting
+    if (selectedCheckoutAddressData) {
+        const newIndex = addresses.findIndex(a => a.label === selectedCheckoutAddressData.label && a.street === selectedCheckoutAddressData.street);
+        if (newIndex > -1) {
+            selectedCheckoutAddressIndex = newIndex;
+        } else {
+            selectedCheckoutAddressData = null;
+        }
+    }
+
+    if (selectedCheckoutAddressIndex === null || !addresses[selectedCheckoutAddressIndex]) {
+        const defaultIndex = addresses.findIndex(a => a.isDefault);
+        selectedCheckoutAddressIndex = defaultIndex > -1 ? defaultIndex : 0;
+        selectedCheckoutAddressData = addresses[selectedCheckoutAddressIndex];
+    }
+
+    const addr = addresses[selectedCheckoutAddressIndex];
+    container.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 14px;">
+            <div style="font-weight: 700; color: var(--text-dark-color);">
+                ${addr.label} <span style="font-weight: 400; color: var(--text-muted-color);">| ${addr.phone}</span>
+            </div>
+            <div style="color: var(--text-muted-color);">
+                ${addr.street}, ${addr.city}, ${addr.state}, ${addr.zip}
+            </div>
+        </div>
+    `;
+}
+
+function openCheckoutAddressModal() {
+    const listContainer = document.getElementById("checkout-address-list");
+    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const email = localStorage.getItem("unlimitedPage_CurrentUser");
+    const addresses = (db[email] || {}).addresses || [];
+
+    listContainer.innerHTML = addresses.map((addr, index) => `
+        <div class="address-modal-radio-container" onclick="selectCheckoutAddress(${index})">
+            <div style="padding-top: 2px;">
+                <input type="radio" name="checkout_address" ${index === selectedCheckoutAddressIndex ? 'checked' : ''} style="accent-color: var(--primary-blue-color); width: 18px; height: 18px;">
+            </div>
+            <div style="flex-grow: 1; font-size: 14px; line-height: 1.5;">
+                <div style="font-weight: 700; color: var(--text-dark-color); display: flex; align-items: center; gap: 10px;">
+                    ${addr.label} <span style="font-weight: 400; color: var(--text-muted-color);">| ${addr.phone}</span>
+                </div>
+                <div style="color: var(--text-muted-color);">
+                    ${addr.street}<br>${addr.city}, ${addr.state}, ${addr.zip}
+                </div>
+                ${addr.isDefault ? '<span class="default-badge" style="display: inline-block; margin-top: 8px;">Default</span>' : ''}
+            </div>
+            <button class="change-address-btn" onclick="event.stopPropagation(); editAddress(${index}); closeCheckoutAddressModal();">Edit</button>
+        </div>
+    `).join('');
+
+    document.getElementById("checkout-address-modal").style.display = "flex";
+}
+
+function selectCheckoutAddress(index) {
+    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const email = localStorage.getItem("unlimitedPage_CurrentUser");
+    const addresses = (db[email] || {}).addresses || [];
+    
+    selectedCheckoutAddressIndex = index;
+    // Store a deep copy so references survive updates
+    selectedCheckoutAddressData = JSON.parse(JSON.stringify(addresses[index])); 
+    
+    renderCheckoutAddress();
+    closeCheckoutAddressModal();
+}
+
+function closeCheckoutAddressModal() {
+    document.getElementById("checkout-address-modal").style.display = "none";
+}
+
+function renderCheckoutPaymentMethods() {
+    const categoryContainer = document.getElementById("checkout-payment-category-container");
+    const cardContainer = document.getElementById("checkout-selected-card-container");
+    if (!categoryContainer || !cardContainer) return;
+
+    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const email = localStorage.getItem("unlimitedPage_CurrentUser");
+    const methods = (db[email] || {}).paymentMethods || [];
+
+    const uniqueTypes = [...new Set(methods.map(m => m.type))];
+
+    let html = ``;
+    uniqueTypes.forEach(type => {
+        const firstMatch = methods.find(m => m.type === type);
+        html += `
+            <div class="checkout-payment-method" data-category="${type}" onclick="selectPaymentCategory('${type}')">
+                <img src="${firstMatch.logo}" alt="${type}" />
+            </div>
+        `;
+    });
+
+    html += `
+        <div class="checkout-payment-method" data-category="Cash on Delivery" onclick="selectPaymentCategory('Cash on Delivery')">
+            <img src="images/payment-method/cash-on-delivery-logo.jpg" alt="Cash on Delivery" />
+        </div>
+    `;
+
+    categoryContainer.innerHTML = html;
+
+    if (uniqueTypes.includes(selectedPaymentCategory)) {
+        selectPaymentCategory(selectedPaymentCategory);
+    } else {
+        selectPaymentCategory('Cash on Delivery');
+    }
+}
+
+function selectPaymentCategory(category) {
+    selectedPaymentCategory = category;
+    
+    const categoryBoxes = document.querySelectorAll("#checkout-payment-category-container .checkout-payment-method");
+    categoryBoxes.forEach(box => {
+        if (box.dataset.category === category) {
+            box.classList.add("selected");
+        } else {
+            box.classList.remove("selected");
+        }
+    });
+
+    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const email = localStorage.getItem("unlimitedPage_CurrentUser");
+    const methods = (db[email] || {}).paymentMethods || [];
+
+    if (category === 'Cash on Delivery') {
+        selectedPaymentMethodIndex = null;
+        renderSelectedPaymentCards([]);
+    } else {
+        const methodsOfType = methods.map((m, index) => ({ ...m, originalIndex: index })).filter(m => m.type === category);
+        
+        if (selectedPaymentMethodIndex === null || methods[selectedPaymentMethodIndex].type !== category) {
+            selectedPaymentMethodIndex = methodsOfType[0].originalIndex;
+        }
+        
+        renderSelectedPaymentCards(methodsOfType);
+    }
+}
+
+function renderSelectedPaymentCards(methodsOfType) {
+    const cardContainer = document.getElementById("checkout-selected-card-container");
+    if (!cardContainer) return;
+
+    if (methodsOfType.length === 0) {
+        cardContainer.innerHTML = "";
+        return;
+    }
+
+    cardContainer.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">
+            ${methodsOfType.map(method => `
+                <article class="payment-card checkout-selectable-card ${method.originalIndex === selectedPaymentMethodIndex ? 'selected' : ''}" 
+                         onclick="selectSpecificCard(${method.originalIndex})">
+                    <button class="payment-card-button edit" onclick="event.stopPropagation(); editPaymentMethod(${method.originalIndex})">EDIT</button>
+                    <div class="payment-card-header">
+                        <img src="${method.logo}" alt="${method.type}" class="payment-card-logo">
+                        <span class="payment-card-type">${method.tag}</span>
+                    </div>
+                    <div class="payment-card-number">${method.displayNumber}</div>
+                    <div class="payment-card-detail">${method.detail}</div>
+                </article>
+            `).join('')}
+        </div>
+    `;
+}
+
+function selectSpecificCard(index) {
+    selectedPaymentMethodIndex = index;
+    selectPaymentCategory(selectedPaymentCategory); 
+}
+
+function placeOrder() {
+    if (selectedCheckoutAddressIndex === null) {
+        showToastNotification("Please select a delivery address.");
+        return;
+    }
+    
+    if (selectedPaymentCategory !== "Cash on Delivery" && selectedPaymentMethodIndex === null) {
+        showToastNotification("Please select a payment method.");
+        return;
+    }
+
+    const selectedCartItems = userShoppingCart.filter((cartItem) => cartItem.isSelectedForOrder);
+
     let finalSubtotal = 0;
     selectedCartItems.forEach((cartItem) => {
         const databaseItem = productDatabase.find((item) => item.id === cartItem.id);
-        if (databaseItem)
-            finalSubtotal += parseFloat(databaseItem.price) * parseInt(cartItem.quantity);
+        if (databaseItem) finalSubtotal += parseFloat(databaseItem.price) * parseInt(cartItem.quantity);
     });
 
     let calculatedShippingFee = finalSubtotal < 200 && finalSubtotal > 0 ? 30 : 0;
     const finalOrderTotal = Math.max(0, finalSubtotal + calculatedShippingFee - currentPromoDiscount);
+
+    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const email = localStorage.getItem("unlimitedPage_CurrentUser");
+    const addr = (db[email] || {}).addresses[selectedCheckoutAddressIndex];
+    
+    let paymentDisplayString = "Cash on Delivery";
+    if (selectedPaymentCategory !== "Cash on Delivery" && selectedPaymentMethodIndex !== null) {
+        const method = (db[email] || {}).paymentMethods[selectedPaymentMethodIndex];
+        paymentDisplayString = `${method.type} ending in ${method.displayNumber.slice(-4)}`;
+    }
 
     const receiptHTML = `
         <h2 style="color: var(--success-green-color); margin-bottom: 15px; font-size: 24px;">Order Confirmed!</h2>
@@ -237,8 +489,12 @@ function processCheckout() {
         
         <div style="background-color: var(--background-light-color); padding: 15px; border-radius: 6px; text-align: left; margin-bottom: 20px; border: 1px solid var(--border-light-color);">
             <p style="margin-bottom: 8px; font-size: 14px;">
+                <strong style="color: var(--text-muted-color);">Delivery Address:</strong> <br> 
+                <span style="font-weight: 600; color: var(--text-dark-color);">${addr.street}, ${addr.city}, ${addr.state}</span>
+            </p>
+            <p style="margin-bottom: 8px; font-size: 14px;">
                 <strong style="color: var(--text-muted-color);">Payment Method:</strong> <br> 
-                <span style="font-weight: 600; color: var(--text-dark-color);">${selectedPaymentMethod}</span>
+                <span style="font-weight: 600; color: var(--text-dark-color);">${paymentDisplayString}</span>
             </p>
             <p style="font-size: 14px;">
                 <strong style="color: var(--text-muted-color);">Total Paid:</strong> <br> 
@@ -278,9 +534,14 @@ function processCheckout() {
     initCart();
 
     showCheckoutModal(receiptHTML, () => {
+        toggleCheckoutView(false); // Go back to cart view for next time
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
 }
+
+/* ==========================================================================
+    CART RENDER LOGIC
+   ========================================================================== */
 
 function initCart() {
     const cartContainerElement = document.getElementById("cart-items-container");
@@ -330,7 +591,7 @@ function initCart() {
         const opacityClass = cartItem.isSelectedForOrder ? "" : "omitted-from-order";
         const toggleButtonClass = cartItem.isSelectedForOrder ? "remove-button" : "add-button";
         const toggleIcon = cartItem.isSelectedForOrder ? "images/remove-icon-remove-order.png" : "images/check-icon-place-order.png";
-        const toggleText = cartItem.isSelectedForOrder ? "Remove" : "Place Order";
+        const toggleText = cartItem.isSelectedForOrder ? "Remove" : "Add";
 
         const itemHTML = `
             <article class="cart-item-row ${opacityClass}">
@@ -423,3 +684,18 @@ function initCart() {
         if (discountRowElement) discountRowElement.style.display = "none";
     }
 }
+
+// Intercept external render functions to refresh the checkout views
+setTimeout(() => {
+    const originalRenderAddresses = window.renderAddresses;
+    window.renderAddresses = function() {
+        if (originalRenderAddresses) originalRenderAddresses();
+        if (isCheckoutViewActive) renderCheckoutAddress();
+    };
+
+    const originalRenderPaymentMethods = window.renderPaymentMethods;
+    window.renderPaymentMethods = function() {
+        if (originalRenderPaymentMethods) originalRenderPaymentMethods();
+        if (isCheckoutViewActive) renderCheckoutPaymentMethods();
+    };
+}, 100);
