@@ -90,18 +90,20 @@
                         <label for="sell-book-title" class="form-label">Book Title or ISBN</label>
                         <input type="text" id="sell-book-title" class="form-input"
                             placeholder="e.g. The Great Gatsby or 9780743273565" required />
-                        <span class="form-helper-text">ISBNs help us provide faster, more accurate quotes.</span>
                     </div>
 
                     <div class="form-input-group">
                         <label for="sell-book-condition" class="form-label">Condition</label>
-                        <select id="sell-book-condition" class="form-input" required>
+                        <select id="sell-book-condition" class="form-input">
                             <option value="" disabled selected>Select condition</option>
                             <option value="Like New">Like New (No visible wear)</option>
                             <option value="Good">Good (Minor wear, no highlights/tears)</option>
                             <option value="Fair">Fair (Noticeable wear, some markings)</option>
                             <option value="Poor">Poor (Heavy wear, damaged spine)</option>
                         </select>
+                        <span id="condition-error"
+                            style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;">Please
+                            select a condition.</span>
                     </div>
                 </div>
 
@@ -128,13 +130,12 @@
                     </div>
 
                     <div class="upload-container">
-                        <label class="form-label text-center">Upload Image (Back)</label>
+                        <label class="form-label text-center">Upload Image (Front)</label>
                         <div class="upload-box">
                             <span class="material-icons-outlined upload-icon">cloud_upload</span>
                             <p class="upload-title">Drag and drop images here</p>
-                            <p class="upload-subtitle">or click to browse from your device<br>(Max 10MB, .jpg or .png)
-                            </p>
-                            <input type="file" class="hidden-file-input" accept="image/png, image/jpeg" required>
+                            <p class="upload-subtitle">or click to browse from your device<br>(Max 10MB, .jpg or .png)</p>
+                            <input type="file" class="hidden-file-input" accept="image/png, image/jpeg">
                         </div>
                         <div class="upload-preview-container">
                             <img src="" alt="preview" class="upload-preview-thumb">
@@ -146,6 +147,7 @@
                                 <img src="images/trash-bin-icon.png" alt="Delete">
                             </button>
                         </div>
+                        <span class="upload-error-msg" style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 6px; text-align: center;"></span>
                     </div>
 
                     <div class="upload-container">
@@ -178,10 +180,11 @@
 
                 <div class="form-submission-area">
                     <p class="submission-disclaimer">
-                        Your information is secure. We will only use your details to contact you regarding your
-                        appraisal request.<br>
                         We will email your appraisal quote within 24-48 hours.
                     </p>
+                    <div id="sell-success-msg"
+                        style="display:none; color: var(--success-green-color); text-align: center; margin-top: 15px; font-weight: 600; font-size: 14px;">
+                    </div>
                     <button type="submit" class="submit-appraisal-button">Get Appraisal</button>
                 </div>
             </form>
