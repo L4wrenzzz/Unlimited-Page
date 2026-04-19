@@ -146,17 +146,19 @@
                 <label class="form-label"
                     style="letter-spacing: 0.5px; color: var(--text-dark-color); margin-bottom: 8px;">Payment
                     Type</label>
-                <div class="pm-type-selector">
-                    <div class="pm-type-option selected" data-type="Visa" onclick="selectPaymentType('Visa')">
+                <div class="paymentMethodItem-type-selector">
+                    <div class="paymentMethodItem-type-option selected" data-type="Visa"
+                        onclick="selectPaymentType('Visa')">
                         <img src="images/payment-method/visa-logo.jpg" alt="Visa">
                     </div>
-                    <div class="pm-type-option" data-type="Mastercard" onclick="selectPaymentType('Mastercard')">
+                    <div class="paymentMethodItem-type-option" data-type="Mastercard"
+                        onclick="selectPaymentType('Mastercard')">
                         <img src="images/payment-method/mastercard-logo.jpg" alt="Mastercard">
                     </div>
-                    <div class="pm-type-option" data-type="GCash" onclick="selectPaymentType('GCash')">
+                    <div class="paymentMethodItem-type-option" data-type="GCash" onclick="selectPaymentType('GCash')">
                         <img src="images/payment-method/gcash-logo.jpg" alt="GCash">
                     </div>
-                    <div class="pm-type-option" data-type="Maya" onclick="selectPaymentType('Maya')">
+                    <div class="paymentMethodItem-type-option" data-type="Maya" onclick="selectPaymentType('Maya')">
                         <img src="images/payment-method/maya-logo.jpg" alt="Maya">
                     </div>
                 </div>
@@ -166,19 +168,26 @@
                         <label class="form-label">Card Number</label>
                         <div class="card-input-wrapper">
                             <span class="material-icons-outlined card-input-icon">credit_card</span>
-                            <input type="text" id="pm-card-number" class="form-input numeric-only"
+                            <input type="text" id="paymentMethodItem-card-number" class="form-input numeric-only"
                                 placeholder="0000 0000 0000 0000" maxlength="19" />
                         </div>
+                        <span id="paymentMethodItem-card-error"
+                            style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;"></span>
                     </div>
                     <div class="form-row-split">
                         <div class="form-input-group">
                             <label class="form-label">Expiration Date</label>
-                            <input type="text" id="pm-exp" class="form-input" placeholder="MM/YY" maxlength="5" />
+                            <input type="text" id="paymentMethodItem-exp" class="form-input" placeholder="MM/YY"
+                                maxlength="5" />
+                            <span id="paymentMethodItem-exp-error"
+                                style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;"></span>
                         </div>
                         <div class="form-input-group">
                             <label class="form-label">CVV</label>
-                            <input type="text" id="pm-cvv" class="form-input numeric-only" placeholder="123"
-                                maxlength="4" />
+                            <input type="text" id="paymentMethodItem-cvv" class="form-input numeric-only"
+                                placeholder="123" maxlength="4" />
+                            <span id="paymentMethodItem-cvv-error"
+                                style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;"></span>
                         </div>
                     </div>
                 </div>
@@ -186,8 +195,10 @@
                 <div id="ewallet-fields" style="display: none;">
                     <div class="form-input-group">
                         <label class="form-label">Mobile Number</label>
-                        <input type="text" id="pm-mobile" class="form-input numeric-only" placeholder="0912 345 6789"
-                            maxlength="11" />
+                        <input type="text" id="paymentMethodItem-mobile" class="form-input numeric-only"
+                            placeholder="0912 345 6789" maxlength="11" />
+                        <span id="paymentMethodItem-mobile-error"
+                            style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;"></span>
                     </div>
                 </div>
 
