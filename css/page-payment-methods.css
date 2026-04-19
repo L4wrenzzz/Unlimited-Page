@@ -1,0 +1,158 @@
+/* ==========================================================================
+    PAYMENT METHODS PAGE & MODAL STYLES
+   ========================================================================== */
+
+.payment-methods-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.payment-card {
+    background-color: var(--surface-white-color);
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-light-color);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.payment-card-logo {
+    height: 24px;
+    object-fit: contain;
+}
+
+.payment-card-type {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted-color);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.payment-card-number {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: var(--text-dark-color);
+}
+
+.payment-card-detail {
+    font-size: 13px;
+    color: var(--text-muted-color);
+}
+
+/* Action Buttons (Edit / Delete) split to top/bottom */
+.payment-card-btn {
+    position: absolute;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.payment-card-btn.edit {
+    top: 25px;
+    color: var(--primary-blue-color);
+}
+
+.payment-card-btn.delete {
+    bottom: 25px;
+    color: var(--danger-red-color);
+}
+
+/* --- Modal Selection Styling --- */
+.pm-type-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    transition: opacity 0.2s;
+}
+
+/* Disables clicking the payment type when editing */
+.pm-type-selector.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.pm-type-option {
+    border: 1px solid var(--border-light-color);
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+    height: 45px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+    background-color: white;
+}
+
+.pm-type-option img {
+    max-height: 22px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.pm-type-option.selected {
+    border-color: var(--primary-blue-color);
+}
+
+.pm-type-option.selected::after {
+    content: '\e876'; 
+    font-family: 'Material Icons Outlined';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary-blue-color);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Input Icon Wrapper */
+.card-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.card-input-wrapper .form-input {
+    padding-left: 45px;
+}
+
+.card-input-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--text-muted-color);
+    font-size: 22px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .payment-methods-grid-layout {
+        grid-template-columns: 1fr;
+    }
+}
