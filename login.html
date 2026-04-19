@@ -57,8 +57,10 @@
                 <form id="login-form" class="login-form">
                     <div class="form-input-group">
                         <label class="login-form-label">Email</label>
-                        <input type="email" class="form-input" placeholder="Enter your email"
+                        <input type="email" id="login-email-input" class="form-input" placeholder="Enter your email"
                             oninput="this.value = this.value.toLowerCase()" required />
+                        <span id="login-email-error"
+                            style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;"></span>
                     </div>
 
                     <div class="form-input-group">
@@ -69,6 +71,8 @@
                             <span class="material-icons-outlined password-toggle-icon"
                                 id="password-toggle-icon">visibility</span>
                         </div>
+                        <span id="login-password-error"
+                            style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;"></span>
                     </div>
 
                     <p class="auth-agreement-text">
@@ -89,8 +93,10 @@
                 <form id="signup-form" class="login-form">
                     <div class="form-input-group">
                         <label class="login-form-label">Email</label>
-                        <input type="email" class="form-input" placeholder="Enter your email"
+                        <input type="email" id="signup-email-input" class="form-input" placeholder="Enter your email"
                             oninput="this.value = this.value.toLowerCase()" required />
+                        <span id="signup-email-error"
+                            style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;"></span>
                     </div>
 
                     <div class="form-input-group">
