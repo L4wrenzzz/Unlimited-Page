@@ -145,42 +145,45 @@
                 <div class="form-row-split">
                     <div class="form-input-group">
                         <label class="form-label">Address Label</label>
-                        <input type="text" id="addr-label" class="form-input" placeholder="Enter your address label"
-                            required />
+                        <input type="text" id="addressItem-label" class="form-input"
+                            placeholder="Enter your address label" required />
                     </div>
                     <div class="form-input-group">
                         <label class="form-label">Phone Number</label>
-                        <input type="text" id="addr-phone" class="form-input" placeholder="Enter your phone number"
-                            required oninput="this.value = this.value.replace(/[^0-9+]/g, '')" />
+                        <input type="text" id="addressItem-phone" class="form-input"
+                            placeholder="Enter your phone number" required
+                            oninput="this.value = this.value.replace(/[^0-9+]/g, '')" />
                     </div>
                 </div>
 
                 <div class="form-input-group">
                     <label class="form-label">Street Address, Building, House No.</label>
-                    <textarea id="addr-street" class="form-input no-resize-textarea"
+                    <textarea id="addressItem-street" class="form-input no-resize-textarea"
                         placeholder="Enter your full street address" required></textarea>
                 </div>
 
                 <div class="form-row-split">
                     <div class="form-input-group">
                         <label class="form-label">City</label>
-                        <input type="text" id="addr-city" class="form-input" placeholder="Enter your city" required />
+                        <input type="text" id="addressItem-city" class="form-input" placeholder="Enter your city"
+                            required />
                     </div>
                     <div class="form-input-group">
                         <label class="form-label">State/Province</label>
-                        <input type="text" id="addr-state" class="form-input" placeholder="Enter your state/province"
-                            required />
+                        <input type="text" id="addressItem-state" class="form-input"
+                            placeholder="Enter your state/province" required />
                     </div>
                 </div>
 
                 <div class="form-input-group half-width-input">
                     <label class="form-label">Zip Code</label>
-                    <input type="text" id="addr-zip" class="form-input" placeholder="Enter your zip code" required />
+                    <input type="text" id="addressItem-zip" class="form-input" placeholder="Enter your zip code"
+                        required />
                 </div>
 
                 <div class="default-checkbox-wrapper">
                     <label class="checkbox-label">
-                        <input type="checkbox" id="addr-is-default" />
+                        <input type="checkbox" id="addressItem-is-default" />
                         Set as default billing/shipping address
                     </label>
                 </div>
