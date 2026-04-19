@@ -46,64 +46,79 @@ document.addEventListener("DOMContentLoaded", () => {
     setupPasswordToggle(accountPasswordInput, accountPasswordToggleIcon);
 
     // 2. Login & Registration Logic
-    // --- View Toggling Logic ---
     const loginView = document.getElementById("login-view");
     const signupView = document.getElementById("signup-view");
     const showSignupLink = document.getElementById("show-signup-link");
     const showLoginLink = document.getElementById("show-login-link");
 
     if (showSignupLink && showLoginLink) {
-        showSignupLink.addEventListener("click", (e) => {
-            e.preventDefault();
+        showSignupLink.addEventListener("click", (event) => {
+            event.preventDefault();
             loginView.style.display = "none";
             signupView.style.display = "block";
         });
 
-        showLoginLink.addEventListener("click", (e) => {
-            e.preventDefault();
+        showLoginLink.addEventListener("click", (event) => {
+            event.preventDefault();
             signupView.style.display = "none";
             loginView.style.display = "block";
         });
     }
 
-    // --- Sign Up Password Eye Toggle ---
     const signupPasswordInput = document.getElementById("signup-password-input");
     const signupPasswordToggle = document.getElementById("signup-password-toggle-icon");
     setupPasswordToggle(signupPasswordInput, signupPasswordToggle);
 
-    // 2. Login Logic (Strictly checks for existing users)
     if (loginFormElement) {
         loginFormElement.addEventListener("submit", (event) => {
             event.preventDefault();
-            const emailValue = loginFormElement.querySelector('input[type="email"]').value.trim().toLowerCase();
+            const emailInput = document.getElementById("login-email-input");
+            const emailValue = emailInput ? emailInput.value.trim().toLowerCase() : "";
             const passwordValue = loginPasswordInput.value;
+
+            const emailError = document.getElementById("login-email-error");
+            const passwordError = document.getElementById("login-password-error");
+
+            if (emailError) emailError.style.display = "none";
+            if (passwordError) passwordError.style.display = "none";
 
             if (usersDatabase[emailValue]) {
                 if (usersDatabase[emailValue].password === passwordValue) {
-                    processAuthenticationSuccess(emailValue, "Logging in");
+                    processAuthenticationSuccess(emailValue, "");
                 } else {
-                    showToastNotification("Incorrect password. Please try again.");
+                    if (passwordError) {
+                        passwordError.textContent = "Incorrect password. Please try again.";
+                        passwordError.style.display = "block";
+                    }
                 }
             } else {
-                showToastNotification("Account not found. Please Sign Up first.");
+                if (emailError) {
+                    emailError.textContent = "Account not found. Please Sign Up first.";
+                    emailError.style.display = "block";
+                }
             }
         });
     }
 
-    // 2.5 Registration Logic (Strictly creates new users)
     const signupFormElement = document.getElementById("signup-form");
     if (signupFormElement) {
         signupFormElement.addEventListener("submit", (event) => {
             event.preventDefault();
-            const emailValue = signupFormElement.querySelector('input[type="email"]').value.trim().toLowerCase();
+            const emailInput = document.getElementById("signup-email-input");
+            const emailValue = emailInput ? emailInput.value.trim().toLowerCase() : "";
             const passwordValue = signupPasswordInput.value;
 
+            const signupEmailError = document.getElementById("signup-email-error");
+            if (signupEmailError) signupEmailError.style.display = "none";
+
             if (usersDatabase[emailValue]) {
-                showToastNotification("Email is already registered. Please Log In.");
+                if (signupEmailError) {
+                    signupEmailError.innerHTML = `Email is already registered.</a>`;
+                    signupEmailError.style.display = "block";
+                }
             } else {
-                // Remove any numbers or symbols from the generated name
-                let namePrefixString = emailValue.split('@')[0].replace(/[^a-zA-Z\s]/g, '').substring(0, 16); 
-                if(!namePrefixString) namePrefixString = "User"; // Fallback if email was purely numbers
+                let namePrefixString = emailValue.split('@')[0].replace(/[^a-zA-Z\s]/g, '').substring(0, 16);
+                if (!namePrefixString) namePrefixString = "User";
 
                 usersDatabase[emailValue] = {
                     email: emailValue,
@@ -115,20 +130,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     avatar: "images/userProfile.png"
                 };
                 localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
-                processAuthenticationSuccess(emailValue, ""); // Sent as empty string to hide toast
+                processAuthenticationSuccess(emailValue, "");
             }
         });
     }
 
     const nameErrorText = document.getElementById("name-error-text");
     if (accountNameInput) {
-        
-        // 1. Handle regular typing and pasting
-        accountNameInput.addEventListener("input", function() {
-            // Strip out numbers and symbols
+        accountNameInput.addEventListener("input", function () {
             this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
-
-            // Hide the error text if they delete characters and drop below 16
             if (this.value.length < 16) {
                 if (nameErrorText) nameErrorText.style.display = "none";
             } else if (this.value.length >= 16) {
@@ -136,18 +146,57 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // 2. Catch them trying to type when it's ALREADY at 16 characters
-        accountNameInput.addEventListener("keydown", function(e) {
-            // e.key.length === 1 ensures we only trigger on actual letters/numbers, 
-            // and NOT control keys like 'Backspace', 'Tab', or 'ArrowLeft'
-            if (this.value.length >= 16 && e.key.length === 1) {
+        accountNameInput.addEventListener("keydown", function (event) {
+            if (this.value.length >= 16 && event.key.length === 1) {
                 if (nameErrorText) nameErrorText.style.display = "block";
             }
         });
 
-        // 3. Hide the error text when the user clicks away or clicks the Save button
-        accountNameInput.addEventListener("blur", function() {
+        accountNameInput.addEventListener("blur", function () {
             if (nameErrorText) nameErrorText.style.display = "none";
+        });
+    }
+
+    if (accountDateOfBirthInput) {
+        accountDateOfBirthInput.addEventListener("input", function (event) {
+            let inputValue = this.value.replace(/\D/g, "");
+
+            if (inputValue.length > 0) {
+                let month = inputValue.substring(0, 2);
+                if (parseInt(month) > 12) month = "12";
+                if (month === "00") month = "01";
+
+                if (month.length === 2 && inputValue.length > 2) {
+                    let day = inputValue.substring(2, 4);
+                    if (parseInt(day) > 31) day = "31";
+                    if (day === "00") day = "01";
+
+                    if (day.length === 2 && inputValue.length > 4) {
+                        let year = inputValue.substring(4, 8);
+                        inputValue = month + "/" + day + "/" + year;
+                    } else {
+                        inputValue = month + "/" + day;
+                    }
+                } else {
+                    inputValue = month;
+                }
+            }
+
+            if ((inputValue.length === 2 || inputValue.length === 5) && event.inputType !== "deleteContentBackward") {
+                inputValue = inputValue + "/"; // Fixed
+            }
+            this.value = inputValue; // Fixed
+        });
+
+        accountDateOfBirthInput.addEventListener("blur", function () {
+            let parts = this.value.split("/");
+            if (parts.length === 3) {
+                let year = parseInt(parts[2]);
+                if (year > 2026) {
+                    parts[2] = "2026";
+                    this.value = parts.join("/");
+                }
+            }
         });
     }
 
@@ -156,87 +205,90 @@ document.addEventListener("DOMContentLoaded", () => {
         loadUserProfileData();
     }
 
-    // 4. Save Profile Data (With Email/Password changing logic)
+    // 4. Save Profile Data
     if (saveProfileButtonElement) {
         saveProfileButtonElement.addEventListener("click", (event) => {
             event.preventDefault();
+            const emailErrorSpan = document.getElementById("account-email-error");
+            if (emailErrorSpan) emailErrorSpan.style.display = "none"; // Hide error initially
 
             if (currentUserEmail && usersDatabase[currentUserEmail]) {
                 const newEmailValue = accountEmailInput.value.trim().toLowerCase();
                 const newPasswordValue = accountPasswordInput.value;
 
-                // Check if the user is trying to change their email to an entirely new one
                 if (newEmailValue !== currentUserEmail) {
-                    // Prevent them from overwriting someone else's existing account
                     if (usersDatabase[newEmailValue]) {
-                        showToastNotification("That email is already in use by another account.");
-                        return; 
+                        // Show inline error instead of toast!
+                        if (emailErrorSpan) emailErrorSpan.style.display = "block";
+                        return; // Stops saving if email is taken
                     }
-
-                    // Migrate data to the new email key
                     usersDatabase[newEmailValue] = { ...usersDatabase[currentUserEmail] };
-                    
-                    // Delete the old email record
                     delete usersDatabase[currentUserEmail];
-                    
-                    // Update the active session to the new email so they aren't logged out
+
                     currentUserEmail = newEmailValue;
                     localStorage.setItem("unlimitedPage_CurrentUser", newEmailValue);
-                    
-                    // Update the cart key to match the new email
+
                     let userShoppingCartData = JSON.parse(localStorage.getItem(`unlimitedPageCart_${currentUserEmail}`)) || [];
                     localStorage.setItem(`unlimitedPageCart_${newEmailValue}`, JSON.stringify(userShoppingCartData));
                 }
 
-                // Update the rest of the database fields
                 usersDatabase[currentUserEmail].name = accountNameInput.value.substring(0, 16);
                 usersDatabase[currentUserEmail].password = newPasswordValue;
-                usersDatabase[currentUserEmail].email = newEmailValue; 
+                usersDatabase[currentUserEmail].email = newEmailValue;
                 usersDatabase[currentUserEmail].phone = accountPhoneNumberInput.value;
                 usersDatabase[currentUserEmail].dob = accountDateOfBirthInput.value;
-                
+
                 if (accountGenderMaleRadio.checked) usersDatabase[currentUserEmail].gender = "male";
                 else if (accountGenderFemaleRadio.checked) usersDatabase[currentUserEmail].gender = "female";
 
                 localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
-                
-                showToastNotification("Changes saved successfully!");
 
+                showToastNotification("Changes saved successfully");
                 if (typeof updateHeaderAccount === "function") updateHeaderAccount();
             }
         });
     }
 
-    // 5. Handle Image Upload
+    // 5. Handle Image Upload & Validation
     if (imageUploadInputElement && imagePreviewElement) {
-        imageUploadInputElement.addEventListener("change", function() {
+        const imageError = document.getElementById("profile-image-error");
+
+        imageUploadInputElement.addEventListener("change", function () {
+            if (imageError) imageError.style.display = "none";
             const uploadedFile = this.files[0];
+
             if (uploadedFile) {
-                // Validate size (1MB = 1048576 bytes)
                 if (uploadedFile.size > 1048576) {
-                    showToastNotification("Image must be 1MB or less.");
-                    this.value = ""; // Clear file
+                    if (imageError) {
+                        imageError.textContent = "Image must be 1MB or less.";
+                        imageError.style.display = "block";
+                    }
+                    this.value = "";
                     return;
                 }
-                // Validate file format
                 if (uploadedFile.type !== "image/jpeg" && uploadedFile.type !== "image/png") {
-                    showToastNotification("Only JPG and PNG formats are supported.");
-                    this.value = ""; // Clear file
+                    if (imageError) {
+                        imageError.textContent = "Only JPG and PNG formats are supported.";
+                        imageError.style.display = "block";
+                    }
+                    this.value = "";
                     return;
                 }
 
                 const fileReader = new FileReader();
-                fileReader.onload = function(eventResult) {
+                fileReader.onload = function (eventResult) {
                     const base64ImageString = eventResult.target.result;
                     imagePreviewElement.src = base64ImageString;
-                    
+
                     if (currentUserEmail && usersDatabase[currentUserEmail]) {
                         usersDatabase[currentUserEmail].avatar = base64ImageString;
                         try {
                             localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
-                            showToastNotification("Profile photo updated!");
                         } catch (error) {
-                            showToastNotification("Error: Image file is too large to save.");
+                            if (imageError) {
+                                imageError.textContent = "Error: Image file is too large to save to local browser.";
+                                imageError.style.display = "block";
+                            }
                         }
                     }
                 };
@@ -251,19 +303,19 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
             localStorage.removeItem("isLoggedIn");
             localStorage.removeItem("unlimitedPage_CurrentUser");
-            
+
             setTimeout(() => {
                 window.location.href = "login.html";
-            }, 1000);
+            }, 500);
         });
     }
 
     // --- Helper Functions ---
     function processAuthenticationSuccess(emailString, messageString) {
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("unlimitedPage_CurrentUser", emailString); 
-        if(messageString) showToastNotification(messageString); 
-        setTimeout(() => { window.location.href = "account.html"; }, 1000);
+        localStorage.setItem("unlimitedPage_CurrentUser", emailString);
+        if (messageString) showToastNotification(messageString);
+        setTimeout(() => { window.location.href = "account.html"; }, 500);
     }
 
     function loadUserProfileData() {
@@ -274,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
             accountPasswordInput.value = userProfileData.password || "";
             accountPhoneNumberInput.value = userProfileData.phone || "";
             accountDateOfBirthInput.value = userProfileData.dob || "";
-            
+
             if (userProfileData.gender === "male") accountGenderMaleRadio.checked = true;
             else if (userProfileData.gender === "female") accountGenderFemaleRadio.checked = true;
 
