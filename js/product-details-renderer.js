@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "login.html";
             return;
         }
-        const qtyToadd = parseInt(document.getElementById('detail-quantity').value);
-        addBulkQuantityToCart(product.id, qtyToadd);
+        const quantityToAdd = parseInt(document.getElementById('detail-quantity').value);
+        addBulkQuantityToCart(product.id, quantityToAdd);
     });
 
     document.getElementById('detail-buy-now-button').addEventListener('click', () => {
@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "login.html";
             return;
         }
-        const qtyToadd = parseInt(document.getElementById('detail-quantity').value);
-        addBulkQuantityToCart(product.id, qtyToadd, false); // Pass false to hide toast
+        const quantityToAdd = parseInt(document.getElementById('detail-quantity').value);
+        addBulkQuantityToCart(product.id, quantityToAdd, false); // Pass false to hide toast
         window.location.href = "cart.html";
     });
 
@@ -74,23 +74,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function changeDetailQuantity(delta) {
     const inputField = document.getElementById('detail-quantity');
-    let currentVal = parseInt(inputField.value);
-    manualDetailQuantityUpdate(currentVal + delta);
+    let currentValue = parseInt(inputField.value);
+    manualDetailQuantityUpdate(currentValue + delta);
 }
 
 function manualDetailQuantityUpdate(val) {
     const inputField = document.getElementById('detail-quantity');
     const maxStock = parseInt(document.getElementById('detail-stock').dataset.stock);
 
-    let newVal = parseInt(val);
+    let newValue = parseInt(val);
 
-    if (isNaN(newVal) || newVal < 1) newVal = 1;
-    if (newVal > maxStock) {
-        newVal = maxStock;
-        showToastNotification("Maximum stock reached.");
+    if (isNaN(newValue) || newValue < 1) newValue = 1;
+    if (newValue > maxStock) {
+        newValue = maxStock;
+        showToastNotification("Maximum stock reached");
     }
 
-    inputField.value = newVal;
+    inputField.value = newValue;
 }
 
 function addBulkQuantityToCart(productId, quantityToAdd, showToast = true) {
@@ -111,9 +111,9 @@ function addBulkQuantityToCart(productId, quantityToAdd, showToast = true) {
 
         if (cartItem.quantity > productToAdd.stock) {
             cartItem.quantity = productToAdd.stock;
-            if (showToast) showToastNotification("Maximum stock reached.");
+            if (showToast) showToastNotification("Maximum stock reached");
         } else {
-            if (showToast) showToastNotification("Item has been added to your shopping cart");
+            if (showToast) showToastNotification("Item has been added to your shopping cart.");
         }
     } else {
         existingCart.unshift({
@@ -121,7 +121,7 @@ function addBulkQuantityToCart(productId, quantityToAdd, showToast = true) {
             quantity: quantityToAdd,
             isSelectedForOrder: true
         });
-        if (showToast) showToastNotification("Item has been added to your shopping cart");
+        if (showToast) showToastNotification("Item has been added to your shopping cart.");
     }
 
     localStorage.setItem(cartKey, JSON.stringify(existingCart));
@@ -175,14 +175,14 @@ function timeAgo(timestamp) {
     return `${years} year${years !== 1 ? 's' : ''} ago`;
 }
 
-function toggleReviewText(btnElement, reviewId) {
+function toggleReviewText(buttonElement, reviewId) {
     const textElement = document.getElementById('review-text-' + reviewId);
     if (textElement.classList.contains('collapsed')) {
         textElement.classList.remove('collapsed');
-        btnElement.textContent = 'See less';
+        buttonElement.textContent = 'See less';
     } else {
         textElement.classList.add('collapsed');
-        btnElement.textContent = 'See more';
+        buttonElement.textContent = 'See more';
     }
 }
 
@@ -191,19 +191,21 @@ function initReviewSystem() {
     updateStarsUI(stars);
 
     stars.forEach(star => {
-        star.addEventListener('click', (e) => {
-            currentInteractiveRating = parseInt(e.target.dataset.value);
+        star.addEventListener('click', (event) => {
+            currentInteractiveRating = parseInt(event.target.dataset.value); // Fixed
             updateStarsUI(stars);
         });
     });
 
     document.getElementById('submit-review-button').addEventListener('click', () => {
         const textInput = document.getElementById('review-text').value.trim();
+        const reviewErrorText = document.getElementById('review-error-msg');
 
         if (!textInput) {
-            showToastNotification("Please enter a review message.");
+            if (reviewErrorText) reviewErrorText.style.display = "block";
             return;
         }
+        if (reviewErrorText) reviewErrorText.style.display = "none";
 
         const currentUserEmail = localStorage.getItem("unlimitedPage_CurrentUser");
         const usersDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
@@ -245,10 +247,10 @@ function initReviewSystem() {
 
     const filterTabs = document.querySelectorAll('.filter-tab');
     filterTabs.forEach(tab => {
-        tab.addEventListener('click', (e) => {
-            filterTabs.forEach(t => t.classList.remove('active'));
-            e.target.classList.add('active');
-            currentReviewFilter = e.target.dataset.filter;
+        tab.addEventListener('click', (event) => {
+            filterTabs.forEach(tabElement => tabElement.classList.remove('active'));
+            event.target.classList.add('active'); // Fixed
+            currentReviewFilter = event.target.dataset.filter; // Fixed
 
             currentReviewPage = 1;
             renderReviewsList();
@@ -271,7 +273,7 @@ function getStarsHTML(ratingAmount, fontSize = 16) {
 }
 
 function toggleReviewLike(reviewId, buttonElement) {
-    const reviewToUpdate = currentProductReviews.find(r => r.id === reviewId);
+    const reviewToUpdate = currentProductReviews.find(reviewItem => reviewItem.id === reviewId);
     if (reviewToUpdate) {
         // Update data silently
         reviewToUpdate.liked = !reviewToUpdate.liked;
@@ -303,64 +305,64 @@ function renderReviewPagination(totalFilteredItems) {
     paginationContainer.style.display = 'flex';
 
     // Previous Button
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'page-button';
-    prevBtn.innerHTML = '<span class="material-icons-outlined">chevron_left</span>';
-    prevBtn.disabled = currentReviewPage === 1;
-    prevBtn.onclick = () => {
+    const previousButtonElement = document.createElement('button');
+    previousButtonElement.className = 'page-button';
+    previousButtonElement.innerHTML = '<span class="material-icons-outlined">chevron_left</span>';
+    previousButtonElement.disabled = currentReviewPage === 1;
+    previousButtonElement.onclick = () => {
         if (currentReviewPage > 1) {
             currentReviewPage--;
             renderReviewsList();
         }
     };
-    paginationContainer.appendChild(prevBtn);
+    paginationContainer.appendChild(previousButtonElement);
 
     // Numbered Buttons
     for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement('button');
-        pageBtn.className = `page-button ${i === currentReviewPage ? 'active' : ''}`;
-        pageBtn.textContent = i;
-        pageBtn.onclick = () => {
+        const pageButtonElement = document.createElement('button');
+        pageButtonElement.className = `page-button ${i === currentReviewPage ? 'active' : ''}`;
+        pageButtonElement.textContent = i;
+        pageButtonElement.onclick = () => {
             currentReviewPage = i;
             renderReviewsList();
         };
-        paginationContainer.appendChild(pageBtn);
+        paginationContainer.appendChild(pageButtonElement);
     }
 
     // Next Button
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'page-button';
-    nextBtn.innerHTML = '<span class="material-icons-outlined">chevron_right</span>';
-    nextBtn.disabled = currentReviewPage === totalPages;
-    nextBtn.onclick = () => {
+    const nextButtonElement = document.createElement('button');
+    nextButtonElement.className = 'page-button';
+    nextButtonElement.innerHTML = '<span class="material-icons-outlined">chevron_right</span>';
+    nextButtonElement.disabled = currentReviewPage === totalPages;
+    nextButtonElement.onclick = () => {
         if (currentReviewPage < totalPages) {
             currentReviewPage++;
             renderReviewsList();
         }
     };
-    paginationContainer.appendChild(nextBtn);
+    paginationContainer.appendChild(nextButtonElement);
 }
 
 function renderReviewsList() {
     const gridContainer = document.getElementById('reviews-grid-container');
     const totalReviews = currentProductReviews.length;
-    let avgRating = "0.0";
+    let averageRating = "0.0";
 
     if (totalReviews > 0) {
-        const sum = currentProductReviews.reduce((acc, rev) => acc + rev.rating, 0);
-        avgRating = (sum / totalReviews).toFixed(1);
+        const sum = currentProductReviews.reduce((accumulator, reviewItem) => accumulator + reviewItem.rating, 0);
+        averageRating = (sum / totalReviews).toFixed(1);
     }
 
     document.getElementById('detail-review-count').textContent = `(${totalReviews} Reviews)`;
-    document.getElementById('review-huge-score').textContent = avgRating;
+    document.getElementById('review-huge-score').textContent = averageRating;
 
-    document.getElementById('review-huge-stars').innerHTML = getStarsHTML(parseFloat(avgRating), 20);
-    document.getElementById('detail-stars').innerHTML = getStarsHTML(parseFloat(avgRating), 18);
+    document.getElementById('review-huge-stars').innerHTML = getStarsHTML(parseFloat(averageRating), 20);
+    document.getElementById('detail-stars').innerHTML = getStarsHTML(parseFloat(averageRating), 18);
 
     let reviewsToRender = currentProductReviews;
     if (currentReviewFilter !== "All") {
         const filterNumber = parseInt(currentReviewFilter);
-        reviewsToRender = currentProductReviews.filter(r => r.rating === filterNumber);
+        reviewsToRender = currentProductReviews.filter(reviewItem => reviewItem.rating === filterNumber);
     }
 
     // Process pagination limits
@@ -377,23 +379,23 @@ function renderReviewsList() {
         // Fetch the users database once to sync avatars/names dynamically
         const usersDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
 
-        gridContainer.innerHTML = paginatedReviews.map(r => {
-            const timestampValue = r.timestamp || parseInt(r.id.split('_')[1]);
+        gridContainer.innerHTML = paginatedReviews.map(reviewItem => {
+            const timestampValue = reviewItem.timestamp || parseInt(reviewItem.id.split('_')[1]);
             const formattedTime = timeAgo(timestampValue);
 
-            const isLongText = r.text.length > 140;
+            const isLongText = reviewItem.text.length > 140;
 
             // DYNAMIC NAME & AVATAR SYNC LOGIC
-            let currentAvatar = r.avatar;
-            let currentName = r.name;
-            let currentInitials = r.initials;
+            let currentAvatar = reviewItem.avatar;
+            let currentName = reviewItem.name;
+            let currentInitials = reviewItem.initials;
             let matchingUser = null;
 
             // Check if the review is linked to an email, otherwise try to match by name (for older reviews)
-            if (r.userEmail && usersDatabase[r.userEmail]) {
-                matchingUser = usersDatabase[r.userEmail];
+            if (reviewItem.userEmail && usersDatabase[reviewItem.userEmail]) {
+                matchingUser = usersDatabase[reviewItem.userEmail];
             } else {
-                matchingUser = Object.values(usersDatabase).find(u => u.name === r.name);
+                matchingUser = Object.values(usersDatabase).find(u => u.name === reviewItem.name);
             }
 
             // Apply the user's latest avatar, name, and initials if they exist in the DB
@@ -422,16 +424,16 @@ function renderReviewsList() {
                         <h4>${currentName}</h4>
                         <span>${formattedTime}</span>
                     </div>
-                    <div class="review-stars">${getStarsHTML(r.rating, 14)}</div>
+                    <div class="review-stars">${getStarsHTML(reviewItem.rating, 14)}</div>
                 </div>
                 
                 <div class="review-text-wrapper">
-                    <p id="review-text-${r.id}" class="review-text ${isLongText ? 'collapsed' : ''}">${r.text}</p>
-                    ${isLongText ? `<button class="see-more-button" onclick="toggleReviewText(this, '${r.id}')">See more</button>` : ''}
+                    <p id="review-text-${reviewItem.id}" class="review-text ${isLongText ? 'collapsed' : ''}">${reviewItem.text}</p>
+                    ${isLongText ? `<button class="see-more-button" onclick="toggleReviewText(this, '${reviewItem.id}')">See more</button>` : ''}
                 </div>
                 
-                <button class="button-helpful ${r.liked ? 'liked' : ''}" onclick="toggleReviewLike('${r.id}', this)">
-                    <span class="material-icons-outlined">thumb_up</span> ${r.liked ? 1 : 0}
+                <button class="button-helpful ${reviewItem.liked ? 'liked' : ''}" onclick="toggleReviewLike('${reviewItem.id}', this)">
+                    <span class="material-icons-outlined">thumb_up</span> ${reviewItem.liked ? 1 : 0}
                 </button>
             </article>
             `;
