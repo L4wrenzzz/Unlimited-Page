@@ -53,7 +53,7 @@
 }
 
 /* Action Buttons (Edit / Delete) split to top/bottom */
-.payment-card-btn {
+.payment-card-button {
     position: absolute;
     right: 30px;
     background: none;
@@ -64,18 +64,18 @@
     text-transform: uppercase;
 }
 
-.payment-card-btn.edit {
+.payment-card-button.edit {
     top: 25px;
     color: var(--primary-blue-color);
 }
 
-.payment-card-btn.delete {
+.payment-card-button.delete {
     bottom: 25px;
     color: var(--danger-red-color);
 }
 
 /* --- Modal Selection Styling --- */
-.pm-type-selector {
+.paymentMethodItem-type-selector {
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
@@ -84,12 +84,12 @@
 }
 
 /* Disables clicking the payment type when editing */
-.pm-type-selector.disabled {
+.paymentMethodItem-type-selector.disabled {
     pointer-events: none;
     opacity: 0.6;
 }
 
-.pm-type-option {
+.paymentMethodItem-type-option {
     border: 1px solid var(--border-light-color);
     border-radius: 6px;
     padding: 5px 10px;
@@ -104,18 +104,18 @@
     background-color: white;
 }
 
-.pm-type-option img {
+.paymentMethodItem-type-option img {
     max-height: 22px;
     max-width: 100%;
     object-fit: contain;
 }
 
-.pm-type-option.selected {
+.paymentMethodItem-type-option.selected {
     border-color: var(--primary-blue-color);
 }
 
-.pm-type-option.selected::after {
-    content: '\e876'; 
+.paymentMethodItem-type-option.selected::after {
+    content: '\e876';
     font-family: 'Material Icons Outlined';
     position: absolute;
     top: -8px;
