@@ -497,7 +497,7 @@ function placeOrder() {
                 <span style="font-weight: 600; color: var(--text-dark-color);">${paymentDisplayString}</span>
             </p>
             <p style="font-size: 14px;">
-                <strong style="color: var(--text-muted-color);">Total Paid:</strong> <br> 
+                <strong style="color: var(--text-muted-color);">Total Amount:</strong> <br> 
                 <span style="font-size: 20px; font-weight: 700; color: var(--primary-blue-color);">${formatCurrency(finalOrderTotal)}</span>
             </p>
         </div>
