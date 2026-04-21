@@ -230,7 +230,7 @@ function proceedToCheckoutView() {
     const selectedCartItems = userShoppingCart.filter((cartItem) => cartItem.isSelectedForOrder);
 
     if (selectedCartItems.length === 0) {
-        showToastNotification("Please select at least one item to place an order.");
+        showToastNotification("Please select at least one item to checkout.");
         return;
     }
 
