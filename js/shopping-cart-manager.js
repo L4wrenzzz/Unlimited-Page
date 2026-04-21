@@ -23,7 +23,7 @@ let isCheckoutViewActive = false;
 let selectedCheckoutAddressIndex = null;
 let selectedCheckoutAddressData = null; // Tracks the actual address data to survive re-sorting
 let selectedPaymentCategory = "Cash on Delivery";
-let selectedPaymentMethodIndex = null; 
+let selectedPaymentMethodIndex = null;
 
 function updateCartBadge() {
     const badgeElement = document.getElementById("global-cart-badge");
@@ -161,7 +161,7 @@ function applyPromoCode() {
 
     const enteredCode = promoInputField.value.trim().toUpperCase();
 
-    if (enteredCode === "DEATHNOTE" && promoBurnedDatabase) {
+    if (enteredCode === "PAGE299" && promoBurnedDatabase) {
         promoMessageElement.textContent = "This code has already been used on your account.";
         promoMessageElement.style.color = "var(--danger-red-color)";
         return;
@@ -177,7 +177,7 @@ function applyPromoCode() {
         }
     });
 
-    if (enteredCode === "DEATHNOTE") {
+    if (enteredCode === "PAGE299") {
         if (calculatedSubtotal >= 1000) {
             isPromoApplied = true;
             currentPromoDiscount = 299;
@@ -211,7 +211,7 @@ function toggleCheckoutView(showCheckout) {
     } else {
         document.getElementById("cart-items-view").style.display = "block";
         document.getElementById("checkout-details-view").style.display = "none";
-        
+
         const mainBtn = document.getElementById("main-checkout-btn");
         mainBtn.textContent = "PROCEED TO CHECKOUT";
         mainBtn.onclick = proceedToCheckoutView;
@@ -220,7 +220,7 @@ function toggleCheckoutView(showCheckout) {
         backLink.innerHTML = '<span class="material-icons-outlined" style="font-size: 16px">arrow_back</span> Continue Shopping';
         backLink.onclick = null;
         backLink.href = "catalog.html";
-        
+
         document.getElementById("cart-main-title").textContent = "Your Cart";
         isCheckoutViewActive = false;
     }
@@ -228,7 +228,7 @@ function toggleCheckoutView(showCheckout) {
 
 function proceedToCheckoutView() {
     const selectedCartItems = userShoppingCart.filter((cartItem) => cartItem.isSelectedForOrder);
-    
+
     if (selectedCartItems.length === 0) {
         showToastNotification("Please select at least one item to place an order.");
         return;
@@ -245,7 +245,7 @@ function proceedToCheckoutView() {
     backLink.innerHTML = '<span class="material-icons-outlined" style="font-size: 16px">arrow_back</span> Back to Cart';
     backLink.href = "#";
     backLink.onclick = (e) => { e.preventDefault(); toggleCheckoutView(false); };
-    
+
     document.getElementById("cart-main-title").textContent = "Checkout Details";
 
     renderCheckoutAddress();
@@ -258,7 +258,7 @@ function proceedToCheckoutView() {
 function renderCheckoutAddress() {
     const container = document.getElementById("checkout-address-container");
     const changeBtn = document.getElementById("change-address-btn");
-    
+
     const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
     const addresses = (db[email] || {}).addresses || [];
@@ -337,11 +337,11 @@ function selectCheckoutAddress(index) {
     const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
     const addresses = (db[email] || {}).addresses || [];
-    
+
     selectedCheckoutAddressIndex = index;
     // Store a deep copy so references survive updates
-    selectedCheckoutAddressData = JSON.parse(JSON.stringify(addresses[index])); 
-    
+    selectedCheckoutAddressData = JSON.parse(JSON.stringify(addresses[index]));
+
     renderCheckoutAddress();
     closeCheckoutAddressModal();
 }
@@ -388,7 +388,7 @@ function renderCheckoutPaymentMethods() {
 
 function selectPaymentCategory(category) {
     selectedPaymentCategory = category;
-    
+
     const categoryBoxes = document.querySelectorAll("#checkout-payment-category-container .checkout-payment-method");
     categoryBoxes.forEach(box => {
         if (box.dataset.category === category) {
@@ -407,11 +407,11 @@ function selectPaymentCategory(category) {
         renderSelectedPaymentCards([]);
     } else {
         const methodsOfType = methods.map((m, index) => ({ ...m, originalIndex: index })).filter(m => m.type === category);
-        
+
         if (selectedPaymentMethodIndex === null || methods[selectedPaymentMethodIndex].type !== category) {
             selectedPaymentMethodIndex = methodsOfType[0].originalIndex;
         }
-        
+
         renderSelectedPaymentCards(methodsOfType);
     }
 }
@@ -445,7 +445,7 @@ function renderSelectedPaymentCards(methodsOfType) {
 
 function selectSpecificCard(index) {
     selectedPaymentMethodIndex = index;
-    selectPaymentCategory(selectedPaymentCategory); 
+    selectPaymentCategory(selectedPaymentCategory);
 }
 
 function placeOrder() {
@@ -453,7 +453,7 @@ function placeOrder() {
         showToastNotification("Please select a delivery address.");
         return;
     }
-    
+
     if (selectedPaymentCategory !== "Cash on Delivery" && selectedPaymentMethodIndex === null) {
         showToastNotification("Please select a payment method.");
         return;
@@ -473,7 +473,7 @@ function placeOrder() {
     const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
     const addr = (db[email] || {}).addresses[selectedCheckoutAddressIndex];
-    
+
     let paymentDisplayString = "Cash on Delivery";
     if (selectedPaymentCategory !== "Cash on Delivery" && selectedPaymentMethodIndex !== null) {
         const method = (db[email] || {}).paymentMethods[selectedPaymentMethodIndex];
@@ -688,13 +688,13 @@ function initCart() {
 // Intercept external render functions to refresh the checkout views
 setTimeout(() => {
     const originalRenderAddresses = window.renderAddresses;
-    window.renderAddresses = function() {
+    window.renderAddresses = function () {
         if (originalRenderAddresses) originalRenderAddresses();
         if (isCheckoutViewActive) renderCheckoutAddress();
     };
 
     const originalRenderPaymentMethods = window.renderPaymentMethods;
-    window.renderPaymentMethods = function() {
+    window.renderPaymentMethods = function () {
         if (originalRenderPaymentMethods) originalRenderPaymentMethods();
         if (isCheckoutViewActive) renderCheckoutPaymentMethods();
     };
