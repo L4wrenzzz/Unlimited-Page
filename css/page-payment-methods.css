@@ -36,7 +36,6 @@
     font-weight: 700;
     color: var(--text-muted-color);
     letter-spacing: 0.5px;
-    text-transform: uppercase;
 }
 
 .payment-card-number {
@@ -61,7 +60,6 @@
     font-size: 13px;
     font-weight: 800;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .payment-card-button.edit {

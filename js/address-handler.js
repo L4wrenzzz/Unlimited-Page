@@ -80,8 +80,8 @@ function renderAddresses() {
                     ${addressItem.city}, ${addressItem.state}, ${addressItem.zip}
                 </div>
                 <div class="address-actions">
-                    ${!addressItem.isDefault ? `<button class="button-delete" onclick="deleteAddress(${index})">DELETE</button>` : ''}
-                    <button class="button-edit" onclick="editAddress(${index})">EDIT</button>
+                    ${!addressItem.isDefault ? `<button class="button-delete" onclick="deleteAddress(${index})">Delete</button>` : ''}
+                    <button class="button-edit" onclick="editAddress(${index})">Edit</button>
                 </div>
             </div>
         </article>

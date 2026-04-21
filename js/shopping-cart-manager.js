@@ -430,7 +430,7 @@ function renderSelectedPaymentCards(methodsOfType) {
             ${methodsOfType.map(method => `
                 <article class="payment-card checkout-selectable-card ${method.originalIndex === selectedPaymentMethodIndex ? 'selected' : ''}" 
                          onclick="selectSpecificCard(${method.originalIndex})">
-                    <button class="payment-card-button edit" onclick="event.stopPropagation(); editPaymentMethod(${method.originalIndex})">EDIT</button>
+                    <button class="payment-card-button edit" onclick="event.stopPropagation(); editPaymentMethod(${method.originalIndex})">Edit</button>
                     <div class="payment-card-header">
                         <img src="${method.logo}" alt="${method.type}" class="payment-card-logo">
                         <span class="payment-card-type">${method.tag}</span>

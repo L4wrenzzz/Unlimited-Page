@@ -238,8 +238,8 @@ function renderPaymentMethods() {
     container.style.display = "grid";
     container.innerHTML = methods.map((paymentMethodItem, index) => `
         <article class="payment-card">
-            <button class="payment-card-button edit" onclick="editPaymentMethod(${index})">EDIT</button>
-            <button class="payment-card-button delete" onclick="deletePaymentMethod(${index})">DELETE</button>
+            <button class="payment-card-button edit" onclick="editPaymentMethod(${index})">Edit</button>
+            <button class="payment-card-button delete" onclick="deletePaymentMethod(${index})">Delete</button>
             <div class="payment-card-header">
                 <img src="${paymentMethodItem.logo}" alt="${paymentMethodItem.type}" class="payment-card-logo">
                 <span class="payment-card-type">${paymentMethodItem.tag}</span>
