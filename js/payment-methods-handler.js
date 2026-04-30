@@ -168,7 +168,7 @@ function savePaymentMethod() {
         const expDate = document.getElementById("paymentMethodItem-exp").value;
         const cvv = document.getElementById("paymentMethodItem-cvv").value;
 
-        if (cardNumber.length < 13) {
+        if (cardNumber.length !== 16) {
             document.getElementById("paymentMethodItem-card-error").textContent = "Please enter a valid card number.";
             document.getElementById("paymentMethodItem-card-error").style.display = "block";
             hasError = true;
