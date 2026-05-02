@@ -472,6 +472,18 @@ function placeOrder() {
 
     const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
+
+    if (email && db[email]) {
+        if (!db[email].purchasableReviews) {
+            db[email].purchasableReviews = {};
+        }
+        const selectedCartItems = userShoppingCart.filter((cartItem) => cartItem.isSelectedForOrder);
+        selectedCartItems.forEach(cartItem => {
+            db[email].purchasableReviews[cartItem.id] = (db[email].purchasableReviews[cartItem.id] || 0) + 1;
+        });
+        localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
+    }
+
     const addr = (db[email] || {}).addresses[selectedCheckoutAddressIndex];
 
     let paymentDisplayString = "Cash on Delivery";

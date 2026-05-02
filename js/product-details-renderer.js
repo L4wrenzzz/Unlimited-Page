@@ -70,6 +70,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     initReviewSystem();
+
+    const writeReviewBtn = document.querySelector('.button-write-review');
+    writeReviewBtn.style.display = 'none';
+
+    const currentUserEmail = localStorage.getItem("unlimitedPage_CurrentUser");
+    const usersDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+
+    if (currentUserEmail && usersDatabase[currentUserEmail]) {
+        const userReviewsAllowed = usersDatabase[currentUserEmail].purchasableReviews || {};
+        if (userReviewsAllowed[currentProductId] > 0) {
+            writeReviewBtn.style.display = 'inline-block';
+        }
+    }
 });
 
 function changeDetailQuantity(delta) {
@@ -235,6 +248,18 @@ function initReviewSystem() {
         currentProductReviews.unshift(newReview);
 
         localStorage.setItem(`unlimitedPageReviews_${currentProductId}`, JSON.stringify(currentProductReviews));
+
+        if (currentUserEmail && usersDatabase[currentUserEmail]) {
+            if (usersDatabase[currentUserEmail].purchasableReviews && usersDatabase[currentUserEmail].purchasableReviews[currentProductId] > 0) {
+                
+                usersDatabase[currentUserEmail].purchasableReviews[currentProductId] -= 1;
+                localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
+    
+                if (usersDatabase[currentUserEmail].purchasableReviews[currentProductId] <= 0) {
+                    document.querySelector('.button-write-review').style.display = 'none';
+                }
+            }
+        }
 
         closeReviewModal();
         document.getElementById('review-text').value = '';
