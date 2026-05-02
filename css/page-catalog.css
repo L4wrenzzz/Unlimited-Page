@@ -34,6 +34,8 @@
     display: flex;
     align-items: center;
     gap: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .product-grid-layout {
@@ -308,9 +310,35 @@
         grid-template-columns: 1fr;
         gap: 20px;
     }
+    
+    /* Keeps the standard grid for the main Catalog page */
     .product-grid-layout {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 15px;
     }
+
+    /* --- NEW CODE: Horizontal scroll for Homepage sections --- */
+    .section-container .product-grid-layout {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch; /* Enables smooth momentum scrolling on iOS */
+        padding-bottom: 15px; /* Adds space so card box-shadows don't get clipped */
+        scrollbar-width: none; /* Hides the scrollbar in Firefox for a cleaner look */
+    }
+
+    /* Hides the scrollbar in Chrome, Safari, and Edge */
+    .section-container .product-grid-layout::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Forces the cards to maintain their width and snap cleanly into view */
+    .section-container .product-card-container {
+        flex: 0 0 160px; 
+        scroll-snap-align: start;
+    }
+    /* --------------------------------------------------------- */
+
     .product-image-wrapper { height: 200px; }
 }

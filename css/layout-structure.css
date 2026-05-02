@@ -9,7 +9,12 @@
     border-bottom: 1px solid var(--border-light-color);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    transition: transform 0.2s ease-in-out;
+}
+
+.main-navigation-header.header-hidden {
+    transform: translateY(-100%);
 }
 
 .navigation-top-row {
@@ -33,6 +38,7 @@
     font-weight: 700;
     color: var(--text-dark-color);
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .brand-logo-image {
@@ -47,7 +53,7 @@
     align-items: center;
     gap: 20px;
     justify-self: center;
-    width: 575px; 
+    width: 600px; 
 }
 
 .search-input-wrapper {
@@ -136,13 +142,12 @@
 
 /* --- Hero Carousel Section --- */
 .hero-carousel-section {
-    max-width: 1200px;
+    max-width: 980px;
     margin: 30px auto;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
-    padding: 0 20px;
 }
 
 .carousel-content-wrapper {
@@ -166,8 +171,8 @@
 
 .carousel-slide-image {
     min-width: 100%;
-    height: 280px;
-    object-fit: cover;
+    height: 350px;
+    object-fit: contain;
     display: block;
 }
 
@@ -300,33 +305,175 @@
     }
 }
 
+/* --- Mobile Ready Header Defaults --- */
+.mobile-left-actions,
+.mobile-search-row,
+.mobile-nav-sidebar,
+.mobile-nav-backdrop {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    /* 1. Transform Top Row into 4-button layout */
     .navigation-top-row {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 0 !important;
+        padding: 10px 15px !important;
+    }
+
+    /* 2. Left Side: Hamburger ONLY */
+    .mobile-left-actions {
+        display: flex;
+        flex: 1; 
+        justify-content: flex-start;
+    }
+
+    .mobile-header-btn {
+        background: none;
+        border: none;
+        color: var(--text-dark-color);
+        font-size: 26px;
+        padding: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 3. Center: Logo & Name */
+    .header-logo-section {
+        flex: 2; /* Given more space so the name doesn't get squished */
+        display: flex;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .brand-logo-container {
+        font-size: 15px !important; /* Scaled slightly to ensure it fits on small phones */
+        gap: 6px;
+    }
+
+    .brand-logo-image {
+        height: 28px !important; 
+    }
+
+    /* 4. Right Side: Cart & Account */
+    .search-and-icons-group {
+        width: auto !important;
+        flex: 1;
+        justify-content: flex-end !important;
+        gap: 12px !important;
+    }
+
+    /* Hide Desktop elements */
+    .search-and-icons-group .search-input-wrapper { display: none !important; }
+    .navigation-bottom-row { display: none !important; }
+    
+    /* 5. Permanent Mobile Search Row */
+    .mobile-search-row {
+        display: block;
+        padding: 0 15px 12px 15px;
+        background-color: var(--surface-white-color);
+    }
+    .mobile-search-row .search-input-field {
+        width: 100%;
+    }
+
+    .hero-carousel-section {
+        position: relative;
+        display: block; 
+        padding: 0; 
+        margin: 10px 0 30px 0;
+    }
+
+    .carousel-content-wrapper {
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+    }
+
+    /* FIX: Let the image scale naturally without cropping */
+    .carousel-slide-image {
+        height: auto; /* Scales proportionally based on width */
+        width: 100%;
+        object-fit: contain; /* Guarantees no edges are chopped off */
+    }
+
+    /* Make buttons slightly smaller so they don't block the smaller banner */
+    .carousel-control-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 30px; /* Reduced from 36px */
+        height: 30px;
+        background-color: rgba(255, 255, 255, 0.85);
+        border: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    
+    .carousel-control-button .material-icons-outlined {
+        font-size: 18px; /* Shrink the arrow icon to fit */
+    }
+
+    #carousel-prev-button { left: 10px; }
+    #carousel-next-button { right: 10px; }
+
+    /* Footer stacking adjustments */
+    .footer-columns-wrapper { grid-template-columns: 1fr; }
+    .footer-brand-description { max-width: 100%; }
+
+    /* --- Interactive Mobile Elements --- */
+    .mobile-nav-backdrop {
+        display: block;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 2000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    .mobile-nav-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .mobile-nav-sidebar {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        position: fixed;
+        top: 0; left: -280px;
+        width: 280px; height: 100%;
+        background: var(--surface-white-color);
+        z-index: 2001;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+        transition: left 0.3s ease;
     }
-    
-    .search-and-icons-group {
-        width: 100%;
+    .mobile-nav-sidebar.open { left: 0; }
+
+    .mobile-nav-header-top {
+        display: flex;
         justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid var(--border-light-color);
     }
 
-    .navigation-bottom-row {
-        flex-wrap: wrap;
-        gap: 15px;
-        font-size: 14px;
+    .mobile-nav-links-container {
+        display: flex;
+        flex-direction: column;
     }
 
-    .footer-columns-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-brand-description {
-        max-width: 100%;
-    }
-    
-    .hero-carousel-section {
-        padding: 0 10px;
+    .mobile-nav-links-container a {
+        padding: 18px 20px;
+        color: var(--text-dark-color);
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
+        border-bottom: 1px solid var(--background-light-color);
     }
 }
