@@ -298,6 +298,17 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+    /* Stack the title and button, make button full width */
+    .addresses-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .add-address-button {
+        width: 100%;
+        text-align: center;
+    }
 
     /* Address Card Mobile Fixes */
     .address-body-actions-wrapper {
@@ -305,26 +316,22 @@
         align-items: flex-start;
         gap: 20px;
     }
-
     .address-details {
         max-width: 100%;
     }
-
     .address-actions {
         width: 100%;
         justify-content: flex-end;
     }
-
+    
     /* Modal Mobile Fixes */
     .address-modal-box {
         padding: 25px 20px;
     }
-
     .form-row-split {
         grid-template-columns: 1fr;
         gap: 16px;
     }
-
     .half-width-input {
         width: 100%;
     }
