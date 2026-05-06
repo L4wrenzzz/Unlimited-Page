@@ -49,13 +49,22 @@
     </header>
 
     <main class="catalog-layout-container">
-        <aside class="catalog-sidebar-filter">
+        <div id="filter-backdrop" class="filter-backdrop"></div>
+
+        <aside class="catalog-sidebar-filter" id="catalog-sidebar-filter">
+            <!-- Mobile Header for the slide-out menu -->
+            <div class="mobile-filter-header">
+                <h3>Filters</h3>
+                <button id="close-filter-btn" class="close-filter-btn">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+            
             <div class="filter-group">
                 <h3 class="filter-section-title">Categories</h3>
                 <ul class="filter-options-list" id="dynamic-category-list">
                 </ul>
             </div>
-
             <div class="filter-group">
                 <h3 class="filter-section-title" style="margin-top: 40px">
                     Price Range
@@ -68,7 +77,6 @@
                     <input type="number" id="max-price-filter" min="0" placeholder="₱ Max" class="price-range-input"
                         onkeypress="return (event.charCode >= 48 && event.charCode <= 57);"
                         oninput="if (this.value > 1000000) this.value = 1000000;" />
-
                     <button id="reset-price-filter" class="button-reset">Reset</button>
                     <span></span> <button id="apply-price-filter" class="button-apply">Apply</button>
                 </div>
@@ -76,12 +84,17 @@
         </aside>
 
         <section class="catalog-main-content">
-            <div
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-light-color); padding-bottom: 15px;">
-                <h2 class="section-title" id="catalog-section-title">
-                    Books
-                </h2>
-                <div style="display: flex; align-items: center; gap: 10px">
+            <!-- Updated Header Row with Filter Button -->
+            <div class="catalog-top-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-light-color); padding-bottom: 15px; flex-wrap: wrap; gap: 15px;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <h2 class="section-title" id="catalog-section-title">Books</h2>
+                    <!-- New Mobile Filter Button -->
+                    <button id="mobile-filter-btn" class="mobile-filter-btn">
+                        <span class="material-icons-outlined" style="font-size: 18px;">tune</span> Filters
+                    </button>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                     <span style="font-size: 13px; font-weight: 600; color: var(--text-muted-color);">Sort by:</span>
                     <select id="catalog-sort-select"
                         style="padding: 8px 15px; border-radius: 6px; border: 1px solid var(--border-light-color); font-weight: 600; color: var(--text-dark-color);">
