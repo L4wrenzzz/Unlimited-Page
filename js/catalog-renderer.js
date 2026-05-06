@@ -127,6 +127,33 @@ function setupEventListeners() {
     }
 
     if (sortSelectElement) sortSelectElement.addEventListener("change", applyFiltersAndRender);
+
+    // --- Mobile Filter Slide-out Logic ---
+    const mobileFilterBtn = document.getElementById("mobile-filter-btn");
+    const closeFilterBtn = document.getElementById("close-filter-btn");
+    const sidebarFilter = document.getElementById("catalog-sidebar-filter");
+    const filterBackdrop = document.getElementById("filter-backdrop");
+
+    if (mobileFilterBtn && closeFilterBtn && sidebarFilter && filterBackdrop) {
+        const toggleFilters = () => {
+            sidebarFilter.classList.toggle("open");
+            filterBackdrop.classList.toggle("open");
+            // Prevent body from scrolling while menu is open
+            document.body.style.overflow = sidebarFilter.classList.contains("open") ? "hidden" : "";
+        };
+
+        mobileFilterBtn.addEventListener("click", toggleFilters);
+        closeFilterBtn.addEventListener("click", toggleFilters);
+        filterBackdrop.addEventListener("click", toggleFilters);
+        
+        // Optional: Auto-close the filter menu when "Apply" is clicked
+        const applyPriceButton = document.getElementById("apply-price-filter");
+        if(applyPriceButton) {
+            applyPriceButton.addEventListener("click", () => {
+                if (window.innerWidth <= 992) toggleFilters(); 
+            });
+        }
+    }
 }
 
 function applyFiltersAndRender() {

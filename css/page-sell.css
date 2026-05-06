@@ -300,21 +300,47 @@
 
 /* --- Responsive Layout --- */
 @media (max-width: 768px) {
+    /* Compress the steps to stay 3-columns but fit on mobile */
     .how-it-works-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px; /* Tighter gap */
+    }
+    
+    .step-card {
+        padding: 15px 8px; /* Less internal padding */
+    }
+    
+    .step-icon-wrapper {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+    }
+    
+    .step-icon-wrapper .material-icons-outlined {
+        font-size: 20px; /* Smaller icons */
+    }
+    
+    .step-title {
+        font-size: 12px; /* Smaller titles */
+        margin-bottom: 6px;
+    }
+    
+    .step-description {
+        font-size: 10px; /* Smaller description text */
+        line-height: 1.3;
     }
 
+    /* Keep the form adjustments stacking as they were */
     .appraisal-form-card {
         padding: 30px 20px;
     }
-
+    
     .form-row-2-column,
     .form-row-3-column {
         grid-template-columns: 1fr;
         gap: 25px;
     }
-
+    
     .sell-title {
         font-size: 28px;
     }
