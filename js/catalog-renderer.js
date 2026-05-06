@@ -15,7 +15,6 @@ function renderProductCards(containerId, productsArray) {
     }
 
     productsArray.forEach((productItem) => {
-        // We added <a> tags around the image and title to link to the details page
         const cardHTML = `
             <article class="product-card-container">
                 <div class="product-image-wrapper">
@@ -29,7 +28,7 @@ function renderProductCards(containerId, productsArray) {
                     </h3>
                     <p class="product-author-brand">by ${productItem.authorOrBrand}</p>
                     <div class="product-stats-container">
-                        <span class="stat-sold">Sold: ${productItem.totalSold.toLocaleString()}</span> 
+                        <span class="stat-sold">Sold: ${productItem.totalSold.toLocaleString()}</span>
                         <span class="stat-stock">Stock: ${productItem.stock}</span>
                     </div>
                     
@@ -50,7 +49,6 @@ function renderProductCards(containerId, productsArray) {
 let currentCatalogDataArray = [];
 let currentCatalogPage = 1;
 const maxItemsPerPage = 12;
-
 let activeMainCategory = "Books";
 let activeSubCategory = "All";
 let activeSearchQuery = "";
@@ -61,6 +59,9 @@ function initCatalog() {
     const pageUrlParameters = new URLSearchParams(window.location.search);
     activeSearchQuery = pageUrlParameters.get("search") || "";
     activeMainCategory = pageUrlParameters.get("category") || "Books";
+    
+    // NEW: Pull subcategory directly from the URL if it exists
+    activeSubCategory = pageUrlParameters.get("subcategory") || "All";
 
     const urlSort = pageUrlParameters.get("sort");
     if (urlSort) {
@@ -86,7 +87,7 @@ function buildDynamicSidebar() {
     let categoriesToGenerate = [];
 
     if (activeMainCategory === "Books") {
-        categoriesToGenerate = ["All Books", "Academic", "Fiction", "Non-Fiction", "Children"];
+        categoriesToGenerate = ["All Books", "Academic", "Fiction", "Non-Fiction", "Children"]; // Manga removed
     } else if (activeMainCategory === "Stationery") {
         categoriesToGenerate = ["All Stationery", "Paper Supplies", "Writing Supplies", "Coloring Supplies", "Office Supplies"];
     } else {
@@ -103,6 +104,12 @@ function buildDynamicSidebar() {
 
         listItem.addEventListener("click", () => {
             activeSubCategory = categoryString.startsWith("All ") ? "All" : categoryString;
+            
+            // Save the active filter to the URL so history.back() works beautifully
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.set("subcategory", activeSubCategory);
+            window.history.pushState({}, "", newUrl);
+
             buildDynamicSidebar();
             applyFiltersAndRender();
         });
@@ -117,7 +124,6 @@ function setupEventListeners() {
     const sortSelectElement = document.getElementById("catalog-sort-select");
 
     if (applyPriceButton) applyPriceButton.addEventListener("click", applyFiltersAndRender);
-
     if (resetPriceButton) {
         resetPriceButton.addEventListener("click", () => {
             document.getElementById("min-price-filter").value = "";
@@ -127,6 +133,14 @@ function setupEventListeners() {
     }
 
     if (sortSelectElement) sortSelectElement.addEventListener("change", applyFiltersAndRender);
+
+    // Ensure backwards/forwards browser arrows correctly re-render the page
+    window.addEventListener('popstate', () => {
+        const pageUrlParameters = new URLSearchParams(window.location.search);
+        activeSubCategory = pageUrlParameters.get("subcategory") || "All";
+        buildDynamicSidebar();
+        applyFiltersAndRender();
+    });
 
     // --- Mobile Filter Slide-out Logic ---
     const mobileFilterBtn = document.getElementById("mobile-filter-button");
@@ -138,7 +152,6 @@ function setupEventListeners() {
         const toggleFilters = () => {
             sidebarFilter.classList.toggle("open");
             filterBackdrop.classList.toggle("open");
-            // Prevent body from scrolling while menu is open
             document.body.style.overflow = sidebarFilter.classList.contains("open") ? "hidden" : "";
         };
 
@@ -146,7 +159,6 @@ function setupEventListeners() {
         closeFilterBtn.addEventListener("click", toggleFilters);
         filterBackdrop.addEventListener("click", toggleFilters);
 
-        // Optional: Auto-close the filter menu when "Apply" is clicked
         const applyPriceButton = document.getElementById("apply-price-filter");
         if (applyPriceButton) {
             applyPriceButton.addEventListener("click", () => {
@@ -226,6 +238,7 @@ function renderPaginationControls(totalItemCount) {
 
     paginationContainerElement.innerHTML = "";
     const totalPagesNeeded = Math.ceil(totalItemCount / maxItemsPerPage);
+
     if (totalPagesNeeded <= 1) return;
 
     const previousPageButton = document.createElement("button");
