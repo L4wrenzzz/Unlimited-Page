@@ -55,11 +55,11 @@
             <!-- Mobile Header for the slide-out menu -->
             <div class="mobile-filter-header">
                 <h3>Filters</h3>
-                <button id="close-filter-btn" class="close-filter-btn">
+                <button id="close-filter-button" class="close-filter-button">
                     <span class="material-icons-outlined">close</span>
                 </button>
             </div>
-            
+
             <div class="filter-group">
                 <h3 class="filter-section-title">Categories</h3>
                 <ul class="filter-options-list" id="dynamic-category-list">
@@ -85,15 +85,16 @@
 
         <section class="catalog-main-content">
             <!-- Updated Header Row with Filter Button -->
-            <div class="catalog-top-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-light-color); padding-bottom: 15px; flex-wrap: wrap; gap: 15px;">
+            <div class="catalog-top-bar"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-light-color); padding-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                 <div style="display: flex; align-items: center; gap: 15px;">
                     <h2 class="section-title" id="catalog-section-title">Books</h2>
                     <!-- New Mobile Filter Button -->
-                    <button id="mobile-filter-btn" class="mobile-filter-btn">
+                    <button id="mobile-filter-button" class="mobile-filter-button">
                         <span class="material-icons-outlined" style="font-size: 18px;">tune</span> Filters
                     </button>
                 </div>
-                
+
                 <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                     <span style="font-size: 13px; font-weight: 600; color: var(--text-muted-color);">Sort by:</span>
                     <select id="catalog-sort-select"

@@ -81,8 +81,8 @@
                                 style="width: 20px; height: 20px; object-fit: contain;">
                             Delivery Address
                         </h3>
-                        <button class="change-address-btn" id="change-address-btn" onclick="openCheckoutAddressModal()"
-                            style="display: none;">Change</button>
+                        <button class="change-address-button" id="change-address-button"
+                            onclick="openCheckoutAddressModal()" style="display: none;">Change</button>
                     </div>
                     <div id="checkout-address-container"></div>
                 </div>
@@ -169,7 +169,7 @@
             <div id="checkout-address-list" style="overflow-y: auto; flex-grow: 1;">
             </div>
             <div style="padding: 15px 20px; border-top: 1px solid var(--border-light-color);">
-                <button class="address-modal-add-btn" onclick="openAddressModal(); closeCheckoutAddressModal();">
+                <button class="address-modal-add-button" onclick="openAddressModal(); closeCheckoutAddressModal();">
                     <span class="material-icons-outlined">add</span> Add New Address
                 </button>
             </div>
@@ -278,9 +278,9 @@
                     <div class="form-row-split">
                         <div class="form-input-group">
                             <label class="form-label">Expiration Date</label>
-                            <input type="text" id="paymentMethodItem-exp" class="form-input" placeholder="MM/YY"
+                            <input type="text" id="paymentMethodItem-expiration" class="form-input" placeholder="MM/YY"
                                 maxlength="5" />
-                            <span id="paymentMethodItem-exp-error"
+                            <span id="paymentMethodItem-expiration-error"
                                 style="color: var(--danger-red-color); font-size: 11px; display: none; margin-top: 4px;"></span>
                         </div>
                         <div class="form-input-group">

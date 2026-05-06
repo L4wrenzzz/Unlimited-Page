@@ -192,15 +192,15 @@ function showConfirmModal(confirmMessageText, onConfirmCallback) {
 function initSmartHeader() {
     let lastScrollTop = 0;
     const header = document.querySelector('.main-navigation-header');
-    
+
     if (!header) return;
 
     window.addEventListener('scroll', () => {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
+
         // Add a small threshold to avoid triggering on tiny bounces
         if (Math.abs(lastScrollTop - scrollTop) <= 5) return;
-        
+
         if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
             // User is scrolling down
             header.classList.add('header-hidden');
@@ -208,9 +208,9 @@ function initSmartHeader() {
             // User is scrolling up
             header.classList.remove('header-hidden');
         }
-        
+
         // Prevent negative scrolling values on mobile bounce effects
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, false);
 }
 
@@ -224,42 +224,42 @@ function injectMobileHeader() {
 
     const topRow = header.querySelector('.navigation-top-row');
     const searchWrapper = header.querySelector('.search-input-wrapper');
-    const navBottom = header.querySelector('.navigation-bottom-row');
+    const navigationBottom = header.querySelector('.navigation-bottom-row');
 
     // 1. Create Left Action (Hamburger ONLY)
     const leftActions = document.createElement('div');
     leftActions.className = 'mobile-left-actions';
 
-    const menuBtn = document.createElement('button');
-    menuBtn.className = 'mobile-header-btn';
-    menuBtn.innerHTML = '<span class="material-icons-outlined">menu</span>';
+    const menuButton = document.createElement('button');
+    menuButton.className = 'mobile-header-btn';
+    menuButton.innerHTML = '<span class="material-icons-outlined">menu</span>';
 
-    leftActions.appendChild(menuBtn);
+    leftActions.appendChild(menuButton);
     topRow.insertBefore(leftActions, topRow.firstChild);
 
     // 2. Create the Slide-Out Menu Sidebar with Branding
     const sidebar = document.createElement('div');
-    sidebar.className = 'mobile-nav-sidebar';
+    sidebar.className = 'mobile-navigation-sidebar';
     sidebar.innerHTML = `
-        <div class="mobile-nav-header-top">
+        <div class="mobile-navigation-header-top">
             <a href="index.html" class="brand-logo-container" style="margin: 0; text-decoration: none;">
                 <img src="images/website-logo.jpg" alt="Unlimited Page Logo" class="brand-logo-image" style="height: 28px;" />
                 <span>Unlimited Page</span>
             </a>
             <button class="mobile-header-btn close-sidebar-btn"><span class="material-icons-outlined">close</span></button>
         </div>
-        <div class="mobile-nav-links-container"></div>
+        <div class="mobile-navigation-links-container"></div>
     `;
 
-    const linksContainer = sidebar.querySelector('.mobile-nav-links-container');
-    if (navBottom) {
-        navBottom.querySelectorAll('a').forEach(link => {
+    const linksContainer = sidebar.querySelector('.mobile-navigation-links-container');
+    if (navigationBottom) {
+        navigationBottom.querySelectorAll('a').forEach(link => {
             linksContainer.appendChild(link.cloneNode(true));
         });
     }
 
     const backdrop = document.createElement('div');
-    backdrop.className = 'mobile-nav-backdrop';
+    backdrop.className = 'mobile-navigation-backdrop';
 
     document.body.appendChild(sidebar);
     document.body.appendChild(backdrop);
@@ -267,14 +267,14 @@ function injectMobileHeader() {
     // 3. Create the Permanent Mobile Search Row
     const mobileSearchRow = document.createElement('div');
     mobileSearchRow.className = 'mobile-search-row';
-    
+
     if (searchWrapper) {
         // Clone the desktop search wrapper
         const clonedSearch = searchWrapper.cloneNode(true);
         // Force it to display inline-block so it overrides the "display: none" from the CSS
-        clonedSearch.style.display = 'block'; 
+        clonedSearch.style.display = 'block';
         mobileSearchRow.appendChild(clonedSearch);
-        
+
         // Re-attach the enter key listener for the mobile search bar
         const mobileInput = clonedSearch.querySelector('.search-input-field');
         if (mobileInput) {
@@ -285,20 +285,20 @@ function injectMobileHeader() {
             });
         }
     }
-    
+
     header.appendChild(mobileSearchRow);
 
     // 4. Attach Click Event Listeners
-    menuBtn.addEventListener('click', () => {
+    menuButton.addEventListener('click', () => {
         sidebar.classList.add('open');
         backdrop.classList.add('open');
-        document.body.style.overflow = 'hidden'; 
+        document.body.style.overflow = 'hidden';
     });
 
     const closeSidebar = () => {
         sidebar.classList.remove('open');
         backdrop.classList.remove('open');
-        document.body.style.overflow = ''; 
+        document.body.style.overflow = '';
     };
 
     sidebar.querySelector('.close-sidebar-btn').addEventListener('click', closeSidebar);

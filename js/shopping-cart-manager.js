@@ -212,9 +212,9 @@ function toggleCheckoutView(showCheckout) {
         document.getElementById("cart-items-view").style.display = "block";
         document.getElementById("checkout-details-view").style.display = "none";
 
-        const mainBtn = document.getElementById("main-checkout-btn");
-        mainBtn.textContent = "PROCEED TO CHECKOUT";
-        mainBtn.onclick = proceedToCheckoutView;
+        const mainButton = document.getElementById("main-checkout-btn");
+        mainButton.textContent = "PROCEED TO CHECKOUT";
+        mainButton.onclick = proceedToCheckoutView;
 
         const backLink = document.getElementById("cart-back-link");
         backLink.innerHTML = '<span class="material-icons-outlined" style="font-size: 16px">arrow_back</span> Continue Shopping';
@@ -237,9 +237,9 @@ function proceedToCheckoutView() {
     document.getElementById("cart-items-view").style.display = "none";
     document.getElementById("checkout-details-view").style.display = "block";
 
-    const mainBtn = document.getElementById("main-checkout-btn");
-    mainBtn.textContent = "PLACE ORDER";
-    mainBtn.onclick = placeOrder;
+    const mainButton = document.getElementById("main-checkout-btn");
+    mainButton.textContent = "PLACE ORDER";
+    mainButton.onclick = placeOrder;
 
     const backLink = document.getElementById("cart-back-link");
     backLink.innerHTML = '<span class="material-icons-outlined" style="font-size: 16px">arrow_back</span> Back to Cart';
@@ -257,11 +257,11 @@ function proceedToCheckoutView() {
 
 function renderCheckoutAddress() {
     const container = document.getElementById("checkout-address-container");
-    const changeBtn = document.getElementById("change-address-btn");
+    const changeButton = document.getElementById("change-address-button");
 
-    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const userDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
-    const addresses = (db[email] || {}).addresses || [];
+    const addresses = (userDatabase[email] || {}).addresses || [];
 
     if (addresses.length === 0) {
         container.innerHTML = `
@@ -269,13 +269,13 @@ function renderCheckoutAddress() {
                 + Add New Address
             </button>
         `;
-        changeBtn.style.display = "none";
+        changeButton.style.display = "none";
         selectedCheckoutAddressIndex = null;
         selectedCheckoutAddressData = null;
         return;
     }
 
-    changeBtn.style.display = "block";
+    changeButton.style.display = "block";
 
     // Re-sync index bulletproof check: Survives array re-sorting
     if (selectedCheckoutAddressData) {
@@ -293,14 +293,14 @@ function renderCheckoutAddress() {
         selectedCheckoutAddressData = addresses[selectedCheckoutAddressIndex];
     }
 
-    const addr = addresses[selectedCheckoutAddressIndex];
+    const addressItem = addresses[selectedCheckoutAddressIndex];
     container.innerHTML = `
         <div style="display: flex; flex-direction: column; gap: 4px; font-size: 14px;">
             <div style="font-weight: 700; color: var(--text-dark-color);">
-                ${addr.label} <span style="font-weight: 400; color: var(--text-muted-color);">| ${addr.phone}</span>
+                ${addressItem.label} <span style="font-weight: 400; color: var(--text-muted-color);">| ${addressItem.phone}</span>
             </div>
             <div style="color: var(--text-muted-color);">
-                ${addr.street}, ${addr.city}, ${addr.state}, ${addr.zip}
+                ${addressItem.street}, ${addressItem.city}, ${addressItem.state}, ${addressItem.zip}
             </div>
         </div>
     `;
@@ -308,25 +308,25 @@ function renderCheckoutAddress() {
 
 function openCheckoutAddressModal() {
     const listContainer = document.getElementById("checkout-address-list");
-    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const userDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
-    const addresses = (db[email] || {}).addresses || [];
+    const addresses = (userDatabase[email] || {}).addresses || [];
 
-    listContainer.innerHTML = addresses.map((addr, index) => `
+    listContainer.innerHTML = addresses.map((addressItem, index) => `
         <div class="address-modal-radio-container" onclick="selectCheckoutAddress(${index})">
             <div style="padding-top: 2px;">
                 <input type="radio" name="checkout_address" ${index === selectedCheckoutAddressIndex ? 'checked' : ''} style="accent-color: var(--primary-blue-color); width: 18px; height: 18px;">
             </div>
             <div style="flex-grow: 1; font-size: 14px; line-height: 1.5;">
                 <div style="font-weight: 700; color: var(--text-dark-color); display: flex; align-items: center; gap: 10px;">
-                    ${addr.label} <span style="font-weight: 400; color: var(--text-muted-color);">| ${addr.phone}</span>
+                    ${addressItem.label} <span style="font-weight: 400; color: var(--text-muted-color);">| ${addressItem.phone}</span>
                 </div>
                 <div style="color: var(--text-muted-color);">
-                    ${addr.street}<br>${addr.city}, ${addr.state}, ${addr.zip}
+                    ${addressItem.street}<br>${addressItem.city}, ${addressItem.state}, ${addressItem.zip}
                 </div>
-                ${addr.isDefault ? '<span class="default-badge" style="display: inline-block; margin-top: 8px;">Default</span>' : ''}
+                ${addressItem.isDefault ? '<span class="default-badge" style="display: inline-block; margin-top: 8px;">Default</span>' : ''}
             </div>
-            <button class="change-address-btn" onclick="event.stopPropagation(); editAddress(${index}); closeCheckoutAddressModal();">Edit</button>
+            <button class="change-address-button" onclick="event.stopPropagation(); editAddress(${index}); closeCheckoutAddressModal();">Edit</button>
         </div>
     `).join('');
 
@@ -334,9 +334,9 @@ function openCheckoutAddressModal() {
 }
 
 function selectCheckoutAddress(index) {
-    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const userDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
-    const addresses = (db[email] || {}).addresses || [];
+    const addresses = (userDatabase[email] || {}).addresses || [];
 
     selectedCheckoutAddressIndex = index;
     // Store a deep copy so references survive updates
@@ -355,9 +355,9 @@ function renderCheckoutPaymentMethods() {
     const cardContainer = document.getElementById("checkout-selected-card-container");
     if (!categoryContainer || !cardContainer) return;
 
-    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const userDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
-    const methods = (db[email] || {}).paymentMethods || [];
+    const methods = (userDatabase[email] || {}).paymentMethods || [];
 
     const uniqueTypes = [...new Set(methods.map(m => m.type))];
 
@@ -398,9 +398,9 @@ function selectPaymentCategory(category) {
         }
     });
 
-    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const userDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
-    const methods = (db[email] || {}).paymentMethods || [];
+    const methods = (userDatabase[email] || {}).paymentMethods || [];
 
     if (category === 'Cash on Delivery') {
         selectedPaymentMethodIndex = null;
@@ -470,25 +470,25 @@ function placeOrder() {
     let calculatedShippingFee = finalSubtotal < 200 && finalSubtotal > 0 ? 30 : 0;
     const finalOrderTotal = Math.max(0, finalSubtotal + calculatedShippingFee - currentPromoDiscount);
 
-    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    const userDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
 
-    if (email && db[email]) {
-        if (!db[email].purchasableReviews) {
-            db[email].purchasableReviews = {};
+    if (email && userDatabase[email]) {
+        if (!userDatabase[email].purchasableReviews) {
+            userDatabase[email].purchasableReviews = {};
         }
         const selectedCartItems = userShoppingCart.filter((cartItem) => cartItem.isSelectedForOrder);
         selectedCartItems.forEach(cartItem => {
-            db[email].purchasableReviews[cartItem.id] = (db[email].purchasableReviews[cartItem.id] || 0) + 1;
+            userDatabase[email].purchasableReviews[cartItem.id] = (userDatabase[email].purchasableReviews[cartItem.id] || 0) + 1;
         });
-        localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
+        localStorage.setItem("unlimitedPage_Users", JSON.stringify(userDatabase));
     }
 
-    const addr = (db[email] || {}).addresses[selectedCheckoutAddressIndex];
+    const addressItem = (userDatabase[email] || {}).addresses[selectedCheckoutAddressIndex];
 
     let paymentDisplayString = "Cash on Delivery";
     if (selectedPaymentCategory !== "Cash on Delivery" && selectedPaymentMethodIndex !== null) {
-        const method = (db[email] || {}).paymentMethods[selectedPaymentMethodIndex];
+        const method = (userDatabase[email] || {}).paymentMethods[selectedPaymentMethodIndex];
         paymentDisplayString = `${method.type} ending in ${method.displayNumber.slice(-4)}`;
     }
 
@@ -502,7 +502,7 @@ function placeOrder() {
         <div style="background-color: var(--background-light-color); padding: 15px; border-radius: 6px; text-align: left; margin-bottom: 20px; border: 1px solid var(--border-light-color);">
             <p style="margin-bottom: 8px; font-size: 14px;">
                 <strong style="color: var(--text-muted-color);">Delivery Address:</strong> <br> 
-                <span style="font-weight: 600; color: var(--text-dark-color);">${addr.street}, ${addr.city}, ${addr.state}</span>
+                <span style="font-weight: 600; color: var(--text-dark-color);">${addressItem.street}, ${addressItem.city}, ${addressItem.state}</span>
             </p>
             <p style="margin-bottom: 8px; font-size: 14px;">
                 <strong style="color: var(--text-muted-color);">Payment Method:</strong> <br> 

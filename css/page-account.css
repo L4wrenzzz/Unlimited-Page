@@ -30,7 +30,7 @@
     padding-left: 20px;
 }
 
-.sidebar-nav {
+.sidebar-navigation {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -156,7 +156,7 @@
     align-items: flex-start;
 }
 
-.dob-group {
+.date-of-birth-group {
     flex: 1.2;
 }
 
@@ -340,20 +340,23 @@
     }
 
     .sidebar-title {
-        display: none; /* Hide "User Settings" on mobile to save vertical space */
+        display: none;
+        /* Hide "User Settings" on mobile to save vertical space */
     }
 
-    .sidebar-nav {
+    .sidebar-navigation {
         flex-direction: row;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
+        scrollbar-width: none;
+        /* Firefox */
         gap: 5px;
     }
 
-    .sidebar-nav::-webkit-scrollbar {
-        display: none; /* Chrome/Safari */
+    .sidebar-navigation::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
     }
 
     .sidebar-menu-item {
@@ -379,7 +382,7 @@
 
     /* Shrink the massive title */
     .account-title {
-        font-size: 24px; 
+        font-size: 24px;
     }
 
     .form-row-top,

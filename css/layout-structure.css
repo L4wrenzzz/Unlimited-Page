@@ -53,7 +53,7 @@
     align-items: center;
     gap: 20px;
     justify-self: center;
-    width: 600px; 
+    width: 600px;
 }
 
 .search-input-wrapper {
@@ -223,7 +223,7 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr; 
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 30px;
     margin-bottom: 30px;
 }
@@ -268,7 +268,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
-    width: 172px; 
+    width: 172px;
     margin: 0 auto;
 }
 
@@ -298,7 +298,7 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
     }
-    
+
     /* Shrink the middle container slightly on iPads to prevent overlap */
     .search-and-icons-group {
         width: 100%;
@@ -308,12 +308,13 @@
 /* --- Mobile Ready Header Defaults --- */
 .mobile-left-actions,
 .mobile-search-row,
-.mobile-nav-sidebar,
-.mobile-nav-backdrop {
+.mobile-navigation-sidebar,
+.mobile-navigation-backdrop {
     display: none;
 }
 
 @media (max-width: 768px) {
+
     /* 1. Transform Top Row into 4-button layout */
     .navigation-top-row {
         display: flex !important;
@@ -327,7 +328,7 @@
     /* 2. Left Side: Hamburger ONLY */
     .mobile-left-actions {
         display: flex;
-        flex: 1; 
+        flex: 1;
         justify-content: flex-start;
     }
 
@@ -345,19 +346,21 @@
 
     /* 3. Center: Logo & Name */
     .header-logo-section {
-        flex: 2; /* Given more space so the name doesn't get squished */
+        flex: 2;
+        /* Given more space so the name doesn't get squished */
         display: flex;
         justify-content: center;
         white-space: nowrap;
     }
 
     .brand-logo-container {
-        font-size: 15px !important; /* Scaled slightly to ensure it fits on small phones */
+        font-size: 15px !important;
+        /* Scaled slightly to ensure it fits on small phones */
         gap: 6px;
     }
 
     .brand-logo-image {
-        height: 28px !important; 
+        height: 28px !important;
     }
 
     /* 4. Right Side: Cart & Account */
@@ -369,23 +372,29 @@
     }
 
     /* Hide Desktop elements */
-    .search-and-icons-group .search-input-wrapper { display: none !important; }
-    .navigation-bottom-row { display: none !important; }
-    
+    .search-and-icons-group .search-input-wrapper {
+        display: none !important;
+    }
+
+    .navigation-bottom-row {
+        display: none !important;
+    }
+
     /* 5. Permanent Mobile Search Row */
     .mobile-search-row {
         display: block;
         padding: 0 15px 12px 15px;
         background-color: var(--surface-white-color);
     }
+
     .mobile-search-row .search-input-field {
         width: 100%;
     }
 
     .hero-carousel-section {
         position: relative;
-        display: block; 
-        padding: 0; 
+        display: block;
+        padding: 0;
         margin: 10px 0 30px 0;
     }
 
@@ -397,9 +406,11 @@
 
     /* FIX: Let the image scale naturally without cropping */
     .carousel-slide-image {
-        height: auto; /* Scales proportionally based on width */
+        height: auto;
+        /* Scales proportionally based on width */
         width: 100%;
-        object-fit: contain; /* Guarantees no edges are chopped off */
+        object-fit: contain;
+        /* Guarantees no edges are chopped off */
     }
 
     /* Make buttons slightly smaller so they don't block the smaller banner */
@@ -408,54 +419,75 @@
         top: 50%;
         transform: translateY(-50%);
         z-index: 10;
-        width: 30px; /* Reduced from 36px */
+        width: 30px;
+        /* Reduced from 36px */
         height: 30px;
         background-color: rgba(255, 255, 255, 0.85);
         border: none;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    }
-    
-    .carousel-control-button .material-icons-outlined {
-        font-size: 18px; /* Shrink the arrow icon to fit */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     }
 
-    #carousel-prev-button { left: 10px; }
-    #carousel-next-button { right: 10px; }
+    .carousel-control-button .material-icons-outlined {
+        font-size: 18px;
+        /* Shrink the arrow icon to fit */
+    }
+
+    #carousel-prev-button {
+        left: 10px;
+    }
+
+    #carousel-next-button {
+        right: 10px;
+    }
 
     /* Footer stacking adjustments */
-    .footer-columns-wrapper { grid-template-columns: 1fr; }
-    .footer-brand-description { max-width: 100%; }
+    .footer-columns-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-brand-description {
+        max-width: 100%;
+    }
 
     /* --- Interactive Mobile Elements --- */
-    .mobile-nav-backdrop {
+    .mobile-navigation-backdrop {
         display: block;
         position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
         z-index: 2000;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
     }
-    .mobile-nav-backdrop.open {
+
+    .mobile-navigation-backdrop.open {
         opacity: 1;
         pointer-events: auto;
     }
 
-    .mobile-nav-sidebar {
+    .mobile-navigation-sidebar {
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 0; left: -280px;
-        width: 280px; height: 100%;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100%;
         background: var(--surface-white-color);
         z-index: 2001;
-        box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
         transition: left 0.3s ease;
     }
-    .mobile-nav-sidebar.open { left: 0; }
 
-    .mobile-nav-header-top {
+    .mobile-navigation-sidebar.open {
+        left: 0;
+    }
+
+    .mobile-navigation-header-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -463,12 +495,12 @@
         border-bottom: 1px solid var(--border-light-color);
     }
 
-    .mobile-nav-links-container {
+    .mobile-navigation-links-container {
         display: flex;
         flex-direction: column;
     }
 
-    .mobile-nav-links-container a {
+    .mobile-navigation-links-container a {
         padding: 18px 20px;
         color: var(--text-dark-color);
         font-weight: 600;

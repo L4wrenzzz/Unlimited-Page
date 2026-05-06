@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addressForm = document.getElementById("address-form");
     if (addressForm) {
         addressForm.addEventListener("submit", (event) => {
-            event.preventDefault(); 
+            event.preventDefault();
             saveAddress();
         });
     }
@@ -25,28 +25,28 @@ document.addEventListener("DOMContentLoaded", () => {
 function openAddressModal() {
     editingAddressIndex = null;
     const headerTitle = document.querySelector("#address-modal-overlay .modal-header h2");
-    if(headerTitle) headerTitle.textContent = "Add New Address";
-    
+    if (headerTitle) headerTitle.textContent = "Add New Address";
+
     const form = document.getElementById("address-form");
-    if(form) form.reset();
-    
+    if (form) form.reset();
+
     const defaultCheckbox = document.getElementById("addressItem-is-default");
-    if(defaultCheckbox) defaultCheckbox.disabled = false;
-    
+    if (defaultCheckbox) defaultCheckbox.disabled = false;
+
     document.getElementById("address-modal-overlay").style.display = "flex";
 }
 
 function closeAddressModal() {
     document.getElementById("address-modal-overlay").style.display = "none";
     const form = document.getElementById("address-form");
-    if(form) form.reset();
+    if (form) form.reset();
     editingAddressIndex = null;
 }
 
 function getUserData() {
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
-    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
-    return { email, db, user: db[email] };
+    const userDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    return { email, userDatabase, user: userDatabase[email] };
 }
 
 function renderAddresses() {
@@ -89,14 +89,14 @@ function renderAddresses() {
 }
 
 function setDefaultAddress(index) {
-    const { email, db, user } = getUserData();
+    const { email, userDatabase, user } = getUserData();
 
     user.addresses.forEach(addressItem => addressItem.isDefault = false);
     user.addresses[index].isDefault = true;
     user.addresses.sort((a, b) => b.isDefault - a.isDefault);
 
-    db[email] = user;
-    localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
+    userDatabase[email] = user;
+    localStorage.setItem("unlimitedPage_Users", JSON.stringify(userDatabase));
 
     renderAddresses();
     if (typeof showToastNotification === 'function') {
@@ -111,7 +111,7 @@ function editAddress(index) {
     editingAddressIndex = index;
 
     const headerTitle = document.querySelector("#address-modal-overlay .modal-header h2");
-    if(headerTitle) headerTitle.textContent = "Edit Address";
+    if (headerTitle) headerTitle.textContent = "Edit Address";
 
     document.getElementById("addressItem-label").value = addressItem.label || "";
     document.getElementById("addressItem-phone").value = addressItem.phone || "";
@@ -128,7 +128,7 @@ function editAddress(index) {
 }
 
 function saveAddress() {
-    const { email, db, user } = getUserData();
+    const { email, userDatabase, user } = getUserData();
     if (!user.addresses) user.addresses = [];
 
     const label = document.getElementById("addressItem-label").value;
@@ -147,36 +147,36 @@ function saveAddress() {
         user.addresses.forEach(addressItem => addressItem.isDefault = false);
     }
 
-    const addressObj = { label, phone, street, city, state, zip, isDefault };
+    const addressObject = { label, phone, street, city, state, zip, isDefault };
 
     if (editingAddressIndex !== null) {
-        user.addresses[editingAddressIndex] = addressObj;
+        user.addresses[editingAddressIndex] = addressObject;
         if (typeof showToastNotification === 'function') showToastNotification("Address updated successfully");
     } else {
-        user.addresses.push(addressObj);
+        user.addresses.push(addressObject);
         if (typeof showToastNotification === 'function') showToastNotification("Address saved successfully");
     }
 
     user.addresses.sort((a, b) => b.isDefault - a.isDefault);
-    db[email] = user;
-    localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
+    userDatabase[email] = user;
+    localStorage.setItem("unlimitedPage_Users", JSON.stringify(userDatabase));
 
     closeAddressModal();
-    
-    if(typeof renderAddresses === 'function') {
+
+    if (typeof renderAddresses === 'function') {
         renderAddresses();
     }
 }
 
 function deleteAddress(index) {
-    const { email, db, user } = getUserData();
+    const { email, userDatabase, user } = getUserData();
 
     if (user.addresses[index].isDefault) return;
 
     user.addresses.splice(index, 1);
 
-    db[email] = user;
-    localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
+    userDatabase[email] = user;
+    localStorage.setItem("unlimitedPage_Users", JSON.stringify(userDatabase));
     renderAddresses();
 
     if (typeof showToastNotification === 'function') {

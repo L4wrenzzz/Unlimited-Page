@@ -309,7 +309,7 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
-.change-address-btn {
+.change-address-button {
     background: none;
     border: none;
     color: var(--primary-blue-color);
@@ -332,13 +332,13 @@
     background-color: var(--background-light-color);
 }
 
-.address-modal-add-btn {
-    width: 100%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    gap: 8px; 
-    background-color: var(--primary-blue-color); 
+.address-modal-add-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--primary-blue-color);
     color: white;
     border: none;
     padding: 12px;
@@ -349,7 +349,7 @@
     transition: background-color 0.2s;
 }
 
-.address-modal-add-btn:hover {
+.address-modal-add-button:hover {
     background-color: var(--primary-blue-hover);
 }
 
@@ -357,8 +357,10 @@
 .checkout-selectable-card {
     cursor: pointer;
     transition: all 0.2s ease;
-    border: 2px solid var(--border-light-color) !important; /* Overrides the default 1px */
-    margin: 0 !important; /* Overrides previous inline styles */
+    border: 2px solid var(--border-light-color) !important;
+    /* Overrides the default 1px */
+    margin: 0 !important;
+    /* Overrides previous inline styles */
 }
 
 .checkout-selectable-card:hover {

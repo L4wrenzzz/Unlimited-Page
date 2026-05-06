@@ -26,20 +26,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function getUserData() {
     const email = localStorage.getItem("unlimitedPage_CurrentUser");
-    const db = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
-    return { email, db, user: db[email] };
+    const userDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
+    return { email, userDatabase, user: userDatabase[email] };
 }
 
 function openPaymentModal() {
     editingPaymentIndex = null;
     const headerTitle = document.querySelector("#payment-modal-overlay .modal-header h2");
-    if(headerTitle) headerTitle.textContent = "Add Payment Method";
-    
+    if (headerTitle) headerTitle.textContent = "Add Payment Method";
+
     const form = document.getElementById("payment-form");
-    if(form) form.reset();
+    if (form) form.reset();
 
     const selectorGroup = document.querySelector(".paymentMethodItem-type-selector");
-    if(selectorGroup) selectorGroup.classList.remove("disabled");
+    if (selectorGroup) selectorGroup.classList.remove("disabled");
 
     selectPaymentType("Visa");
     document.getElementById("payment-modal-overlay").style.display = "flex";
@@ -70,13 +70,13 @@ function selectPaymentType(type) {
         ewalletFields.style.display = "none";
         document.getElementById("paymentMethodItem-mobile").removeAttribute("required");
         document.getElementById("paymentMethodItem-card-number").setAttribute("required", "true");
-        document.getElementById("paymentMethodItem-exp").setAttribute("required", "true");
+        document.getElementById("paymentMethodItem-expiration").setAttribute("required", "true");
         document.getElementById("paymentMethodItem-cvv").setAttribute("required", "true");
     } else {
         cardFields.style.display = "none";
         ewalletFields.style.display = "block";
         document.getElementById("paymentMethodItem-card-number").removeAttribute("required");
-        document.getElementById("paymentMethodItem-exp").removeAttribute("required");
+        document.getElementById("paymentMethodItem-expiration").removeAttribute("required");
         document.getElementById("paymentMethodItem-cvv").removeAttribute("required");
         document.getElementById("paymentMethodItem-mobile").setAttribute("required", "true");
     }
@@ -99,7 +99,7 @@ function setupInputValidation() {
         });
     }
 
-    const expInput = document.getElementById("paymentMethodItem-exp");
+    const expInput = document.getElementById("paymentMethodItem-expiration");
     if (expInput) {
         expInput.addEventListener("input", function (event) {
             let inputValue = this.value.replace(/\D/g, "");
@@ -130,19 +130,19 @@ function editPaymentMethod(index) {
     const paymentMethodItem = user.paymentMethods[index];
 
     editingPaymentIndex = index;
-    
+
     const headerTitle = document.querySelector("#payment-modal-overlay .modal-header h2");
-    if(headerTitle) headerTitle.textContent = "Edit Payment Method";
+    if (headerTitle) headerTitle.textContent = "Edit Payment Method";
 
     const selectorGroup = document.querySelector(".paymentMethodItem-type-selector");
-    if(selectorGroup) selectorGroup.classList.add("disabled");
+    if (selectorGroup) selectorGroup.classList.add("disabled");
 
     selectPaymentType(paymentMethodItem.type);
 
     if (paymentMethodItem.type === "Visa" || paymentMethodItem.type === "Mastercard") {
         let formattedCard = (paymentMethodItem.rawCardNumber || "").match(/.{1,4}/g);
         document.getElementById("paymentMethodItem-card-number").value = formattedCard ? formattedCard.join(" ") : "";
-        document.getElementById("paymentMethodItem-exp").value = paymentMethodItem.rawExp || "";
+        document.getElementById("paymentMethodItem-expiration").value = paymentMethodItem.rawExpiration || "";
         document.getElementById("paymentMethodItem-cvv").value = paymentMethodItem.rawCvv || "";
     } else {
         document.getElementById("paymentMethodItem-mobile").value = paymentMethodItem.rawMobile || "";
@@ -152,20 +152,20 @@ function editPaymentMethod(index) {
 }
 
 function savePaymentMethod() {
-    const { email, db, user } = getUserData();
+    const { email, userDatabase, user } = getUserData();
     if (!user.paymentMethods) user.paymentMethods = [];
 
     document.getElementById("paymentMethodItem-card-error").style.display = "none";
-    document.getElementById("paymentMethodItem-exp-error").style.display = "none";
+    document.getElementById("paymentMethodItem-expiration-error").style.display = "none";
     document.getElementById("paymentMethodItem-cvv-error").style.display = "none";
     document.getElementById("paymentMethodItem-mobile-error").style.display = "none";
 
     let hasError = false;
-    let newMethod = { type: currentPaymentType, logo: `images/payment-method/${currentPaymentType.toLowerCase()}-logo.jpg` };
+    let newPaymentMethod = { type: currentPaymentType, logo: `images/payment-method/${currentPaymentType.toLowerCase()}-logo.jpg` };
 
     if (currentPaymentType === "Visa" || currentPaymentType === "Mastercard") {
         const cardNumber = document.getElementById("paymentMethodItem-card-number").value.replace(/\s/g, "");
-        const expDate = document.getElementById("paymentMethodItem-exp").value;
+        const expirationDate = document.getElementById("paymentMethodItem-expiration").value;
         const cvv = document.getElementById("paymentMethodItem-cvv").value;
 
         if (cardNumber.length !== 16) {
@@ -173,9 +173,9 @@ function savePaymentMethod() {
             document.getElementById("paymentMethodItem-card-error").style.display = "block";
             hasError = true;
         }
-        if (expDate.length < 5) {
-            document.getElementById("paymentMethodItem-exp-error").textContent = "Please enter a complete expiration date.";
-            document.getElementById("paymentMethodItem-exp-error").style.display = "block";
+        if (expirationDate.length < 5) {
+            document.getElementById("paymentMethodItem-expiration-error").textContent = "Please enter a complete expiration date.";
+            document.getElementById("paymentMethodItem-expiration-error").style.display = "block";
             hasError = true;
         }
         if (cvv.length < 3) {
@@ -185,12 +185,12 @@ function savePaymentMethod() {
         }
         if (hasError) return;
 
-        newMethod.displayNumber = "**** **** **** " + cardNumber.slice(-4);
-        newMethod.detail = `Expires ${expDate}`;
-        newMethod.tag = "CREDIT CARD";
-        newMethod.rawCardNumber = cardNumber;
-        newMethod.rawExp = expDate;
-        newMethod.rawCvv = cvv;
+        newPaymentMethod.displayNumber = "**** **** **** " + cardNumber.slice(-4);
+        newPaymentMethod.detail = `Expires ${expirationDate}`;
+        newPaymentMethod.tag = "CREDIT CARD";
+        newPaymentMethod.rawCardNumber = cardNumber;
+        newPaymentMethod.rawExpiration = expirationDate;
+        newPaymentMethod.rawCvv = cvv;
 
     } else {
         const mobile = document.getElementById("paymentMethodItem-mobile").value;
@@ -201,23 +201,23 @@ function savePaymentMethod() {
             return;
         }
 
-        newMethod.displayNumber = "**** *** " + mobile.slice(-4);
-        newMethod.detail = "Linked Number";
-        newMethod.tag = "E-WALLET";
-        newMethod.rawMobile = mobile;
+        newPaymentMethod.displayNumber = "**** *** " + mobile.slice(-4);
+        newPaymentMethod.detail = "Linked Number";
+        newPaymentMethod.tag = "E-WALLET";
+        newPaymentMethod.rawMobile = mobile;
     }
 
     if (editingPaymentIndex !== null) {
-        user.paymentMethods[editingPaymentIndex] = newMethod;
+        user.paymentMethods[editingPaymentIndex] = newPaymentMethod;
     } else {
-        user.paymentMethods.push(newMethod);
+        user.paymentMethods.push(newPaymentMethod);
     }
 
-    db[email] = user;
-    localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
+    userDatabase[email] = user;
+    localStorage.setItem("unlimitedPage_Users", JSON.stringify(userDatabase));
     closePaymentModal();
-    
-    if(typeof renderPaymentMethods === 'function') {
+
+    if (typeof renderPaymentMethods === 'function') {
         renderPaymentMethods();
     }
 }
@@ -251,12 +251,12 @@ function renderPaymentMethods() {
 }
 
 function deletePaymentMethod(index) {
-    const { email, db, user } = getUserData();
+    const { email, userDatabase, user } = getUserData();
 
     if (user.paymentMethods && user.paymentMethods[index]) {
         user.paymentMethods.splice(index, 1);
-        db[email] = user;
-        localStorage.setItem("unlimitedPage_Users", JSON.stringify(db));
+        userDatabase[email] = user;
+        localStorage.setItem("unlimitedPage_Users", JSON.stringify(userDatabase));
         renderPaymentMethods();
         showToastNotification("Payment method removed");
     }

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         requestForm.addEventListener("submit", (event) => {
             event.preventDefault();
             const requestedTitle = document.getElementById("book-title").value;
-            const successMessageElement = document.getElementById("request-success-msg");
+            const successMessageElement = document.getElementById("request-success-message");
 
             successMessageElement.textContent = `Successfully requested: "${requestedTitle}". We will notify you once available.`;
             successMessageElement.style.display = "block";

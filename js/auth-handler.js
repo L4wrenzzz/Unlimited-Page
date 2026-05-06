@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     password: passwordValue,
                     name: namePrefixString,
                     phone: "",
-                    dob: "",
+                    dateOfBirth: "",
                     gender: "",
                     avatar: "images/user-profile.png"
                 };
@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
             accountEmailInput.value = userProfileData.email || "";
             accountPasswordInput.value = userProfileData.password || "";
             accountPhoneNumberInput.value = userProfileData.phone || "";
-            accountDateOfBirthInput.value = userProfileData.dob || "";
+            accountDateOfBirthInput.value = userProfileData.dateOfBirth || "";
 
             if (userProfileData.gender === "male") accountGenderMaleRadio.checked = true;
             else if (userProfileData.gender === "female") accountGenderFemaleRadio.checked = true;

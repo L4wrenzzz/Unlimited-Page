@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     uploadContainersList.forEach(containerElement => {
         const fileInputElement = containerElement.querySelector('.hidden-file-input');
         const uploadBoxElement = containerElement.querySelector('.upload-box');
-        const errorMessageElement = containerElement.querySelector('.upload-error-msg');
+        const errorMessageElement = containerElement.querySelector('.upload-error-message');
 
         const previewContainerElement = containerElement.querySelector('.upload-preview-container');
         const previewImageElement = containerElement.querySelector('.upload-preview-thumb');
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const fileInputs = document.querySelectorAll('.hidden-file-input');
             fileInputs.forEach(input => {
                 const container = input.closest('.upload-container');
-                const errorMessageElement = container.querySelector('.upload-error-msg');
+                const errorMessageElement = container.querySelector('.upload-error-message');
                 if (errorMessageElement) errorMessageElement.style.display = 'none';
 
                 if (!input.value) {
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (hasError) return; // Stop submission if there are errors
 
-            const successMessageElement = document.getElementById("sell-success-msg");
+            const successMessageElement = document.getElementById("sell-success-message");
             if (successMessageElement) {
                 successMessageElement.textContent = "Appraisal request submitted successfully!";
                 successMessageElement.style.display = "block";

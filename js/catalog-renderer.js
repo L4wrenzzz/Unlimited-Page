@@ -129,8 +129,8 @@ function setupEventListeners() {
     if (sortSelectElement) sortSelectElement.addEventListener("change", applyFiltersAndRender);
 
     // --- Mobile Filter Slide-out Logic ---
-    const mobileFilterBtn = document.getElementById("mobile-filter-btn");
-    const closeFilterBtn = document.getElementById("close-filter-btn");
+    const mobileFilterBtn = document.getElementById("mobile-filter-button");
+    const closeFilterBtn = document.getElementById("close-filter-button");
     const sidebarFilter = document.getElementById("catalog-sidebar-filter");
     const filterBackdrop = document.getElementById("filter-backdrop");
 
@@ -145,12 +145,12 @@ function setupEventListeners() {
         mobileFilterBtn.addEventListener("click", toggleFilters);
         closeFilterBtn.addEventListener("click", toggleFilters);
         filterBackdrop.addEventListener("click", toggleFilters);
-        
+
         // Optional: Auto-close the filter menu when "Apply" is clicked
         const applyPriceButton = document.getElementById("apply-price-filter");
-        if(applyPriceButton) {
+        if (applyPriceButton) {
             applyPriceButton.addEventListener("click", () => {
-                if (window.innerWidth <= 992) toggleFilters(); 
+                if (window.innerWidth <= 992) toggleFilters();
             });
         }
     }

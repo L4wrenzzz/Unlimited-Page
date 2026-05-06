@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initReviewSystem();
 
-    const writeReviewBtn = document.querySelector('.button-write-review');
-    writeReviewBtn.style.display = 'none';
+    const writeReviewButton = document.querySelector('.button-write-review');
+    writeReviewButton.style.display = 'none';
 
     const currentUserEmail = localStorage.getItem("unlimitedPage_CurrentUser");
     const usersDatabase = JSON.parse(localStorage.getItem("unlimitedPage_Users")) || {};
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentUserEmail && usersDatabase[currentUserEmail]) {
         const userReviewsAllowed = usersDatabase[currentUserEmail].purchasableReviews || {};
         if (userReviewsAllowed[currentProductId] > 0) {
-            writeReviewBtn.style.display = 'inline-block';
+            writeReviewButton.style.display = 'inline-block';
         }
     }
 });
@@ -91,11 +91,11 @@ function changeDetailQuantity(delta) {
     manualDetailQuantityUpdate(currentValue + delta);
 }
 
-function manualDetailQuantityUpdate(val) {
+function manualDetailQuantityUpdate(value) {
     const inputField = document.getElementById('detail-quantity');
     const maxStock = parseInt(document.getElementById('detail-stock').dataset.stock);
 
-    let newValue = parseInt(val);
+    let newValue = parseInt(value);
 
     if (isNaN(newValue) || newValue < 1) newValue = 1;
     if (newValue > maxStock) {
@@ -212,7 +212,7 @@ function initReviewSystem() {
 
     document.getElementById('submit-review-button').addEventListener('click', () => {
         const textInput = document.getElementById('review-text').value.trim();
-        const reviewErrorText = document.getElementById('review-error-msg');
+        const reviewErrorText = document.getElementById('review-error-message');
 
         if (!textInput) {
             if (reviewErrorText) reviewErrorText.style.display = "block";
@@ -251,10 +251,10 @@ function initReviewSystem() {
 
         if (currentUserEmail && usersDatabase[currentUserEmail]) {
             if (usersDatabase[currentUserEmail].purchasableReviews && usersDatabase[currentUserEmail].purchasableReviews[currentProductId] > 0) {
-                
+
                 usersDatabase[currentUserEmail].purchasableReviews[currentProductId] -= 1;
                 localStorage.setItem("unlimitedPage_Users", JSON.stringify(usersDatabase));
-    
+
                 if (usersDatabase[currentUserEmail].purchasableReviews[currentProductId] <= 0) {
                     document.querySelector('.button-write-review').style.display = 'none';
                 }
