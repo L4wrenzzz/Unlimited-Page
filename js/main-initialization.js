@@ -5,65 +5,6 @@
    ========================================================================== */
 
 /**
- * Initializes the automated Hero Banner Carousel with a progress bar.
- */
-function initCarousel() {
-    const carouselTrack = document.getElementById("carousel-track");
-    const progressBar = document.getElementById("carousel-progress-bar");
-    
-    // Only run if the carousel exists on the page
-    if (!carouselTrack || !progressBar) return;
-
-    const slideImages = document.querySelectorAll(".carousel-slide-image");
-    const totalNumberOfSlides = slideImages.length;
-    let currentSlideIndex = 0;
-    const durationPerSlideMs = 5000; // 5 seconds
-
-    /**
-     * Moves the carousel track to the specified slide index
-     * @param {number} targetIndex - The index of the slide to display
-     */
-    function shiftToSlide(targetIndex) {
-        // Use modulo to loop back to the start or end seamlessly
-        currentSlideIndex = (targetIndex + totalNumberOfSlides) % totalNumberOfSlides;
-        carouselTrack.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
-        restartProgressBar();
-    }
-
-    // Attach click events to the manual control buttons
-    document.getElementById("carousel-next-button").addEventListener("click", () => shiftToSlide(currentSlideIndex + 1));
-    document.getElementById("carousel-prev-button").addEventListener("click", () => shiftToSlide(currentSlideIndex - 1));
-
-    let autoSlideIntervalId;
-
-    /**
-     * Resets the CSS animation on the progress bar and restarts the interval timer
-     */
-    function restartProgressBar() {
-        clearInterval(autoSlideIntervalId);
-        
-        // Reset bar visually to 0
-        progressBar.style.width = "0%";
-        progressBar.style.transition = "none";
-        
-        // Force the browser to recalculate layout (reflow) so the reset happens instantly
-        void progressBar.offsetWidth;
-        
-        // Start the CSS animation to fill the bar
-        progressBar.style.transition = `width ${durationPerSlideMs}ms linear`;
-        progressBar.style.width = "100%";
-
-        // Set the timer to trigger the next slide when the bar is full
-        autoSlideIntervalId = setInterval(() => {
-            shiftToSlide(currentSlideIndex + 1);
-        }, durationPerSlideMs);
-    }
-
-    // Initialize the very first progress bar cycle
-    restartProgressBar();
-}
-
-/**
  * Initializes the homepage specific sections (New Arrivals, Best Sellers, Stationery).
  * Slices the top 5 items for each respective grid.
  */
@@ -148,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- INITIALIZE ALL COMPONENTS ---
     if (typeof updateCartBadge === "function") updateCartBadge(); 
     if (typeof setupGlobalSearch === "function") setupGlobalSearch(); 
-    if (typeof initCarousel === "function") initCarousel(); 
     if (typeof initHomepage === "function") initHomepage(); 
     if (typeof initCatalog === "function") initCatalog(); 
     if (typeof initCart === "function") initCart(); 
